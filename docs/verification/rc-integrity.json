@@ -1,0 +1,49 @@
+{
+  "negativeStock": 0,
+  "stockMismatch": 0,
+  "foreignLines": 0,
+  "overpaid": 0,
+  "lineBounds": 0,
+  "documentTotalExceptions": [
+    {
+      "name": "FK doc",
+      "total": "1.00",
+      "lines": 0
+    },
+    {
+      "name": "FK doc",
+      "total": "1.00",
+      "lines": 0
+    }
+  ],
+  "migrations": [
+    {
+      "migration_name": "20261101195553_initial",
+      "applied": true
+    },
+    {
+      "migration_name": "20261101210000_integrity",
+      "applied": true
+    },
+    {
+      "migration_name": "20261101220000_due_date",
+      "applied": true
+    },
+    {
+      "migration_name": "20261102010000_access_lifecycle",
+      "applied": true
+    },
+    {
+      "migration_name": "20261102220000_partial_fulfillment",
+      "applied": true
+    },
+    {
+      "migration_name": "20261103010000_request_receipts",
+      "applied": true
+    },
+    {
+      "migration_name": "20261103020000_tenant_line_integrity",
+      "applied": true
+    }
+  ]
+}

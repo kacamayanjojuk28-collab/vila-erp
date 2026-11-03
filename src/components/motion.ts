@@ -1,6 +1,6 @@
 "use client";
 import { gsap } from "gsap";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 export function useReferenceMotion(view: string, ready: boolean) {
   useEffect(() => {
     if (!ready) return;
@@ -56,11 +56,11 @@ export function useReferenceMotion(view: string, ready: boolean) {
       pill.setAttribute("aria-hidden", "true");
       nav.appendChild(pill);
     }
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!active) {
-      gsap.to(pill, { opacity: 0, duration: 0.16 });
+      gsap.to(pill, { opacity: 0, duration: reduced ? 0 : 0.16 });
       return;
     }
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     gsap.to(pill, {
       x: active.offsetLeft,
       width: active.offsetWidth,
@@ -72,18 +72,21 @@ export function useReferenceMotion(view: string, ready: boolean) {
       gsap.killTweensOf(pill);
     };
   }, [view, ready]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ready) return;
+    const root = document.querySelector("main");
+    if (!root) return;
     const media = matchMedia("(prefers-reduced-motion: reduce)");
+    const tweens: gsap.core.Tween[] = [];
     const seen = new WeakSet<Element>();
     const animate = () => {
       if (media.matches) return;
       const cards = [
-        ...document.querySelectorAll("main .card,main .tile"),
+        ...root.querySelectorAll(".card,.tile"),
       ].filter((e) => !seen.has(e));
       cards.forEach((e) => seen.add(e));
       if (cards.length)
-        gsap.fromTo(
+        tweens.push(gsap.fromTo(
           cards,
           { opacity: 0, y: 34, scale: 0.985 },
           {
@@ -95,11 +98,11 @@ export function useReferenceMotion(view: string, ready: boolean) {
             stagger: 0.055,
             clearProps: "transform,opacity",
           },
-        );
-      const title = document.querySelector("main h1");
+        ));
+      const title = root.querySelector("h1");
       if (title && !seen.has(title)) {
         seen.add(title);
-        gsap.fromTo(
+        tweens.push(gsap.fromTo(
           title.querySelectorAll(".title-char"),
           { yPercent: 115, rotation: 6 },
           {
@@ -110,18 +113,19 @@ export function useReferenceMotion(view: string, ready: boolean) {
             stagger: 0.022,
             clearProps: "transform",
           },
-        );
+        ));
       }
     };
     const observer = new MutationObserver(animate);
-    observer.observe(document.querySelector("main") ?? document.body, {
+    observer.observe(root, {
       childList: true,
       subtree: true,
     });
     animate();
     return () => {
       observer.disconnect();
-      gsap.killTweensOf("main .card,main .tile,main h1");
+      tweens.forEach(tween => tween.kill());
+      gsap.killTweensOf(root);
     };
   }, [view, ready]);
   useEffect(() => {

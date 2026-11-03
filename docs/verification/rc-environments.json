@@ -1,0 +1,207 @@
+{
+  "clientDate": "2026-11-04",
+  "environments": [
+    {
+      "port": "3000",
+      "database": {
+        "host": "127.0.0.1",
+        "port": "55432",
+        "name": "vila",
+        "runtimeRole": "vila_app"
+      },
+      "buildDir": ".next",
+      "rlsContext": false,
+      "health": "ECONNREFUSED",
+      "databaseReadError": "ECONNREFUSED"
+    },
+    {
+      "port": "3100",
+      "database": {
+        "host": "127.0.0.1",
+        "port": "6543",
+        "name": "vila_hardening",
+        "runtimeRole": "hardening_app"
+      },
+      "buildDir": ".next-audit",
+      "rlsContext": false,
+      "health": 200,
+      "migrations": [
+        {
+          "migration_name": "20261101195553_initial",
+          "applied": true
+        },
+        {
+          "migration_name": "20261101210000_integrity",
+          "applied": true
+        },
+        {
+          "migration_name": "20261101220000_due_date",
+          "applied": true
+        },
+        {
+          "migration_name": "20261102010000_access_lifecycle",
+          "applied": true
+        },
+        {
+          "migration_name": "20261102220000_partial_fulfillment",
+          "applied": true
+        },
+        {
+          "migration_name": "20261103010000_request_receipts",
+          "applied": true
+        },
+        {
+          "migration_name": "20261103020000_tenant_line_integrity",
+          "applied": true
+        }
+      ],
+      "rlsTables": []
+    },
+    {
+      "port": "3200",
+      "database": {
+        "host": "127.0.0.1",
+        "port": "7543",
+        "name": "vila_sprint_01",
+        "runtimeRole": "sprint_app"
+      },
+      "buildDir": ".next-sprint",
+      "rlsContext": true,
+      "health": 200,
+      "migrations": [
+        {
+          "migration_name": "20261101195553_initial",
+          "applied": true
+        },
+        {
+          "migration_name": "20261101210000_integrity",
+          "applied": true
+        },
+        {
+          "migration_name": "20261101220000_due_date",
+          "applied": true
+        },
+        {
+          "migration_name": "20261102010000_access_lifecycle",
+          "applied": true
+        },
+        {
+          "migration_name": "20261102220000_partial_fulfillment",
+          "applied": true
+        },
+        {
+          "migration_name": "20261103010000_request_receipts",
+          "applied": true
+        },
+        {
+          "migration_name": "20261103020000_tenant_line_integrity",
+          "applied": true
+        }
+      ],
+      "rlsTables": [
+        "Audit",
+        "Document",
+        "DocumentLine",
+        "Movement",
+        "MutationReceipt",
+        "Payment",
+        "Record",
+        "Stock"
+      ]
+    },
+    {
+      "port": "3300",
+      "database": {
+        "host": "127.0.0.1",
+        "port": "8543",
+        "name": "vila_rc_090",
+        "runtimeRole": "sprint_app"
+      },
+      "buildDir": ".next-rc",
+      "rlsContext": true,
+      "health": 200,
+      "migrations": [
+        {
+          "migration_name": "20261101195553_initial",
+          "applied": true
+        },
+        {
+          "migration_name": "20261101210000_integrity",
+          "applied": true
+        },
+        {
+          "migration_name": "20261101220000_due_date",
+          "applied": true
+        },
+        {
+          "migration_name": "20261102010000_access_lifecycle",
+          "applied": true
+        },
+        {
+          "migration_name": "20261102220000_partial_fulfillment",
+          "applied": true
+        },
+        {
+          "migration_name": "20261103010000_request_receipts",
+          "applied": true
+        },
+        {
+          "migration_name": "20261103020000_tenant_line_integrity",
+          "applied": true
+        }
+      ],
+      "rlsTables": [
+        "Audit",
+        "Document",
+        "DocumentLine",
+        "Movement",
+        "MutationReceipt",
+        "Payment",
+        "Record",
+        "Stock"
+      ]
+    }
+  ],
+  "migrationFiles": [
+    {
+      "file": "prisma/migrations/20261101195553_initial/migration.sql",
+      "sha256": "42305afafb6cb4e01a77ebc31bddc61b0ae3522e8dc055064eb1a8390bad5e3e",
+      "identicalToOriginal": true
+    },
+    {
+      "file": "prisma/migrations/20261101210000_integrity/migration.sql",
+      "sha256": "07f6348eea3ef274112ae08324dce836d18d9eb431fc7ea275cdb9899ff1bd0a",
+      "identicalToOriginal": true
+    },
+    {
+      "file": "prisma/migrations/20261101220000_due_date/migration.sql",
+      "sha256": "dc1ce3a5d6db9bc028c31f7899e7fa1828235fa3c4d82525be534a54758e8f42",
+      "identicalToOriginal": true
+    },
+    {
+      "file": "prisma/migrations/20261102010000_access_lifecycle/migration.sql",
+      "sha256": "f32dfe04b6d53f9b360f0a7d4586932ee3fd5ea32b838eebdd640abafa4025a4",
+      "identicalToOriginal": true
+    },
+    {
+      "file": "prisma/migrations/20261102220000_partial_fulfillment/migration.sql",
+      "sha256": "1612e8259e8e9ee2ed2cbfec707603a9edaab265179f08ba9cb2d4fd5a0c0788",
+      "identicalToOriginal": true
+    },
+    {
+      "file": "prisma/migrations/20261103010000_request_receipts/migration.sql",
+      "sha256": "0076c17430638f712a2ed9040e9e8439a318f4202d10c7b9458e050cb6a2b723",
+      "identicalToOriginal": true
+    },
+    {
+      "file": "prisma/migrations/20261103020000_tenant_line_integrity/migration.sql",
+      "sha256": "810eca61a5e6bb8248cf479c033f8d70cfd8a18ddfb20a7ea11d23f04804003c",
+      "identicalToOriginal": true
+    }
+  ],
+  "notes": [
+    "No environment or database merged; all existing database access read-only.",
+    "3000 historical build lacks summary/idempotency/RLS;3100 adds summary/idempotency;3200 adds tenant RLS context;3300 consolidates current source plus B1/B2/B3.",
+    "Historical builds have no reliable source commit mapping before ae2a388."
+  ]
+}

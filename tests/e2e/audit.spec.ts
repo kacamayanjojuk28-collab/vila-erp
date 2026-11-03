@@ -1,7 +1,8 @@
+import { tenantDb } from "../isolated";
 import 'dotenv/config';
 import {test,expect,request,type APIRequestContext} from '@playwright/test';import {randomBytes} from 'node:crypto';import {db} from '../../src/lib/db';
 const origin=process.env.VILA_TEST_ORIGIN||'http://localhost:3000';let owner:APIRequestContext,other:APIRequestContext;let product:any,warehouse:any;const stamp=Date.now();
-async function post(path:string,data:any,key?:string){return owner.post('/api/'+path,{data,headers:key?{'Idempotency-Key':key}:undefined})}
+async function post(path:string,data:any,key?:string){return owner.post('/api/'+path,{data,headers:(key||['finance','stock'].includes(path))?{'Idempotency-Key':key||randomBytes(16).toString('hex')}:undefined})}
 test.beforeAll(async()=>{const password=randomBytes(20).toString('hex');owner=await request.newContext({baseURL:origin,extraHTTPHeaders:{Origin:origin}});other=await request.newContext({baseURL:origin,extraHTTPHeaders:{Origin:origin}});for(const [i,c]of [owner,other].entries()){const r=await c.post('/api/auth/register',{data:{email:`audit${stamp}-${i}@example.test`,password,name:'Audit Owner',company:'Audit isolated'}});expect(r.ok()).toBeTruthy();const me=await(await c.get('/api/me')).json();await db.organization.update({where:{id:me.org.id},data:{demo:true}})}product=await(await post('products',{name:'Audit product',status:'ACTIVE',data:{sku:'AUDIT-'+stamp,category:'Test',unit:'ADET',price:'12.34',minStock:'0'}})).json();warehouse=await(await post('warehouses',{name:'Audit warehouse',status:'ACTIVE',data:{address:''}})).json()});
 test.afterAll(async()=>{await owner?.dispose();await other?.dispose();await db.$disconnect()});
 test('AUDIT wrong finance methods and extra path segments cannot write',async()=>{const data={name:'Must not exist',direction:'IN',amount:'1'};expect((await owner.patch('/api/finance/fake',{data})).status()).toBe(405);expect((await owner.post('/api/finance/fake',{data})).status()).toBe(404);expect((await owner.get('/api/projects/fake/unknown')).status()).toBe(404)});
@@ -30,11 +31,11 @@ test('AUDIT purchase receipt and partial supplier payment reconcile dashboard',a
  const start=(await(await owner.get('/api/stock')).json()).rows.find((r:any)=>r.productId===product.id).quantity;
  const d=await(await post('requests',{name:'Payable request',contactId:supplier.id,warehouseId:warehouse.id,lines:[{productId:product.id,quantity:'2',price:'15',discount:0,tax:20}]})).json();
  const purchase=await(await post(`requests/${d.id}/convert`,{})).json();expect(purchase.total).toBe('36');
- expect(await db.audit.count({where:{entityId:d.id,action:'CONVERT REQUEST'}})).toBe(1);
+ expect(await tenantDb(product.orgId).audit.count({where:{entityId:d.id,action:'CONVERT REQUEST'}})).toBe(1);
  await post(`purchases/${purchase.id}/confirm`,{});await post(`purchases/${purchase.id}/fulfill`,{});
  expect((await(await owner.get('/api/stock')).json()).rows.find((r:any)=>r.productId===product.id).quantity).toBe(String(Number(start)+2));
  let dashboard=await(await owner.get('/api/dashboard')).json();expect(dashboard.payable).toBe('36');
  const r=await post('finance',{name:'Supplier partial settlement',direction:'OUT',amount:'10',documentId:purchase.id},randomBytes(16).toString('hex'));expect(r.ok()).toBeTruthy();
  dashboard=await(await owner.get('/api/dashboard')).json();expect(dashboard.payable).toBe('26');expect(dashboard.expense).toBe('10');expect(dashboard.net).toBe('2.34');expect(dashboard.reports.purchases.find((x:any)=>x.name==='Payable supplier').paid).toBe('10');
- await expect(db.documentLine.create({data:{documentId:purchase.id,productId:'missing-product',name:'Orphan',quantity:'1',price:'1',discount:'0',tax:'0',total:'1'}})).rejects.toMatchObject({code:'P2003'});
+ await expect(tenantDb(product.orgId).documentLine.create({data:{documentId:purchase.id,productId:'missing-product',name:'Orphan',quantity:'1',price:'1',discount:'0',tax:'0',total:'1'}})).rejects.toMatchObject({code:'P2003'});
 });

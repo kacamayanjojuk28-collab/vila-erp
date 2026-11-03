@@ -19,7 +19,7 @@ try{
  await c.query(`GRANT CONNECT ON DATABASE ${ident(decodeURIComponent(r.pathname.slice(1)))} TO ${ident(role)}`);
  await c.query(`GRANT USAGE ON SCHEMA public TO ${ident(role)}`);
  await c.query(`GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO ${ident(role)}`);
- await c.query(`REVOKE UPDATE, DELETE ON "Audit", "Movement", "Payment" FROM ${ident(role)}`);
+ await c.query(`REVOKE UPDATE, DELETE ON "Audit", "Movement", "Payment", "MutationReceipt" FROM ${ident(role)}`);
  await c.query(`REVOKE ALL ON "_prisma_migrations" FROM ${ident(role)}`);
  await c.query(`ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO ${ident(role)}`);
  await c.query('COMMIT');

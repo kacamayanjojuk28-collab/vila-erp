@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { db } from "../src/lib/db";
+import { db, withTenant } from "../src/lib/db";
 import { passwordHash } from "../src/lib/security";
 import { randomBytes } from "node:crypto";
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -12,7 +12,7 @@ async function seed() {
   const email = "demo." + Date.now() + "@vila.local",
     password = randomBytes(20).toString("base64url");
   const user = await db.user.create({
-    data: { email, name: "Deniz Yılmaz", password: passwordHash(password) },
+    data: { email, name: "Deniz Yılmaz", password: await passwordHash(password) },
   });
   const org = await db.organization.create({
     data: { name: "VILA Demo", demo: true },
@@ -20,6 +20,7 @@ async function seed() {
   await db.membership.create({
     data: { orgId: org.id, userId: user.id, role: "OWNER" },
   });
+  await withTenant(org.id, async () => {
   const create = (kind: string, name: string, data: any, status = "ACTIVE") =>
     db.record.create({
       data: {
@@ -158,6 +159,7 @@ async function seed() {
       action: "DEMO DATA CREATED",
       entityId: org.id,
     },
+  });
   });
   mkdirSync(".local", { recursive: true });
   writeFileSync(

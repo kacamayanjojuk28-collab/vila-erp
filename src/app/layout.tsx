@@ -1,10 +1,9 @@
 import "@fontsource-variable/urbanist";
-import type { Metadata } from "next";
+import type { Viewport } from "next";
+import { siteMetadata } from "@/lib/site";
 import "./globals.css";
-export const metadata: Metadata = {
-  title: "VILA · İşletme çalışma alanı",
-  description: "VILA ERP",
-};
+export const metadata = siteMetadata();
+export const viewport: Viewport = {width: "device-width", initialScale: 1, themeColor: "#111513", colorScheme: "dark light"};
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr">

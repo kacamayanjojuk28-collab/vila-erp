@@ -1,4 +1,5 @@
 "use client";
+import { canRead, canWrite } from "@/lib/permissions";
 import { modules } from "@/lib/modules";
 import { gsap } from "gsap";
 import {
@@ -86,6 +87,7 @@ export default function Workspace() {
     document.documentElement.dataset.theme = v;
   };
   const go = (v: string) => {
+    if (me && !canRead(me.role, v)) return;
     const done = () => {
       setView(v);
       location.hash = v;
@@ -96,18 +98,22 @@ export default function Workspace() {
           ?.focus({ preventScroll: true }),
       );
     };
-    if (v !== view && !matchMedia("(prefers-reduced-motion: reduce)").matches)
-      gsap.to("main", {
+    const outgoing = document.querySelector("main");
+    if (outgoing) gsap.killTweensOf(outgoing);
+    if (outgoing && v !== view && !matchMedia("(prefers-reduced-motion: reduce)").matches)
+      gsap.to(outgoing, {
         opacity: 0,
         y: -8,
         duration: 0.18,
         ease: "power2.in",
         onComplete: () => {
           done();
-          gsap.set("main", { clearProps: "opacity,transform" });
         },
       });
-    else done();
+    else {
+      if (outgoing) gsap.set(outgoing, { clearProps: "opacity,transform" });
+      done();
+    }
   };
   const changed = () => {
     setModal(null);
@@ -121,34 +127,8 @@ export default function Workspace() {
       currency: me?.org.currency ?? "TRY",
       maximumFractionDigits: 2,
     }).format(Number(n ?? 0));
-  const can = (scope: string) => {
-    if (!me) return false;
-    return (
-      ["OWNER", "ADMIN"].includes(me.role) ||
-      (
-        {
-          SALES: [
-            "customers",
-            "leads",
-            "deals",
-            "quotes",
-            "sales",
-            "activities",
-          ],
-          WAREHOUSE: [
-            "products",
-            "warehouses",
-            "stock",
-            "purchases",
-            "requests",
-            "suppliers",
-          ],
-          FINANCE: ["finance"],
-          MEMBER: ["projects", "tasks", "activities"],
-        } as Record<string, string[]>
-      )[me.role]?.includes(scope)
-    );
-  };
+  const can = (scope: string) => !!me && canWrite(me.role, scope);
+  const readable = (scope: string) => !!me && canRead(me.role, scope);
   if (initial)
     return (
       <div className="auth card">
@@ -197,7 +177,7 @@ export default function Workspace() {
           [Wallet, "finance", "Finans"],
           [FolderKanban, "projects", "Projeler"],
           [CalendarDays, "calendar", "Takvim"],
-        ].map(([Icon, key, title]: any) => (
+        ].filter(([, key]) => readable(String(key))).map(([Icon, key, title]: any) => (
           <button
             key={key}
             className={view === key ? "active" : ""}
@@ -231,7 +211,7 @@ export default function Workspace() {
             VILA
           </button>
           <nav className="tabs" aria-label="Ana menü">
-            {nav.map(([key, title]) => (
+            {nav.filter(([key]) => readable(key)).map(([key, title]) => (
               <button
                 key={key}
                 aria-current={view === key ? "page" : undefined}
@@ -274,8 +254,10 @@ export default function Workspace() {
           </p>
         )}
         <main id="main" className="view" data-view={view} key={view}>
-          {view === "overview" ? (
-            <Dashboard revision={revision} money={money} go={go} />
+          {!readable(view) ? (
+            <p role="alert" className="error">Bu işlem için yetkiniz yok.</p>
+          ) : view === "overview" ? (
+            <Dashboard revision={revision} money={money} go={go} role={me.role} />
           ) : view === "calendar" ? (
             <CalendarPage
               revision={revision}
@@ -286,7 +268,7 @@ export default function Workspace() {
               can={can}
             />
           ) : view === "reports" ? (
-            <ReportsPage revision={revision} money={money} />
+            <ReportsPage revision={revision} money={money} role={me.role} />
           ) : view === "settings" ? (
             <SettingsPage
               me={me}
@@ -333,7 +315,7 @@ export default function Workspace() {
             {Object.entries(modules)
               .filter(
                 ([key, m]) =>
-                  (key !== "audit" || can("settings")) &&
+                  readable(key) &&
                   m.title
                     .toLocaleLowerCase("tr-TR")
                     .includes(navSearch.toLocaleLowerCase("tr-TR")),

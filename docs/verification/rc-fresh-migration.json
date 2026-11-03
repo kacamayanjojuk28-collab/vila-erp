@@ -1,0 +1,50 @@
+{
+  "database": "vila_rc_migration_090",
+  "outcomes": [
+    {
+      "command": "deploy/migrate.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node_modules/tsx/dist/cli.mjs scripts/seed.ts",
+      "exitCode": 0
+    }
+  ],
+  "migrations": [
+    {
+      "migration_name": "20261101195553_initial",
+      "applied": true
+    },
+    {
+      "migration_name": "20261101210000_integrity",
+      "applied": true
+    },
+    {
+      "migration_name": "20261101220000_due_date",
+      "applied": true
+    },
+    {
+      "migration_name": "20261102010000_access_lifecycle",
+      "applied": true
+    },
+    {
+      "migration_name": "20261102220000_partial_fulfillment",
+      "applied": true
+    },
+    {
+      "migration_name": "20261103010000_request_receipts",
+      "applied": true
+    },
+    {
+      "migration_name": "20261103020000_tenant_line_integrity",
+      "applied": true
+    }
+  ],
+  "checks": {
+    "negativeStock": 0,
+    "overpaid": 0,
+    "documentTotalMismatch": 0
+  },
+  "seedHashFormat": true,
+  "seedPasswordVerified": true
+}

@@ -1,0 +1,174 @@
+{
+  "reference": "Preserved 3200 approved VILA wordmark UI",
+  "method": "Identical RC API fixtures, fixed clock, fonts ready, reduced motion; no functional API mocks",
+  "results": [
+    {
+      "view": "overview",
+      "theme": "dark",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": false
+    },
+    {
+      "view": "settings",
+      "theme": "dark",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "customers",
+      "theme": "dark",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "finance",
+      "theme": "dark",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "projects",
+      "theme": "dark",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "calendar",
+      "theme": "dark",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "overview",
+      "theme": "light",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": false
+    },
+    {
+      "view": "settings",
+      "theme": "light",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "customers",
+      "theme": "light",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "finance",
+      "theme": "light",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "projects",
+      "theme": "light",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "calendar",
+      "theme": "light",
+      "width": 1440,
+      "height": 1000,
+      "identicalPng": true
+    },
+    {
+      "view": "overview",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "settings",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "customers",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "finance",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "projects",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "calendar",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "overview",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "settings",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "customers",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "finance",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "projects",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    },
+    {
+      "view": "calendar",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "identicalPng": true
+    }
+  ]
+}

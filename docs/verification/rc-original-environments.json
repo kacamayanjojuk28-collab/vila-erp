@@ -1,0 +1,69 @@
+{
+  "capturedAt": "2026-11-03T22:09:04.085Z",
+  "http": {
+    "3000": {
+      "error": "ECONNREFUSED",
+      "message": "fetch failed"
+    },
+    "3100": {
+      "status": 200,
+      "body": "{\"status\":\"ok\",\"database\":\"postgresql\"}"
+    },
+    "3200": {
+      "status": 200,
+      "body": "{\"status\":\"ok\",\"database\":\"postgresql\"}"
+    }
+  },
+  "builds": {
+    ".next": {
+      "buildId": "YMuAsmDCWyZFK589uo5er",
+      "markers": {
+        "summary": false,
+        "requiredKey": false,
+        "rls": false,
+        "seo": false
+      }
+    },
+    ".next-audit": {
+      "buildId": "Cy-SlI9w12ldVWwEwUqam",
+      "markers": {
+        "summary": true,
+        "requiredKey": true,
+        "rls": false,
+        "seo": true
+      }
+    },
+    ".next-sprint": {
+      "buildId": "GZVsXQPBh3L5MhyDC67VE",
+      "markers": {
+        "summary": true,
+        "requiredKey": true,
+        "rls": true,
+        "seo": true
+      }
+    }
+  },
+  "source": {
+    "src/lib/db.ts": {
+      "sha256": "1e9d2cb232bceb194bc0896974d3146b72ba0007a13f7aaf9b476d2ca00ba2aa"
+    },
+    "src/app/api/[...path]/route.ts": {
+      "sha256": "dac2d22a730bb31aec6d19a7b35c57800fc22914534cfc109b12e43901fffbe6"
+    },
+    "src/components/motion.ts": {
+      "sha256": "4307b0f875d63225029c70e15257a149e1084623ef42477db3d876e34430d6f0"
+    },
+    "src/components/workspace.tsx": {
+      "sha256": "a5dbe10412fe625c0aa2fe77a61a15670bc840d85d09beec265636305fac6d80"
+    },
+    "src/app/globals.css": {
+      "sha256": "6a6434eaf3f3e8e7d931e39e2fc24b03addc0069ad24961b3727d222e594e01c"
+    },
+    "prisma/schema.prisma": {
+      "sha256": "e42527d5b5007f9ea0e0f90eb9b86d6e1dcffdc1cdfe2ec4f466a21a8d052f83"
+    },
+    ".env": {
+      "sha256": "df13d466d1a92e9f7df7976fd23feb0685a31a850e98aa0601670f159c16cef0"
+    }
+  }
+}

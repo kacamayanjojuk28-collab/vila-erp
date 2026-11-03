@@ -1,4 +1,5 @@
 "use client";
+import { canRead } from "@/lib/permissions";
 import { label } from "@/lib/modules";
 import {
   Activity,
@@ -25,7 +26,9 @@ export default function Dashboard({
   revision,
   money,
   go,
+  role,
 }: {
+  role: string;
   revision: number;
   money: (n: any) => string;
   go: (v: string) => void;
@@ -38,7 +41,7 @@ export default function Dashboard({
     [monthCount, setMonthCount] = useState(12);
   useEffect(() => {
     let active = true;
-    api("dashboard?from=" + from + "&to=" + to)
+    api("dashboard?view=summary&from=" + from + "&to=" + to)
       .then((d) => {
         if (active) {
           setData(d);
@@ -74,7 +77,7 @@ export default function Dashboard({
       value: 0,
     };
   });
-  data.payments
+  (data.monthlyPayments ?? [])
     .filter((p: Row) => p.direction === "IN")
     .forEach((p: Row) => {
       const m = months.find((m) => m.key === p.createdAt.slice(0, 7));
@@ -113,7 +116,7 @@ export default function Dashboard({
           genel bakışı
         </Title>
         <div className="stats">
-          <Stat
+          {canRead(role, "finance") && <><Stat
             icon={<TrendingUp />}
             value={money(data.income)}
             caption="Tahsil edilen"
@@ -122,7 +125,7 @@ export default function Dashboard({
             icon={<BarChart3 />}
             value={money(receivable)}
             caption="Açık alacak"
-          />
+          /></>}
           <Stat
             icon={<Activity />}
             value={rate + "%"}
@@ -158,7 +161,7 @@ export default function Dashboard({
         </Dialog>
       )}
       <div className="overview">
-        <section className="card revenue">
+        {canRead(role, "finance") && <section className="card revenue">
           <div className="cardhead">
             <h3>Nakit akışı</h3>
             <div className="actions">
@@ -231,7 +234,7 @@ export default function Dashboard({
               </g>
             ))}
           </svg>
-        </section>
+        </section>}
         <section className="card hot">
           <div className="cardhead">
             <h3>Öne çıkan fırsatlar</h3>
@@ -287,7 +290,7 @@ export default function Dashboard({
             {done} / {tasks.length} görev tamamlandı
           </p>
         </section>
-        <section className="card mix">
+        {canRead(role, "finance") && <section className="card mix">
           <div className="cardhead">
             <h3>Finansal durum</h3>
             <Wallet size={18} />
@@ -305,7 +308,7 @@ export default function Dashboard({
           <p className="muted" style={{ marginTop: 14 }}>
             Resmî fatura veya muhasebe beyannamesi değildir.
           </p>
-        </section>
+        </section>}
         <section className="card team">
           <div className="cardhead">
             <h3>Proje portföyü</h3>
@@ -351,7 +354,7 @@ export default function Dashboard({
             />
           )}
         </section>
-        <section className="card activity">
+        {canRead(role, "audit") && <section className="card activity">
           <div className="cardhead">
             <h3>Son aktiviteler</h3>
             <Activity size={18} />
@@ -367,7 +370,7 @@ export default function Dashboard({
               </div>
             ))}
           </div>
-        </section>
+        </section>}
       </div>
     </>
   );

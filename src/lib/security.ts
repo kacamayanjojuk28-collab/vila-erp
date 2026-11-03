@@ -2,9 +2,10 @@ import { cookies, headers } from "next/headers";
 import {
   createHash,
   randomBytes,
-  scryptSync,
+  scrypt,
   timingSafeEqual,
 } from "node:crypto";
+import { canWrite } from "./permissions";
 import { db } from "./db";
 export class AppError extends Error {
   constructor(
@@ -15,15 +16,18 @@ export class AppError extends Error {
   }
 }
 export const hash = (v: string) => createHash("sha256").update(v).digest("hex");
-export function passwordHash(value: string) {
-  const salt = randomBytes(16).toString("hex");
-  return salt + ":" + scryptSync(value, salt, 64, { N: 16384 }).toString("hex");
+function derive(value: string, salt: string): Promise<Buffer> {
+  return new Promise((resolve, reject) => scrypt(value, salt, 64, { N: 16384 },
+    (error, key) => error ? reject(error) : resolve(key)));
 }
-export function passwordCheck(value: string, stored: string) {
+export async function passwordHash(value: string) {
+  const salt = randomBytes(16).toString("hex");
+  return salt + ":" + (await derive(value, salt)).toString("hex");
+}
+export async function passwordCheck(value: string, stored: string) {
+  if (!/^[a-f0-9]{32}:[a-f0-9]{128}$/.test(stored)) return false;
   const [salt, h] = stored.split(":");
-  const a = scryptSync(value, salt, 64, { N: 16384 });
-  const b = Buffer.from(h, "hex");
-  return a.length === b.length && timingSafeEqual(a, b);
+  return timingSafeEqual(await derive(value, salt), Buffer.from(h, "hex"));
 }
 export async function session() {
   const token = (await cookies()).get("vila_session")?.value;
@@ -38,7 +42,8 @@ export async function session() {
     where: { orgId_userId: { orgId: s.orgId, userId: s.userId } },
     include: { org: true },
   });
-  if (!membership || !membership.active) throw new AppError("Şirket erişimi kaldırılmış.", 403);
+  if (!membership || !membership.active)
+    throw new AppError("Şirket erişimi kaldırılmış.", 403);
   return {
     user: s.user,
     org: membership.org,
@@ -50,27 +55,11 @@ export async function session() {
 }
 export type Actor = Awaited<ReturnType<typeof session>>;
 export function authorize(a: Actor, scope: string) {
-  const roles: Record<string, string[]> = {
-    OWNER: ["*"],
-    ADMIN: ["*"],
-    SALES: ["customers", "leads", "deals", "quotes", "sales", "activities"],
-    WAREHOUSE: [
-      "products",
-      "warehouses",
-      "stock",
-      "purchases",
-      "requests",
-      "suppliers",
-    ],
-    FINANCE: ["finance"],
-    MEMBER: ["projects", "tasks", "activities"],
-    VIEWER: [],
-  };
-  if (!roles[a.role]?.some((x) => x === "*" || x === scope))
+  if (!canWrite(a.role, scope))
     throw new AppError("Bu işlem için yetkiniz yok.", 403);
 }
 export async function loginSession(userId: string, orgId: string) {
-  const userAgent=(await headers()).get("user-agent")?.slice(0,300)??"";
+  const userAgent = (await headers()).get("user-agent")?.slice(0, 300) ?? "";
   const token = randomBytes(32).toString("hex");
   await db.session.create({
     data: {
@@ -95,16 +84,13 @@ export function originCheck(req: Request) {
   if (origin !== allowed) throw new AppError("Geçersiz istek kaynağı.", 403);
 }
 export async function rateLimit(key: string, limit = 20) {
-  const now = new Date();
-  const row = await db.$transaction(async (tx) => {
-    await tx.rateLimit.deleteMany({ where: { key, until: { lt: now } } });
-    return tx.rateLimit.upsert({
-      where: { key },
-      create: { key, count: 1, until: new Date(Date.now() + 600000) },
-      update: { count: { increment: 1 } },
-    });
-  });
-  if (row.count > limit)
+  const rows = await db.$queryRaw<{ count: number }[]>`
+    INSERT INTO "RateLimit" ("key","count","until") VALUES (${key},1,clock_timestamp()+interval '10 minutes')
+    ON CONFLICT ("key") DO UPDATE SET
+      "count"=CASE WHEN "RateLimit"."until" <= clock_timestamp() THEN 1 ELSE "RateLimit"."count"+1 END,
+      "until"=CASE WHEN "RateLimit"."until" <= clock_timestamp() THEN clock_timestamp()+interval '10 minutes' ELSE "RateLimit"."until" END
+    RETURNING "count"`;
+  if (rows[0].count > limit)
     throw new AppError(
       "Çok fazla deneme. 10 dakika sonra tekrar deneyin.",
       429,

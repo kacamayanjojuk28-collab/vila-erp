@@ -1,0 +1,11 @@
+# VILA design contract — 2026-11-01
+Source: local Downloads/VILA, 27 files inventoried and hashed in docs/reference/inventory.json; live Solvik inspected in Edge via Playwright. Compiled JavaScript is reference material, not VILA source. Proprietary scripts, logo and photograph are not shipped. Independent React/CSS implementation; procedural blurred backdrop approximates the photo composition. Urbanist from Fontsource, licensed OFL; local HTTrack fonts are invalid text placeholders.
+
+## Verified tokens
+Urbanist 500, body 14px/1.45; headings 600, clamp(28px,2.6vw,38px), -0.025em. Light bg #e9ece7, text #13171a, accent #c4ef4f, sky #5aa6ec, lime #a9d636, coral #f27d5f; dark bg #111513, text #f2f4f0, sky #8cc4ff, lime #cdf06a, coral #ff9a7c. Glass light #ffffff80, dark #14171775; blur 22px saturate(150%). Card radius 22px, tile 18px, capsule 999px, gap 16px. Input form fields 14px radius, controls 42px high. Dock x20/w60, buttons44; app max1840, gutter clamp(16px,1.6vw,28px), app top22px. Header margin26px. Settings 320px sidebar + flexible form; 270px at1180; single column at900. Overview 12-col layout: revenue7/hot5, quota3/mix4/hot5, team5/today4/activity3. Mobile760px.
+
+## Motion and interaction
+CSS ease cubic-bezier(.2,.8,.2,1); hover150ms; tooltip180ms; switch300ms. JS inspected: title850ms power4.out stagger22ms; cards900ms power3.out; dock900ms; dropdown320ms back.out(1.8), close160ms; modal450ms back.out(1.5), close220ms; page exit180ms. VILA CSS approximations documented; exact GSAP spring curves, magnetic pointer and title character stagger need parity validation. Native dialog focus trap, Escape, reduced motion required. Dark/light modes retained. Custom icons follow 18px/1.7px rounded strokes; Lucide equivalent shapes, not proprietary SVGs.
+
+## Evidence and completion gate
+Reference screenshots overview/settings/customers/pipeline/projects/finance/schedule at1440x1000 in docs/reference. Screenshots use reduced motion to settle. Live site defaults dark irrespective browser preference. For each implemented page compare same viewport and mode. ERP-only modules derive table and modal patterns; no source reference exists for inventory/purchasing. Pixel identity is not claimed: original photo deliberately excluded. No page is visually complete until comparison and remaining differences logged.

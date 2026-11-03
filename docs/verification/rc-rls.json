@@ -1,0 +1,116 @@
+{
+  "policies": [
+    {
+      "relname": "Document",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "Stock",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "Record",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "Movement",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "MutationReceipt",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "Payment",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "DocumentLine",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "Audit",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    }
+  ],
+  "tables": [
+    {
+      "table": "Record",
+      "ownRead": true,
+      "foreignReadDenied": true,
+      "foreignInsertDenied": true,
+      "foreignUpdateDenied": true,
+      "foreignDeleteDenied": true
+    },
+    {
+      "table": "Document",
+      "ownRead": true,
+      "foreignReadDenied": true,
+      "foreignInsertDenied": true,
+      "foreignUpdateDenied": true,
+      "foreignDeleteDenied": true
+    },
+    {
+      "table": "DocumentLine",
+      "ownRead": true,
+      "foreignReadDenied": true,
+      "foreignInsertDenied": true,
+      "foreignUpdateDenied": true,
+      "foreignDeleteDenied": true
+    },
+    {
+      "table": "Stock",
+      "ownRead": true,
+      "foreignReadDenied": true,
+      "foreignInsertDenied": true,
+      "foreignUpdateDenied": true,
+      "foreignDeleteDenied": true
+    },
+    {
+      "table": "Movement",
+      "ownRead": true,
+      "foreignReadDenied": true,
+      "foreignInsertDenied": true,
+      "foreignUpdateDenied": true,
+      "foreignDeleteDenied": true
+    },
+    {
+      "table": "Payment",
+      "ownRead": true,
+      "foreignReadDenied": true,
+      "foreignInsertDenied": true,
+      "foreignUpdateDenied": true,
+      "foreignDeleteDenied": true
+    },
+    {
+      "table": "Audit",
+      "ownRead": true,
+      "foreignReadDenied": true,
+      "foreignInsertDenied": true,
+      "foreignUpdateDenied": true,
+      "foreignDeleteDenied": true
+    },
+    {
+      "table": "MutationReceipt",
+      "ownRead": true,
+      "foreignReadDenied": true,
+      "foreignInsertDenied": true,
+      "foreignUpdateDenied": true,
+      "foreignDeleteDenied": true
+    }
+  ],
+  "concurrentTransactions": 100,
+  "contextReset": true,
+  "role": {
+    "rolsuper": false,
+    "rolbypassrls": false
+  }
+}

@@ -1,0 +1,1456 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\node_modules\\playwright\\cli.js",
+      "test",
+      "--grep-invert",
+      "Reference shell geometry"
+    ],
+    "configFile": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\playwright.config.ts",
+    "rootDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "baseURL": "http://localhost:3300",
+          "channel": "msedge",
+          "headless": true,
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/verification/e2e-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "access.spec.ts",
+      "file": "access.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Access lifecycle: suspension, revoked invitations and session ownership",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2165,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:26.604Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e7a053a61b60e2af93d-8715a5a137ded82f9abb",
+          "file": "access.spec.ts",
+          "line": 10,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "audit.spec.ts",
+      "file": "audit.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "AUDIT wrong finance methods and extra path segments cannot write",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 46,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:28.839Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-39c8e64db5426ff33804",
+          "file": "audit.spec.ts",
+          "line": 8,
+          "column": 5
+        },
+        {
+          "title": "AUDIT payment replay is atomic and changed payload is rejected",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 251,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:29.433Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-6eb70861c3f9eb49285f",
+          "file": "audit.spec.ts",
+          "line": 9,
+          "column": 5
+        },
+        {
+          "title": "AUDIT stock request replay creates a single movement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 94,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:29.699Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-4efe0ac68745317e43eb",
+          "file": "audit.spec.ts",
+          "line": 10,
+          "column": 5
+        },
+        {
+          "title": "AUDIT invalid status is rejected by backend",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:29.811Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-cb241beaf7457075d377",
+          "file": "audit.spec.ts",
+          "line": 11,
+          "column": 5
+        },
+        {
+          "title": "AUDIT dashboard exposes only activity summary and validates date range",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 414,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:29.831Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-b10f4f715b629040950c",
+          "file": "audit.spec.ts",
+          "line": 13,
+          "column": 5
+        },
+        {
+          "title": "AUDIT finance selector includes documents beyond first page",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2140,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:30.266Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-014ceb75fe6858948fe4",
+          "file": "audit.spec.ts",
+          "line": 14,
+          "column": 5
+        },
+        {
+          "title": "AUDIT every generic record module persists CRUD and rejects cross-tenant updates",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 794,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:32.861Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-700fd451a75e6c288abc",
+          "file": "audit.spec.ts",
+          "line": 22,
+          "column": 5
+        },
+        {
+          "title": "AUDIT purchase receipt and partial supplier payment reconcile dashboard",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 209,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:33.673Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "45efdff6a4d2e1f7e786-62728d90229933214712",
+          "file": "audit.spec.ts",
+          "line": 29,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "dashboard-summary.spec.ts",
+      "file": "dashboard-summary.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Dashboard summary preserves totals, reports and monthly charts across date filters",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2417,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:33.919Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "337b2ad3650d773cecf5-611b901fdd4eb1937262",
+          "file": "dashboard-summary.spec.ts",
+          "line": 6,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "flows.spec.ts",
+      "file": "flows.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Tenant isolation on reads, writes and foreign record references",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 44,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:36.365Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-769afddf1208a5a0b1a0",
+          "file": "flows.spec.ts",
+          "line": 102,
+          "column": 5
+        },
+        {
+          "title": "CRUD validates input and prevents stale updates, search/filter/pagination work",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 125,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:36.745Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-ce0f7b435111a0fa51ca",
+          "file": "flows.spec.ts",
+          "line": 131,
+          "column": 5
+        },
+        {
+          "title": "Purchase receipt → quote conversion → shipment → exact settlement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 161,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:36.883Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-0e46435817ccdf14c38b",
+          "file": "flows.spec.ts",
+          "line": 176,
+          "column": 5
+        },
+        {
+          "title": "Concurrent stock exits cannot oversell; transfer rolls back atomically",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 47,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:37.054Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-a4a27ac9f469c8f08e03",
+          "file": "flows.spec.ts",
+          "line": 237,
+          "column": 5
+        },
+        {
+          "title": "Invitation is single use and viewer role is enforced on server",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 101,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:37.113Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-df3697e21dc87e20093c",
+          "file": "flows.spec.ts",
+          "line": 274,
+          "column": 5
+        },
+        {
+          "title": "CSRF and unauthenticated requests are rejected, session cookie is HttpOnly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:37.222Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-3593925404d5591e4860",
+          "file": "flows.spec.ts",
+          "line": 316,
+          "column": 5
+        },
+        {
+          "title": "Browser login, real CRUD persistence, modal keyboard, dark/light and mobile layout",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4485,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:37.255Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-b7ff54e44f9bbfcabc4a",
+          "file": "flows.spec.ts",
+          "line": 334,
+          "column": 5
+        },
+        {
+          "title": "Payment reversal restores receivable, cannot reverse twice, original audit stays intact",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 79,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:41.762Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-7856bd04d7f0e297226d",
+          "file": "flows.spec.ts",
+          "line": 380,
+          "column": 5
+        },
+        {
+          "title": "Purchase request converts once into a persistent purchase order",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 55,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:41.859Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-8dc8208ded3be2187aa8",
+          "file": "flows.spec.ts",
+          "line": 399,
+          "column": 5
+        },
+        {
+          "title": "Database constraints reject negative stock and immutable audit modification",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 66,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:41.925Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-f7c535655fce0424b7f5",
+          "file": "flows.spec.ts",
+          "line": 423,
+          "column": 5
+        },
+        {
+          "title": "Currency cannot relabel existing financial records and password change revokes other sessions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 402,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:42.019Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-b1c029a6ac655e76f6f9",
+          "file": "flows.spec.ts",
+          "line": 438,
+          "column": 5
+        },
+        {
+          "title": "Lead conversion preserves notes and customer timeline links actual activity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 101,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:42.444Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-b42b8c802afb5a80c0e9",
+          "file": "flows.spec.ts",
+          "line": 473,
+          "column": 5
+        },
+        {
+          "title": "Service lines fulfill without artificial stock movements",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 112,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:42.564Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-faf9232dcfec76db0e44",
+          "file": "flows.spec.ts",
+          "line": 509,
+          "column": 5
+        },
+        {
+          "title": "All module routes render without errors and reference motion respects reduced motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14894,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:42.692Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-55520f63bd78728bee66",
+          "file": "flows.spec.ts",
+          "line": 540,
+          "column": 5
+        },
+        {
+          "title": "Task changes update project progress transactionally and archive protects relationships",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 121,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:57.603Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-2612556a78ffcbd46335",
+          "file": "flows.spec.ts",
+          "line": 614,
+          "column": 5
+        },
+        {
+          "title": "Partial receipts and shipments preserve remaining quantity, reject stale duplicates and roll back shortage",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4001,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:23:57.739Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86d6a544053f1eb9f224-78524db9547c1881d532",
+          "file": "flows.spec.ts",
+          "line": 654,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "hardening.spec.ts",
+      "file": "hardening.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "HARDENING one exhausted global bucket cannot block an unrelated login",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 122,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:01.776Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8bcb3914a136f2f7596e-3f81ad746637db61417c",
+          "file": "hardening.spec.ts",
+          "line": 9,
+          "column": 5
+        },
+        {
+          "title": "HARDENING stock and finance require a replay key before writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 171,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:01.912Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8bcb3914a136f2f7596e-e7f4e0b50edf199bfb99",
+          "file": "hardening.spec.ts",
+          "line": 36,
+          "column": 5
+        },
+        {
+          "title": "HARDENING rate counter is atomic across simultaneous expired-window requests",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 439,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:02.094Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8bcb3914a136f2f7596e-6cea0654136a6c981770",
+          "file": "hardening.spec.ts",
+          "line": 72,
+          "column": 5
+        },
+        {
+          "title": "HARDENING document line rejects another tenant product in raw DB write",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 264,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:02.545Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8bcb3914a136f2f7596e-332e0cc852e38475a13b",
+          "file": "hardening.spec.ts",
+          "line": 86,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "navigation-motion.spec.ts",
+      "file": "navigation-motion.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Animated navigation does not flash outgoing content and latest click wins",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4118,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:02.857Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8548f0a1ece4ecc7ad56-87b3b399c962f9821471",
+          "file": "navigation-motion.spec.ts",
+          "line": 5,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "release.spec.ts",
+      "file": "release.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "RC read RBAC: API, dashboard, history, deliveries and UI across seven roles",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2772,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"yetkiniz yok\"\u001b[39m\nError: strict mode violation: getByRole('alert') resolved to 2 elements:\n    1) <p role=\"alert\" class=\"error\">Bu işlem için yetkiniz yok.</p> aka getByText('Bu işlem için yetkiniz yok.')\n    2) <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div> aka locator('[id=\"__next-route-announcer__\"]')\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"yetkiniz yok\"\u001b[39m\nError: strict mode violation: getByRole('alert') resolved to 2 elements:\n    1) <p role=\"alert\" class=\"error\">Bu işlem için yetkiniz yok.</p> aka getByText('Bu işlem için yetkiniz yok.')\n    2) <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div> aka locator('[id=\"__next-route-announcer__\"]')\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts:42:70",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts",
+                      "column": 70,
+                      "line": 42
+                    },
+                    "snippet": "  40 |   await expect(p.locator('.tabs').getByRole('button',{name:'Finans',exact:true})).toHaveCount(allowed.includes('finance')?1:0);\n  41 |   await p.goto('/#finance');\n> 42 |   if(!allowed.includes('finance'))await expect(p.getByRole('alert')).toContainText('yetkiniz yok');\n     |                                                                      ^\n  43 |   await c.close();\n  44 |  }\n  45 |  }finally{await api.dispose();}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts",
+                        "column": 70,
+                        "line": 42
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('alert')\nExpected substring: \u001b[32m\"yetkiniz yok\"\u001b[39m\nError: strict mode violation: getByRole('alert') resolved to 2 elements:\n    1) <p role=\"alert\" class=\"error\">Bu işlem için yetkiniz yok.</p> aka getByText('Bu işlem için yetkiniz yok.')\n    2) <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div> aka locator('[id=\"__next-route-announcer__\"]')\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('alert') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\n\n  40 |   await expect(p.locator('.tabs').getByRole('button',{name:'Finans',exact:true})).toHaveCount(allowed.includes('finance')?1:0);\n  41 |   await p.goto('/#finance');\n> 42 |   if(!allowed.includes('finance'))await expect(p.getByRole('alert')).toContainText('yetkiniz yok');\n     |                                                                      ^\n  43 |   await c.close();\n  44 |  }\n  45 |  }finally{await api.dispose();}\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts:42:70"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:07.003Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-read-RBAC-API-d-a3c97-s-and-UI-across-seven-roles\\test-failed-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-read-RBAC-API-d-a3c97-s-and-UI-across-seven-roles\\test-failed-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-read-RBAC-API-d-a3c97-s-and-UI-across-seven-roles\\test-failed-2.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-read-RBAC-API-d-a3c97-s-and-UI-across-seven-roles\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-read-RBAC-API-d-a3c97-s-and-UI-across-seven-roles\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-read-RBAC-API-d-a3c97-s-and-UI-across-seven-roles\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts",
+                    "column": 70,
+                    "line": 42
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "7324964a6aa193ebd049-c8c884a3d41654b8c293",
+          "file": "release.spec.ts",
+          "line": 9,
+          "column": 5
+        },
+        {
+          "title": "RC login budgets: atomic concurrency, spoof resistance, success and account recovery; password change and historical hash",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1800,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m429\u001b[39m\nReceived: \u001b[31m401\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m429\u001b[39m\nReceived: \u001b[31m401\u001b[39m\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts:60:56",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts",
+                      "column": 56,
+                      "line": 60
+                    },
+                    "snippet": "  58 |  expect((await db.rateLimit.findUnique({where:{key:pair}}))!.count).toBe(0);\n  59 |  await db.rateLimit.upsert({where:{key:'login-account:'+account},create:{key:'login-account:'+account,count:30,until:new Date(Date.now()+600000)},update:{count:30}});\n> 60 |  expect((await login('wrong-password-here')).status()).toBe(429);\n     |                                                        ^\n  61 |  expect((await login()).status()).toBe(200); // Remote account-wide exhaustion cannot deny a correct password.\n  62 |  await db.rateLimit.deleteMany({where:{key:{in:[pair,'login-account:'+account]}}});\n  63 |  const attempts=await Promise.all(Array.from({length:25},(_,i)=>login('wrong-password-here',{'X-Forwarded-For':`192.0.2.${i+1}`})));"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts",
+                        "column": 56,
+                        "line": 60
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m429\u001b[39m\nReceived: \u001b[31m401\u001b[39m\n\n  58 |  expect((await db.rateLimit.findUnique({where:{key:pair}}))!.count).toBe(0);\n  59 |  await db.rateLimit.upsert({where:{key:'login-account:'+account},create:{key:'login-account:'+account,count:30,until:new Date(Date.now()+600000)},update:{count:30}});\n> 60 |  expect((await login('wrong-password-here')).status()).toBe(429);\n     |                                                        ^\n  61 |  expect((await login()).status()).toBe(200); // Remote account-wide exhaustion cannot deny a correct password.\n  62 |  await db.rateLimit.deleteMany({where:{key:{in:[pair,'login-account:'+account]}}});\n  63 |  const attempts=await Promise.all(Array.from({length:25},(_,i)=>login('wrong-password-here',{'X-Forwarded-For':`192.0.2.${i+1}`})));\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts:60:56"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:11.320Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-login-budgets-a-9c884--change-and-historical-hash\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-login-budgets-a-9c884--change-and-historical-hash\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\release-RC-login-budgets-a-9c884--change-and-historical-hash\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\release.spec.ts",
+                    "column": 56,
+                    "line": 60
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "7324964a6aa193ebd049-5a69b0d9d87ecae0b4ab",
+          "file": "release.spec.ts",
+          "line": 47,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "seo.spec.ts",
+      "file": "seo.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Private shell metadata, crawl policy and unauthenticated API remain safe",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1357,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:13.750Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "265a6ee67c94b2ef6801-e3c12fb939832dd39053",
+          "file": "seo.spec.ts",
+          "line": 5,
+          "column": 5
+        },
+        {
+          "title": "Manifest and brand assets have real formats and dimensions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 104,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:24:15.440Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "265a6ee67c94b2ef6801-83bb6493cc87fb42ae6e",
+          "file": "seo.spec.ts",
+          "line": 25,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-03T22:23:24.874Z",
+    "duration": 50911.214,
+    "expected": 33,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

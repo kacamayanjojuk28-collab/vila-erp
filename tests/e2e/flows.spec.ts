@@ -1,3 +1,4 @@
+import { tenantDb } from "../isolated";
 import "dotenv/config";
 import {
   test,
@@ -7,7 +8,7 @@ import {
 } from "@playwright/test";
 import { randomBytes } from "node:crypto";
 import { db } from "../../src/lib/db";
-const origin = (process.env.VILA_TEST_ORIGIN || "http://localhost:3000");
+const origin = process.env.VILA_TEST_ORIGIN || "http://localhost:3000";
 const stamp = Date.now();
 const password = randomBytes(20).toString("hex");
 let owner: APIRequestContext,
@@ -16,7 +17,12 @@ let owner: APIRequestContext,
 let customer: any, supplier: any, product: any, warehouse: any, order: any;
 const headers = { Origin: origin };
 async function post(ctx: APIRequestContext, path: string, data: any) {
-  const r = await ctx.post("/api/" + path, { data });
+  const r = await ctx.post("/api/" + path, {
+    data,
+    headers: ["finance", "stock"].includes(path)
+      ? { "Idempotency-Key": randomBytes(16).toString("hex") }
+      : undefined,
+  });
   expect(r.ok(), await r.text()).toBeTruthy();
   return r.json();
 }
@@ -213,6 +219,7 @@ test("Purchase receipt → quote conversion → shipment → exact settlement", 
   expect(
     (
       await owner.post("/api/finance", {
+        headers: { "Idempotency-Key": randomBytes(16).toString("hex") },
         data: {
           name: "Overpayment",
           direction: "IN",
@@ -231,6 +238,7 @@ test("Concurrent stock exits cannot oversell; transfer rolls back atomically", a
   const exits = await Promise.all(
     [1, 2].map(() =>
       owner.post("/api/stock", {
+        headers: { "Idempotency-Key": randomBytes(16).toString("hex") },
         data: {
           productId: product.id,
           warehouseId: warehouse.id,
@@ -247,6 +255,7 @@ test("Concurrent stock exits cannot oversell; transfer rolls back atomically", a
   expect(
     (
       await owner.post("/api/stock", {
+        headers: { "Idempotency-Key": randomBytes(16).toString("hex") },
         data: {
           productId: product.id,
           warehouseId: warehouse.id,
@@ -413,15 +422,15 @@ test("Purchase request converts once into a persistent purchase order", async ()
 });
 test("Database constraints reject negative stock and immutable audit modification", async () => {
   await expect(
-    db.stock.updateMany({
+    tenantDb(customer.orgId).stock.updateMany({
       where: { orgId: customer.orgId, productId: product.id },
       data: { quantity: -1 },
     }),
   ).rejects.toThrow();
   await expect(
-    db.audit.deleteMany({ where: { orgId: customer.orgId } }),
+    tenantDb(customer.orgId).audit.deleteMany({ where: { orgId: customer.orgId } }),
   ).rejects.toThrow();
-  const result = await db.stock.findFirst({
+  const result = await tenantDb(customer.orgId).stock.findFirst({
     where: { orgId: customer.orgId, productId: product.id },
   });
   expect(result?.quantity.toString()).toBe("2");
@@ -525,8 +534,8 @@ test("Service lines fulfill without artificial stock movements", async () => {
   });
   await post(owner, "sales/" + sale.id + "/confirm", {});
   await post(owner, "sales/" + sale.id + "/fulfill", {});
-  expect(await db.stock.count({ where: { productId: service.id } })).toBe(0);
-  expect(await db.movement.count({ where: { productId: service.id } })).toBe(0);
+  expect(await tenantDb(customer.orgId).stock.count({ where: { productId: service.id } })).toBe(0);
+  expect(await tenantDb(customer.orgId).movement.count({ where: { productId: service.id } })).toBe(0);
 });
 test("All module routes render without errors and reference motion respects reduced motion", async ({
   browser,
@@ -777,7 +786,7 @@ test("Partial receipts and shipments preserve remaining quantity, reject stale d
     (r: any) => r.productId === item.id,
   );
   expect(stock.quantity).toBe("2.5");
-  const logs = await db.audit.findMany({
+  const logs = await tenantDb(customer.orgId).audit.findMany({
     where: { entityId: sale.id, action: "FULFILL sales" },
   });
   expect(logs.length).toBe(2);

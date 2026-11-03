@@ -124,6 +124,7 @@ model Document {
 }
 
 model DocumentLine {
+  orgId String @default(dbgenerated())
   fulfilledQuantity Decimal @default(0) @db.Decimal(18, 3)
   id         String   @id @default(cuid())
   documentId String

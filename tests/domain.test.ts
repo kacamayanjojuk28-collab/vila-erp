@@ -44,13 +44,13 @@ test("reject negative, exponent, excessive precision and invalid percentage inpu
     false,
   );
 });
-test("password hash uses unique salts and verifies without plaintext storage", () => {
+test("password hash uses unique salts and verifies without plaintext storage", async () => {
   const p = "long-test-password";
-  const a = passwordHash(p),
-    b = passwordHash(p);
+  const a = await passwordHash(p),
+    b = await passwordHash(p);
   assert.notEqual(a, b);
-  assert.ok(passwordCheck(p, a));
-  assert.equal(passwordCheck("incorrect-password", a), false);
+  assert.ok(await passwordCheck(p, a));
+  assert.equal(await passwordCheck("incorrect-password", a), false);
   assert.ok(!a.includes(p));
 });
 test("RBAC denies finance mutations to sales and all writes to viewers", () => {

@@ -1,0 +1,252 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\node_modules\\playwright\\cli.js",
+      "test",
+      "tests/e2e/visual.spec.ts"
+    ],
+    "configFile": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\playwright.config.ts",
+    "rootDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "baseURL": "http://localhost:3300",
+          "channel": "msedge",
+          "headless": true,
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/verification/e2e-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "visual.spec.ts",
+      "file": "visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Reference shell geometry and stable visual baselines: dark/light/mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7045,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:32:57.262Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8324bb52c49185e48ff4-02712e1943b5433b1792",
+          "file": "visual.spec.ts",
+          "line": 6,
+          "column": 5
+        },
+        {
+          "title": "Release visual matrix: six views in desktop/mobile and dark/light",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 13410,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\n  2999 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: settings-light-390.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(settings-light-390.png)\" with timeout 5000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m    - disabled all CSS animations\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - 2999 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m    - disabled all CSS animations\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 2999 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\n  2999 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: settings-light-390.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(settings-light-390.png)\" with timeout 5000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m    - disabled all CSS animations\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - 2999 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m    - disabled all CSS animations\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 2999 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts:88:26",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts",
+                      "column": 26,
+                      "line": 88
+                    },
+                    "snippet": "  86 |       await page.evaluate(()=>document.fonts.ready);\n  87 |       await expect(page.locator(\".top .brand\")).toHaveText(\"VILA\");\n> 88 |       await expect(page).toHaveScreenshot(`${view}-${theme}-${width}.png`,{animations:\"disabled\",fullPage:true,maxDiffPixelRatio:0.003,mask:[page.locator(\"input[type=email]\")]});\n     |                          ^\n  89 |     }\n  90 |     await context.close();\n  91 |   }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts",
+                        "column": 26,
+                        "line": 88
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveScreenshot\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\n  2999 pixels (ratio 0.01 of all image pixels) are different.\n\n  Snapshot: settings-light-390.png\n\nCall log:\n\u001b[2m  - Expect \"toHaveScreenshot(settings-light-390.png)\" with timeout 5000ms\u001b[22m\n\u001b[2m    - verifying given screenshot expectation\u001b[22m\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m    - disabled all CSS animations\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - 2999 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\u001b[2m  - waiting 100ms before taking screenshot\u001b[22m\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m    - disabled all CSS animations\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n\u001b[2m  - captured a stable screenshot\u001b[22m\n\u001b[2m  - 2999 pixels (ratio 0.01 of all image pixels) are different.\u001b[22m\n\n\n  86 |       await page.evaluate(()=>document.fonts.ready);\n  87 |       await expect(page.locator(\".top .brand\")).toHaveText(\"VILA\");\n> 88 |       await expect(page).toHaveScreenshot(`${view}-${theme}-${width}.png`,{animations:\"disabled\",fullPage:true,maxDiffPixelRatio:0.003,mask:[page.locator(\"input[type=email]\")]});\n     |                          ^\n  89 |     }\n  90 |     await context.close();\n  91 |   }\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts:88:26"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:33:04.659Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "settings-light-390-expected.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts-snapshots\\settings-light-390-win32.png"
+                    },
+                    {
+                      "name": "settings-light-390-actual.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\settings-light-390-actual.png"
+                    },
+                    {
+                      "name": "settings-light-390-diff.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\settings-light-390-diff.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\test-failed-1.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\test-failed-2.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\test-failed-4.png"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\test-failed-3.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts",
+                    "column": 26,
+                    "line": 88
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8324bb52c49185e48ff4-b44c1af7a68c116dd9ce",
+          "file": "visual.spec.ts",
+          "line": 70,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-03T22:32:56.648Z",
+    "duration": 22216.594999999998,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

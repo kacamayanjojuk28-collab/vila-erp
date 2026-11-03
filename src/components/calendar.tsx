@@ -29,7 +29,7 @@ export default function CalendarPage({
     [type, setType] = useState(""),
     [week, setWeek] = useState(false);
   useEffect(() => {
-    api("dashboard")
+    api("dashboard?view=summary")
       .then((d) =>
         setRecords(
           d.records.filter((r: Row) =>

@@ -60,7 +60,7 @@ export default function ModulePage({
     [summary, setSummary] = useState<Row | null>(null);
   useEffect(() => {
     if (["finance", "projects"].includes(kind))
-      api("dashboard")
+      api("dashboard?view=summary")
         .then(setSummary)
         .catch((e) => setError(e.message));
   }, [kind, revision]);

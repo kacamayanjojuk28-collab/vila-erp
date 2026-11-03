@@ -1,3 +1,5 @@
+import { canRead } from "@/lib/permissions";
+import { beginLogin, finishLogin } from "@/lib/login-limit";
 import {validateEndpoint} from "@/lib/api-contract";
 import {idempotent} from "@/lib/idempotency";
 import {
@@ -6,7 +8,7 @@ import {
   sessions,
   revokeSession,
 } from "@/lib/team";
-import { db } from "@/lib/db";
+import { db, withTenant, setTransactionTenant } from "@/lib/db";
 import {
   decimal,
   documentKinds,
@@ -75,9 +77,8 @@ async function handler(
         (await cookies()).delete("vila_session");
         return NextResponse.json({ ok: true });
       }
-      await rateLimit("auth-global", 150);
       const v = credentials.parse(body);
-      await rateLimit("auth:" + hash(v.email), 15);
+      if (id === "register") await rateLimit("register:" + hash(v.email), 15);
       if (id === "register") {
         if (!v.name || (!v.company && !v.invite))
           throw new AppError("Adınız ve şirket adı gerekli.");
@@ -86,7 +87,7 @@ async function handler(
             data: {
               email: v.email,
               name: v.name!,
-              password: passwordHash(v.password),
+              password: await passwordHash(v.password),
             },
           });
           let orgId: string;
@@ -119,6 +120,7 @@ async function handler(
               data: { userId: user.id, orgId, role: "OWNER" },
             });
           }
+          await setTransactionTenant(tx, orgId);
           await tx.audit.create({
             data: {
               orgId,
@@ -133,12 +135,14 @@ async function handler(
         return NextResponse.json({ ok: true });
       }
       if (id === "login") {
+        const attempt = await beginLogin(req, v.email);
         const user = await db.user.findUnique({
           where: { email: v.email },
           include: { memberships: { where: { active: true } } },
         });
         const fallback = "00000000000000000000000000000000:" + "00".repeat(64);
-        const valid = passwordCheck(v.password, user?.password ?? fallback);
+        const valid = await passwordCheck(v.password, user?.password ?? fallback);
+        await finishLogin(attempt, !!user && valid && !!user.memberships[0]);
         if (!user || !valid || !user.memberships[0])
           throw new AppError("E-posta veya parola hatalı.", 401);
         let orgId = user.memberships[0].orgId;
@@ -183,6 +187,8 @@ async function handler(
       return NextResponse.json({ status: "ok", database: "postgresql" });
     }
     const a = await session();
+    return await withTenant(a.orgId, async () => {
+    if (!write && !canRead(a.role, kind)) throw new AppError("Bu işlem için yetkiniz yok.", 403);
     if (write) await rateLimit("write:" + a.userId, 600);
     if (kind === "me" && !write) {
       const members = await db.membership.findMany({
@@ -254,12 +260,12 @@ async function handler(
           newPassword: z.string().min(12).max(128),
         })
         .parse(body);
-      if (!passwordCheck(v.currentPassword, a.user.password))
+      if (!(await passwordCheck(v.currentPassword, a.user.password)))
         throw new AppError("Mevcut parola hatalı", 400);
       await transaction(async (tx) => {
         await tx.user.update({
           where: { id: a.userId },
-          data: { password: passwordHash(v.newPassword) },
+          data: { password: await passwordHash(v.newPassword) },
         });
         await tx.session.deleteMany({
           where: { userId: a.userId, id: { not: a.sessionId } },
@@ -357,6 +363,8 @@ async function handler(
       return NextResponse.json(records);
     }
     if (kind === "dashboard" && !write) {
+      const compact = url.searchParams.get("view") === "summary";
+      const finance = canRead(a.role, "finance");
       const from = url.searchParams.get("from"),
         to = url.searchParams.get("to");
       const dateRange: any = {};
@@ -371,10 +379,21 @@ async function handler(
       const [records, documents, payments, stocks, activities] =
         await Promise.all([
           db.record.findMany({ where: { orgId: a.orgId, archived: false } }),
-          db.document.findMany({ where: { ...where, archived: false } }),
-          db.payment.findMany({ where }),
+          db.document.findMany({
+            where: { ...where, archived: false, kind: { in: documentKinds.filter(k => canRead(a.role, k)) } },
+            ...(compact ? { select: { kind: true, status: true, contactId: true, total: true, paid: true, createdAt: true, dueDate: true } } : {}),
+          }),
+          !finance ? Promise.resolve([]) : compact
+            ? db.$queryRaw<{createdAt: Date; direction: string; amount: Prisma.Decimal}[]>`
+                SELECT date_trunc('month', "createdAt") AS "createdAt", direction, sum(amount) AS amount
+                FROM "Payment" WHERE "orgId"=${a.orgId}
+                AND "createdAt">=${dateRange.gte ?? new Date("0001-01-01T00:00:00Z")}
+                AND "createdAt"<=${dateRange.lte ?? new Date("9999-12-31T23:59:59.999Z")}
+                GROUP BY date_trunc('month', "createdAt"), direction
+                ORDER BY "createdAt", direction`
+            : db.payment.findMany({ where }),
           db.stock.findMany({ where: { orgId: a.orgId } }),
-          db.audit.findMany({ where, select:{id:true,action:true,createdAt:true}, orderBy: { createdAt: "desc" }, take: 8 }),
+          canRead(a.role, "audit") ? db.audit.findMany({ where, select:{id:true,action:true,createdAt:true}, orderBy: { createdAt: "desc" }, take: 8 }) : Promise.resolve([]),
         ]);
       const income = payments
         .filter((p) => p.direction === "IN")
@@ -386,6 +405,7 @@ async function handler(
         documents
           .filter((d) => d.kind === kind && d.status !== "DRAFT")
           .reduce((sum, d) => sum.add(d.total).minus(d.paid), decimal(0));
+      const recordNames = new Map(records.map(r => [r.id, r.name]));
       const group = (kind: string) => {
         const groups = new Map<
           string,
@@ -400,7 +420,7 @@ async function handler(
         for (const d of documents.filter((d) => d.kind === kind)) {
           const r = groups.get(d.contactId) ?? {
             name:
-              records.find((r) => r.id === d.contactId)?.name ?? d.contactId,
+              recordNames.get(d.contactId) ?? d.contactId,
             count: 0,
             fulfilled: 0,
             total: decimal(0),
@@ -436,20 +456,21 @@ async function handler(
             d.dueDate < new Date(),
         )
         .reduce((sum, d) => sum.add(d.total).minus(d.paid), decimal(0));
+      const financialFields = finance ? {
+        aging, overdue, receivable: outstanding("sales"), payable: outstanding("purchases"),
+        net: income.minus(expense), income, expense,
+        ...(compact ? {monthlyPayments: payments} : {payments}),
+      } : {};
       return NextResponse.json({
-        aging,
-        overdue,
-        receivable: outstanding("sales"),
-        payable: outstanding("purchases"),
-        net: income.minus(expense),
-        reports: { sales: group("sales"), purchases: group("purchases") },
-        records,
-        documents,
-        payments,
+        ...financialFields,
+        /* Legacy financial fields are supplied only through financialFields. */
+                reports: { ...(canRead(a.role, "sales") ? {sales: group("sales")} : {}), ...(canRead(a.role, "purchases") ? {purchases: group("purchases")} : {}) },
+        ...(compact ? {
+          records: records.filter(r => ["deals", "tasks", "projects", "products", "activities"].includes(r.kind)),
+
+        } : { records, documents }),
         stocks,
         activities,
-        income,
-        expense,
       });
     }
     if (kind === "history" && !write) {
@@ -468,7 +489,7 @@ async function handler(
           orderBy: { createdAt: "desc" },
         }),
         db.document.findMany({
-          where: { orgId: a.orgId, contactId: id, archived: false },
+          where: { orgId: a.orgId, contactId: id, archived: false, kind: { in: documentKinds.filter(k => canRead(a.role, k)) } },
           include: { lines: true },
           orderBy: { createdAt: "desc" },
         }),
@@ -791,6 +812,7 @@ async function handler(
         ? await saveDocument(a, kind, body, id)
         : await saveRecord(a, kind, body, id),
     );
+    });
   } catch (e) {
     if (e instanceof z.ZodError)
       return NextResponse.json(

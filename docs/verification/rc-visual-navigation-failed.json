@@ -1,0 +1,222 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\node_modules\\playwright\\cli.js",
+      "test",
+      "tests/e2e/visual.spec.ts"
+    ],
+    "configFile": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\playwright.config.ts",
+    "rootDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-rc/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "baseURL": "http://localhost:3300",
+          "channel": "msedge",
+          "headless": true,
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/verification/e2e-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "visual.spec.ts",
+      "file": "visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Reference shell geometry and stable visual baselines: dark/light/mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7208,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:35:38.037Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8324bb52c49185e48ff4-02712e1943b5433b1792",
+          "file": "visual.spec.ts",
+          "line": 6,
+          "column": 5
+        },
+        {
+          "title": "Release visual matrix: six views in desktop/mobile and dark/light",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6447,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCSS\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.nav-pill')\nExpected: \u001b[32m\"0\"\u001b[39m\nReceived: \u001b[31m\"1\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCSS\" locator('.nav-pill') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.nav-pill')\u001b[22m\n\u001b[2m    14 × locator resolved to <span class=\"nav-pill\" aria-hidden=\"true\"></span>\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCSS\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.nav-pill')\nExpected: \u001b[32m\"0\"\u001b[39m\nReceived: \u001b[31m\"1\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCSS\" locator('.nav-pill') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.nav-pill')\u001b[22m\n\u001b[2m    14 × locator resolved to <span class=\"nav-pill\" aria-hidden=\"true\"></span>\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts:87:47",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts",
+                      "column": 47,
+                      "line": 87
+                    },
+                    "snippet": "  85 |       await expect(page.locator(\".skeleton\")).toHaveCount(0);\n  86 |       await page.evaluate(()=>document.fonts.ready);\n> 87 |       await expect(page.locator(\".nav-pill\")).toHaveCSS(\"opacity\", [\"settings\",\"calendar\"].includes(view) ? \"0\" : \"1\");\n     |                                               ^\n  88 |       await expect(page.locator(\".top .brand\")).toHaveText(\"VILA\");\n  89 |       await expect(page).toHaveScreenshot(`${view}-${theme}-${width}.png`,{animations:\"disabled\",fullPage:true,maxDiffPixelRatio:0.003,mask:[page.locator(\"input[type=email]\")]});\n  90 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts",
+                        "column": 47,
+                        "line": 87
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCSS\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.nav-pill')\nExpected: \u001b[32m\"0\"\u001b[39m\nReceived: \u001b[31m\"1\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCSS\" locator('.nav-pill') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.nav-pill')\u001b[22m\n\u001b[2m    14 × locator resolved to <span class=\"nav-pill\" aria-hidden=\"true\"></span>\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  85 |       await expect(page.locator(\".skeleton\")).toHaveCount(0);\n  86 |       await page.evaluate(()=>document.fonts.ready);\n> 87 |       await expect(page.locator(\".nav-pill\")).toHaveCSS(\"opacity\", [\"settings\",\"calendar\"].includes(view) ? \"0\" : \"1\");\n     |                                               ^\n  88 |       await expect(page.locator(\".top .brand\")).toHaveText(\"VILA\");\n  89 |       await expect(page).toHaveScreenshot(`${view}-${theme}-${width}.png`,{animations:\"disabled\",fullPage:true,maxDiffPixelRatio:0.003,mask:[page.locator(\"input[type=email]\")]});\n  90 |     }\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts:87:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T22:35:45.703Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\test-results\\visual-Release-visual-matr-b6557-sktop-mobile-and-dark-light\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-rc\\tests\\e2e\\visual.spec.ts",
+                    "column": 47,
+                    "line": 87
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8324bb52c49185e48ff4-b44c1af7a68c116dd9ce",
+          "file": "visual.spec.ts",
+          "line": 70,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-03T22:35:37.312Z",
+    "duration": 15490.155,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

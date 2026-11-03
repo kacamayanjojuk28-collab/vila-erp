@@ -22,7 +22,7 @@ export default function FinanceOverview({
       expense: 0,
     };
   });
-  for (const p of data.payments) {
+  for (const p of data.monthlyPayments) {
     const m = months.find((m) => m.key === p.createdAt.slice(0, 7));
     if (m) m[p.direction === "IN" ? "income" : "expense"] += Number(p.amount);
   }

@@ -8,3 +8,7 @@ playwright-report/
 *.tsbuildinfo
 
 .next-audit/
+
+.next-sprint/
+
+.next-rc/

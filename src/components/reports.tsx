@@ -1,14 +1,15 @@
 "use client";
+import { canRead } from "@/lib/permissions";
 import { BarChart3 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api, Empty, Title, type Row } from "./ui";
-export default function ReportsPage({ revision, money }: any) {
+export default function ReportsPage({ revision, money, role }: any) {
   const [data, setData] = useState<Row | null>(null),
     [error, setError] = useState(""),
     [from, setFrom] = useState(""),
     [to, setTo] = useState("");
   useEffect(() => {
-    api("dashboard?from=" + from + "&to=" + to)
+    api("dashboard?view=summary&from=" + from + "&to=" + to)
       .then(setData)
       .catch((e) => setError(e.message));
   }, [revision, from, to]);
@@ -46,7 +47,7 @@ export default function ReportsPage({ revision, money }: any) {
         {[
           ["sales", "Müşteri bazında satış"],
           ["purchases", "Tedarikçi performansı"],
-        ].map(([kind, title]) => (
+        ].filter(([kind]) => canRead(role, kind)).map(([kind, title]) => (
           <section className="card" key={kind}>
             <div className="cardhead">
               <h3>{title}</h3>

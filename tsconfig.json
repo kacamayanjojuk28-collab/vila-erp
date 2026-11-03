@@ -35,7 +35,11 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     ".next-audit/types/**/*.ts",
-    ".next-audit/dev/types/**/*.ts"
+    ".next-audit/dev/types/**/*.ts",
+    ".next-sprint/types/**/*.ts",
+    ".next-sprint/dev/types/**/*.ts",
+    ".next-rc/types/**/*.ts",
+    ".next-rc/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -64,3 +64,30 @@ test("Reference shell geometry and stable visual baselines: dark/light/mobile", 
   });
   await context.close();
 });
+
+// Broader coverage uses the same authenticated demo GET fixtures captured during
+// reference parity. Existing live login/geometry checks above remain mandatory.
+test("Release visual matrix: six views in desktop/mobile and dark/light", async ({browser}) => {
+  const fixtures = JSON.parse(readFileSync(".local/rc-visual-fixtures.json", "utf8"));
+  for (const [width,height] of [[1440,1000],[390,844]]) for (const theme of ["dark","light"]) {
+    const context = await browser.newContext({baseURL:process.env.VILA_TEST_ORIGIN,viewport:{width,height},reducedMotion:"reduce"});
+    const page = await context.newPage();
+    await page.addInitScript(t => localStorage.setItem("vila-theme",t),theme);
+    await page.clock.setFixedTime(new Date("2026-11-01T09:00:00Z"));
+    await page.route("**/api/**", async route => {
+      const u=new URL(route.request().url()),fixture=fixtures[u.pathname+u.search];
+      if(!fixture) throw Error("Missing deterministic visual fixture: "+u.pathname+u.search);
+      await route.fulfill(fixture);
+    });
+    for(const view of ["overview","settings","customers","finance","projects","calendar"]) {
+      await page.goto("/#"+view);
+      await expect(page.locator("main")).toHaveAttribute("data-view",view);
+      await expect(page.locator(".skeleton")).toHaveCount(0);
+      await page.evaluate(()=>document.fonts.ready);
+      await expect(page.locator(".nav-pill")).toHaveCSS("opacity", ["settings","calendar"].includes(view) ? "0" : "1");
+      await expect(page.locator(".top .brand")).toHaveText("VILA");
+      await expect(page).toHaveScreenshot(`${view}-${theme}-${width}.png`,{animations:"disabled",fullPage:true,maxDiffPixelRatio:0.003,mask:[page.locator("input[type=email]")]});
+    }
+    await context.close();
+  }
+});
