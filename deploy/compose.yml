@@ -1,0 +1,46 @@
+name: vila
+services:
+  db:
+    image: postgres:18-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vila
+      POSTGRES_USER: vila_migrator
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Generate deployment environment first}
+    volumes:
+      - postgres:/var/lib/postgresql
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U vila_migrator -d vila"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  migrate:
+    build: ..
+    image: vila-erp:${VILA_VERSION:-local}
+    user: node
+    environment:
+      MIGRATION_DATABASE_URL: postgresql://vila_migrator:${POSTGRES_PASSWORD}@db:5432/vila
+      DATABASE_URL: postgresql://vila_app:${APP_DB_PASSWORD:?Generate deployment environment first}@db:5432/vila
+    command: [node, deploy/migrate.mjs]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+  app:
+    image: vila-erp:${VILA_VERSION:-local}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://vila_app:${APP_DB_PASSWORD}@db:5432/vila
+      APP_ORIGIN: ${APP_ORIGIN:?Set public origin}
+    ports:
+      - "127.0.0.1:${VILA_PORT:-3000}:3000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+volumes:
+  postgres:

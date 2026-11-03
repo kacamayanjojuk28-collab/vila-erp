@@ -1,0 +1,209 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String       @id @default(cuid())
+  email       String       @unique
+  name        String
+  password    String
+  createdAt   DateTime     @default(now())
+  memberships Membership[]
+  sessions    Session[]
+}
+
+model Organization {
+  id          String       @id @default(cuid())
+  name        String
+  currency    String       @default("TRY")
+  locale      String       @default("tr-TR")
+  demo        Boolean      @default(false)
+  settings    Json         @default("{}")
+  createdAt   DateTime     @default(now())
+  Audit       Audit[]
+  Document    Document[]
+  Invite      Invite[]
+  memberships Membership[]
+  Payment     Payment[]
+  Record      Record[]
+}
+
+model Membership {
+  active Boolean @default(true)
+  id     String       @id @default(cuid())
+  orgId  String
+  userId String
+  role   String       @default("VIEWER")
+  org    Organization @relation(fields: [orgId], references: [id])
+  user   User         @relation(fields: [userId], references: [id])
+
+  @@unique([orgId, userId])
+}
+
+model Session {
+  createdAt DateTime @default(now())
+  userAgent String @default("")
+  id        String   @id
+  userId    String
+  orgId     String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}
+
+model Invite {
+  revokedAt DateTime?
+  id           String       @id @default(cuid())
+  orgId        String
+  email        String
+  role         String
+  token        String       @unique
+  expiresAt    DateTime
+  acceptedAt   DateTime?
+  createdAt    DateTime     @default(now())
+  Organization Organization @relation(fields: [orgId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Invite_org_fkey")
+
+  @@index([orgId])
+}
+
+model Record {
+  id                                          String       @id @default(cuid())
+  orgId                                       String
+  kind                                        String
+  name                                        String
+  status                                      String       @default("ACTIVE")
+  code                                        String?
+  data                                        Json         @default("{}")
+  amount                                      Decimal      @default(0) @db.Decimal(18, 2)
+  archived                                    Boolean      @default(false)
+  version                                     Int          @default(1)
+  createdAt                                   DateTime     @default(now())
+  updatedAt                                   DateTime     @updatedAt
+  Document_Document_orgId_contactIdToRecord   Document[]   @relation("Document_orgId_contactIdToRecord")
+  Document_Document_orgId_warehouseIdToRecord Document[]   @relation("Document_orgId_warehouseIdToRecord")
+  Movement_Movement_orgId_productIdToRecord   Movement[]   @relation("Movement_orgId_productIdToRecord")
+  Movement_Movement_orgId_warehouseIdToRecord Movement[]   @relation("Movement_orgId_warehouseIdToRecord")
+  Organization                                Organization @relation(fields: [orgId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Record_org_fkey")
+  Stock_Stock_orgId_productIdToRecord         Stock[]      @relation("Stock_orgId_productIdToRecord")
+  Stock_Stock_orgId_warehouseIdToRecord       Stock[]      @relation("Stock_orgId_warehouseIdToRecord")
+
+  @@unique([orgId, kind, code])
+  @@unique([orgId, id])
+  @@index([orgId, kind, archived, createdAt])
+}
+
+model Document {
+  dueDate DateTime?
+  id                                        String         @id @default(cuid())
+  orgId                                     String
+  kind                                      String
+  name                                      String
+  contactId                                 String
+  warehouseId                               String
+  status                                    String         @default("DRAFT")
+  sourceId                                  String?        @unique
+  total                                     Decimal        @db.Decimal(18, 2)
+  paid                                      Decimal        @default(0) @db.Decimal(18, 2)
+  archived                                  Boolean        @default(false)
+  version                                   Int            @default(1)
+  createdAt                                 DateTime       @default(now())
+  updatedAt                                 DateTime       @updatedAt
+  Record_Document_orgId_contactIdToRecord   Record         @relation("Document_orgId_contactIdToRecord", fields: [orgId, contactId], references: [orgId, id], onDelete: NoAction, onUpdate: NoAction, map: "Document_contact_tenant_fkey")
+  Organization                              Organization   @relation(fields: [orgId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Document_org_fkey")
+  Record_Document_orgId_warehouseIdToRecord Record         @relation("Document_orgId_warehouseIdToRecord", fields: [orgId, warehouseId], references: [orgId, id], onDelete: NoAction, onUpdate: NoAction, map: "Document_warehouse_tenant_fkey")
+  lines                                     DocumentLine[]
+  Payment                                   Payment[]
+
+  @@unique([orgId, id])
+  @@index([orgId, kind, archived])
+}
+
+model DocumentLine {
+  fulfilledQuantity Decimal @default(0) @db.Decimal(18, 3)
+  id         String   @id @default(cuid())
+  documentId String
+  productId  String
+  name       String
+  quantity   Decimal  @db.Decimal(18, 3)
+  price      Decimal  @db.Decimal(18, 2)
+  discount   Decimal  @db.Decimal(5, 2)
+  tax        Decimal  @db.Decimal(5, 2)
+  total      Decimal  @db.Decimal(18, 2)
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+}
+
+model Stock {
+  orgId                                  String
+  productId                              String
+  warehouseId                            String
+  quantity                               Decimal @default(0) @db.Decimal(18, 3)
+  Record_Stock_orgId_productIdToRecord   Record  @relation("Stock_orgId_productIdToRecord", fields: [orgId, productId], references: [orgId, id], onDelete: NoAction, onUpdate: NoAction, map: "Stock_product_tenant_fkey")
+  Record_Stock_orgId_warehouseIdToRecord Record  @relation("Stock_orgId_warehouseIdToRecord", fields: [orgId, warehouseId], references: [orgId, id], onDelete: NoAction, onUpdate: NoAction, map: "Stock_warehouse_tenant_fkey")
+
+  @@id([orgId, productId, warehouseId])
+}
+
+model Movement {
+  id                                        String   @id @default(cuid())
+  orgId                                     String
+  productId                                 String
+  warehouseId                               String
+  quantity                                  Decimal  @db.Decimal(18, 3)
+  reason                                    String
+  reference                                 String?
+  actorId                                   String
+  createdAt                                 DateTime @default(now())
+  Record_Movement_orgId_productIdToRecord   Record   @relation("Movement_orgId_productIdToRecord", fields: [orgId, productId], references: [orgId, id], onDelete: NoAction, onUpdate: NoAction, map: "Movement_product_tenant_fkey")
+  Record_Movement_orgId_warehouseIdToRecord Record   @relation("Movement_orgId_warehouseIdToRecord", fields: [orgId, warehouseId], references: [orgId, id], onDelete: NoAction, onUpdate: NoAction, map: "Movement_warehouse_tenant_fkey")
+
+  @@index([orgId, createdAt])
+}
+
+model Payment {
+  id           String       @id @default(cuid())
+  orgId        String
+  documentId   String?
+  name         String
+  direction    String
+  amount       Decimal      @db.Decimal(18, 2)
+  createdAt    DateTime     @default(now())
+  reversalOf   String?      @unique
+  Document     Document?    @relation(fields: [orgId, documentId], references: [orgId, id], onDelete: NoAction, onUpdate: NoAction, map: "Payment_document_tenant_fkey")
+  Organization Organization @relation(fields: [orgId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Payment_org_fkey")
+
+  @@index([orgId, createdAt])
+}
+
+model Audit {
+  id           String       @id @default(cuid())
+  orgId        String
+  userId       String
+  action       String
+  entityId     String
+  detail       Json         @default("{}")
+  createdAt    DateTime     @default(now())
+  Organization Organization @relation(fields: [orgId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Audit_org_fkey")
+
+  @@index([orgId, createdAt])
+}
+
+model RateLimit {
+  key   String   @id
+  count Int
+  until DateTime
+}
+
+model MutationReceipt {
+  orgId String
+  scope String
+  key String
+  requestHash String
+  result Json
+  createdAt DateTime @default(now())
+  @@id([orgId, scope, key])
+}

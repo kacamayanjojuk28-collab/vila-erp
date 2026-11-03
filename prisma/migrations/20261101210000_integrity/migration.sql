@@ -1,0 +1,18 @@
+ALTER TABLE "Payment" ADD COLUMN "reversalOf" TEXT;
+CREATE UNIQUE INDEX "Payment_reversalOf_key" ON "Payment"("reversalOf");
+ALTER TABLE "Document" ADD CONSTRAINT "Document_amount_check" CHECK ("total" >= 0 AND "paid" >= 0 AND "paid" <= "total");
+ALTER TABLE "Stock" ADD CONSTRAINT "Stock_nonnegative" CHECK ("quantity" >= 0);
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_positive" CHECK ("amount" > 0 AND "direction" IN ('IN','OUT'));
+ALTER TABLE "DocumentLine" ADD CONSTRAINT "DocumentLine_values" CHECK ("quantity">0 AND "price">=0 AND "discount" BETWEEN 0 AND 100 AND "tax" BETWEEN 0 AND 100 AND "total">=0);
+ALTER TABLE "Record" ADD CONSTRAINT "Record_org_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id");
+ALTER TABLE "Document" ADD CONSTRAINT "Document_org_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id");
+ALTER TABLE "Document" ADD CONSTRAINT "Document_contact_tenant_fkey" FOREIGN KEY ("orgId","contactId") REFERENCES "Record"("orgId","id");
+ALTER TABLE "Document" ADD CONSTRAINT "Document_warehouse_tenant_fkey" FOREIGN KEY ("orgId","warehouseId") REFERENCES "Record"("orgId","id");
+ALTER TABLE "Stock" ADD CONSTRAINT "Stock_product_tenant_fkey" FOREIGN KEY ("orgId","productId") REFERENCES "Record"("orgId","id");
+ALTER TABLE "Stock" ADD CONSTRAINT "Stock_warehouse_tenant_fkey" FOREIGN KEY ("orgId","warehouseId") REFERENCES "Record"("orgId","id");
+ALTER TABLE "Movement" ADD CONSTRAINT "Movement_product_tenant_fkey" FOREIGN KEY ("orgId","productId") REFERENCES "Record"("orgId","id");
+ALTER TABLE "Movement" ADD CONSTRAINT "Movement_warehouse_tenant_fkey" FOREIGN KEY ("orgId","warehouseId") REFERENCES "Record"("orgId","id");
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_document_tenant_fkey" FOREIGN KEY ("orgId","documentId") REFERENCES "Document"("orgId","id");
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_org_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id");
+ALTER TABLE "Audit" ADD CONSTRAINT "Audit_org_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id");
+ALTER TABLE "Invite" ADD CONSTRAINT "Invite_org_fkey" FOREIGN KEY ("orgId") REFERENCES "Organization"("id");

@@ -1,0 +1,6 @@
+ALTER TABLE "Membership" ADD COLUMN "active" BOOLEAN NOT NULL DEFAULT true;
+ALTER TABLE "Membership" ADD CONSTRAINT "Membership_owner_active" CHECK ("role" <> 'OWNER' OR "active" = true);
+ALTER TABLE "Membership" ADD CONSTRAINT "Membership_role_valid" CHECK ("role" IN ('OWNER','ADMIN','SALES','WAREHOUSE','FINANCE','MEMBER','VIEWER'));
+ALTER TABLE "Invite" ADD COLUMN "revokedAt" TIMESTAMP(3);
+ALTER TABLE "Session" ADD COLUMN "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE "Session" ADD COLUMN "userAgent" TEXT NOT NULL DEFAULT '';
