@@ -1,0 +1,14 @@
+{
+  "originalSourceAndEnvUnchanged": {
+    "src/lib/db.ts": true,
+    "src/app/api/[...path]/route.ts": true,
+    "src/components/motion.ts": true,
+    "src/components/workspace.tsx": true,
+    "src/app/globals.css": true,
+    "prisma/schema.prisma": true,
+    ".env": true
+  },
+  "mainDatabaseWrites": false,
+  "productionDeployment": false,
+  "existingServersRestarted": false
+}
