@@ -1,8 +1,16 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 const credentials = JSON.parse(
   readFileSync((process.env.VILA_VISUAL_CREDENTIALS || ".local/visual-credentials.json"), "utf8"),
 );
+// A screenshot must never approve an unmeasured responsive grid.
+async function readyDashboard(page: Page) {
+  await expect(page.locator(".widget-cell")).toHaveCount(10);
+  await expect(page.locator(".widget-body .skeleton")).toHaveCount(0);
+  await expect.poll(() => page.locator(".widget-cell").evaluateAll(cells =>
+    cells.every(cell => cell.getBoundingClientRect().width >= 200)
+  )).toBe(true);
+}
 test("Reference shell geometry and stable visual baselines: dark/light/mobile", async ({
   browser,
 }) => {
@@ -25,8 +33,8 @@ test("Reference shell geometry and stable visual baselines: dark/light/mobile", 
   expect(dock!.height).toBeCloseTo(507, 0);
   const revenue = await page.locator(".revenue").boundingBox();
   expect(revenue!.x).toBeCloseTo(103, 0);
-  expect(revenue!.width).toBeCloseTo(760, 0);
-  expect(revenue!.y).toBeCloseTo(199.4, 0);
+  expect(revenue!.width).toBeCloseTo(871, 0);
+  expect(revenue!.y).toBeCloseTo(391.4, 0);
   for (const route of [
     "overview",
     "settings",
@@ -39,7 +47,8 @@ test("Reference shell geometry and stable visual baselines: dark/light/mobile", 
     await expect(page.locator("main")).toHaveAttribute("data-view", route);
     await expect(page.locator(".skeleton")).toHaveCount(0);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page).toHaveScreenshot(route + "-dark.png", {
+    if (route === "overview") await readyDashboard(page);
+    await expect(page).toHaveScreenshot((route === "overview" ? "overview-dashboard" : route) + "-dark.png", {
       animations: "disabled",
       fullPage: true,
       maxDiffPixelRatio: 0.003,
@@ -84,9 +93,10 @@ test("Release visual matrix: six views in desktop/mobile and dark/light", async 
       await expect(page.locator("main")).toHaveAttribute("data-view",view);
       await expect(page.locator(".skeleton")).toHaveCount(0);
       await page.evaluate(()=>document.fonts.ready);
+      if (view === "overview") await readyDashboard(page);
       await expect(page.locator(".nav-pill")).toHaveCSS("opacity", ["settings","calendar"].includes(view) ? "0" : "1");
       await expect(page.locator(".top .brand")).toHaveText("VILA");
-      await expect(page).toHaveScreenshot(`${view}-${theme}-${width}.png`,{animations:"disabled",fullPage:true,maxDiffPixelRatio:0.003,mask:[page.locator("input[type=email]")]});
+      await expect(page).toHaveScreenshot(`${view === "overview" ? "overview-dashboard" : view}-${theme}-${width}.png`,{animations:"disabled",fullPage:true,maxDiffPixelRatio:0.003,mask:[page.locator("input[type=email]")]});
     }
     await context.close();
   }

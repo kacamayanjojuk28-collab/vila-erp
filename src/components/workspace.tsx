@@ -13,7 +13,6 @@ import {
   Search,
   Settings,
   ShoppingCart,
-  SlidersHorizontal,
   Sun,
   Users,
   Wallet,
@@ -21,7 +20,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import Auth from "./auth";
 import CalendarPage from "./calendar";
-import Dashboard from "./dashboard";
+import Dashboard from "./dashboard-engine";
 import FinanceCore from "./finance-core";
 import Editor from "./editor";
 import ModulePage from "./module-page";
@@ -65,6 +64,7 @@ export default function Workspace() {
     refresh();
     const update = () => {
       const h = location.hash.slice(1);
+      if(h!=="overview"&&!window.dispatchEvent(new Event("vila:before-navigate",{cancelable:true}))){history.replaceState(null,"","#overview");return;}
       if (h === "settings" || h === "overview" || modules[h]) setView(h);
     };
     update();
@@ -88,6 +88,7 @@ export default function Workspace() {
     document.documentElement.dataset.theme = v;
   };
   const go = (v: string) => {
+    if(v!==view&&!window.dispatchEvent(new Event("vila:before-navigate",{cancelable:true})))return;
     if (me && !canRead(me.role, v)) return;
     const done = () => {
       setView(v);
@@ -235,10 +236,12 @@ export default function Workspace() {
             </span>
             <button
               className="iconbtn"
-              aria-label="Modüller"
+              aria-label="Çalışma alanında ara"
+              title="Ara"
+              aria-haspopup="dialog"
               onClick={() => setModal({ type: "navigation" })}
             >
-              <SlidersHorizontal />
+              <Search aria-hidden="true" />
             </button>
             <button
               className="avatar"
@@ -258,7 +261,7 @@ export default function Workspace() {
           {!readable(view) ? (
             <p role="alert" className="error">Bu işlem için yetkiniz yok.</p>
           ) : view === "overview" ? (
-            <Dashboard revision={revision} money={money} go={go} role={me.role} />
+            <Dashboard key={me.org.id+":"+me.user.id} revision={revision} money={money} go={go} role={me.role} />
           ) : view === "finance-core" ? (
             <FinanceCore me={me} money={money} notify={notify} />
           ) : view === "calendar" ? (
@@ -308,6 +311,7 @@ export default function Workspace() {
             <Search />
             <input
               autoFocus
+              data-initial-focus
               aria-label="Modül ara"
               placeholder="Modül ara…"
               value={navSearch}
@@ -334,6 +338,7 @@ export default function Workspace() {
             <button
               className="btn"
               onClick={async () => {
+                if(!window.dispatchEvent(new Event("vila:before-navigate",{cancelable:true})))return;
                 await api("auth/logout", "POST", {});
                 setMe(null);
                 setModal(null);

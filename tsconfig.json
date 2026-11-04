@@ -41,7 +41,9 @@
     ".next-rc/types/**/*.ts",
     ".next-rc/dev/types/**/*.ts",
     ".next-finance/types/**/*.ts",
-    ".next-finance/dev/types/**/*.ts"
+    ".next-finance/dev/types/**/*.ts",
+    ".next-dashboard/types/**/*.ts",
+    ".next-dashboard/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

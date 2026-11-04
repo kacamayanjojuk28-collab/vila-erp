@@ -393,3 +393,17 @@ createdBy String
 createdAt DateTime @default(now()) @db.Timestamptz(3)
 @@index([orgId,asOf])
 }
+model DashboardPreference {
+  id String @id @default(cuid())
+  orgId String
+  userId String
+  dashboardKey String @default("overview")
+  schemaVersion Int @default(2)
+  version Int @default(1)
+  isDefault Boolean @default(false)
+  layout Json
+  widgets Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([orgId,userId,dashboardKey])
+}

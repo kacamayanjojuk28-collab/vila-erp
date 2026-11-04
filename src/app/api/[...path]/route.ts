@@ -1,3 +1,4 @@
+import { handleDashboardEngine } from "@/lib/dashboard-engine-api";
 import { handleFinanceCore } from "@/lib/finance-api";
 import { canRead } from "@/lib/permissions";
 import { beginLogin, finishLogin } from "@/lib/login-limit";
@@ -56,7 +57,7 @@ async function handler(
 ) {
   try {
     const { path } = await params;
-    if(path[0]!=="finance-core") validateEndpoint(path, req.method);
+    if(!["finance-core","dashboard-engine"].includes(path[0])) validateEndpoint(path, req.method);
     const [kind, id, action] = path;
     const url = new URL(req.url);
     const write = req.method !== "GET";
@@ -71,6 +72,7 @@ async function handler(
         throw new AppError("Geçersiz JSON isteği.", 400);
       }
     }
+    if(kind === "dashboard-engine") { const actor=await session(); if(write)await rateLimit("write:"+actor.userId,600); return await withTenant(actor.orgId,()=>handleDashboardEngine(req,path.slice(1),body,actor,url)); }
     if(kind === "finance-core") { const actor=await session(); if(write)await rateLimit("write:"+actor.userId,600); return await withTenant(actor.orgId,()=>handleFinanceCore(req,path.slice(1),body,actor,url)); }
     if (kind === "auth" && write) {
       if (id === "logout") {

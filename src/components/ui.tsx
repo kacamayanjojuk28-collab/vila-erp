@@ -86,6 +86,7 @@ export function Dialog({
   };
   useEffect(() => {
     ref.current?.showModal();
+    ref.current?.querySelector<HTMLElement>("[data-initial-focus]")?.focus();
     gsap.fromTo(
       ref.current,
       { opacity: 0, y: 18, scale: 0.96 },
