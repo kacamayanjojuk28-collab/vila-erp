@@ -1,0 +1,61 @@
+{
+  "database": "vila_dashboard_v1",
+  "migrations": [
+    {
+      "migration_name": "20261101195553_initial",
+      "applied": true
+    },
+    {
+      "migration_name": "20261101210000_integrity",
+      "applied": true
+    },
+    {
+      "migration_name": "20261101220000_due_date",
+      "applied": true
+    },
+    {
+      "migration_name": "20261102010000_access_lifecycle",
+      "applied": true
+    },
+    {
+      "migration_name": "20261102220000_partial_fulfillment",
+      "applied": true
+    },
+    {
+      "migration_name": "20261103010000_request_receipts",
+      "applied": true
+    },
+    {
+      "migration_name": "20261103020000_tenant_line_integrity",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104010000_finance_core",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104020000_finance_source_guards",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104030000_finance_posting_validation",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104040000_finance_temporal_integrity",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104050000_finance_business_date",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104060000_finance_subaccounts",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104070000_dashboard_preferences",
+      "applied": true
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "widgets": 15,
+  "initialRequests": 15,
+  "requestsDuringDrag": 0,
+  "loadMs": 1244,
+  "frameSamples": 49,
+  "p95FrameMs": 36.700000000000045,
+  "maxFrameMs": 43,
+  "scope": "Local browser, single measured interaction; no universal FPS guarantee"
+}

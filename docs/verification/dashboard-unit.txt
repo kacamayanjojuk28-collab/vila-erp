@@ -1,0 +1,24 @@
+✔ Dashboard defaults validate and role scopes remove sensitive metrics (7.3632ms)
+✔ Dashboard migration retains settings, drops unknown kinds and normalizes positions (0.4156ms)
+✔ Dashboard strict schema rejects overlaps, excess width and duplicate ids (2.5101ms)
+✔ Decimal pricing: fractional money, discount and VAT round once per line (3.653ms)
+✔ reject negative, exponent, excessive precision and invalid percentage inputs (4.8604ms)
+✔ password hash uses unique salts and verifies without plaintext storage (233.4956ms)
+✔ RBAC denies finance mutations to sales and all writes to viewers (1.3412ms)
+✔ Finance Decimal policy: discounted base, per-line tax and half-up cents (2.0565ms)
+✔ Finance dates reject rollover and preserve valid leap days (3.1179ms)
+✔ Finance business date remains Istanbul while transaction timestamps use UTC (15.7336ms)
+✔ Async scrypt reads historical N=16384 salt:hex hashes (193.59ms)
+✔ scrypt yields to the event loop during concurrent derivations (142.1346ms)
+✔ read matrix explicitly covers all roles and sensitive modules (1.1688ms)
+✔ forwarded IP requires a verified proxy token and a single valid address (5.5295ms)
+✔ SEO origin stays absent on staging and rejects unsafe production origins (1.7668ms)
+✔ Private shell is noindex even with verified production origin (1.3923ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1280.0743

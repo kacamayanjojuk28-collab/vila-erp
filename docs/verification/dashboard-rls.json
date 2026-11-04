@@ -1,0 +1,15 @@
+{
+  "policy": {
+    "relrowsecurity": true,
+    "relforcerowsecurity": true
+  },
+  "pooledTransactions": 100,
+  "foreignReadDenied": true,
+  "foreignWriteDenied": true,
+  "sameTenantOtherUserDenied": true,
+  "contextReset": true,
+  "role": {
+    "rolsuper": false,
+    "rolbypassrls": false
+  }
+}

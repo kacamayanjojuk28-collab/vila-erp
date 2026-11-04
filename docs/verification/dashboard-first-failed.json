@@ -1,0 +1,443 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/e2e/dashboard-engine.spec.ts"
+    ],
+    "configFile": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\playwright.config.ts",
+    "rootDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-dashboard/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-dashboard/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-dashboard/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "baseURL": "http://localhost:3500",
+          "channel": "msedge",
+          "headless": true,
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/verification/e2e-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "dashboard-engine.spec.ts",
+      "file": "dashboard-engine.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "DE01 preference persistence, user/tenant isolation and concurrent conflict/reset version",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1406,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T09:22:12.057Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e94e467377695d32b1b-a370a1927dde58883a2d",
+          "file": "dashboard-engine.spec.ts",
+          "line": 14,
+          "column": 5
+        },
+        {
+          "title": "DE02 strict hostile payload, bounds, unknown types, extra identities and schema writes",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 290,
+                  "error": {
+                    "message": "TypeError: _test.request.get is not a function",
+                    "stack": "TypeError: _test.request.get is not a function\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts:15:905",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                      "column": 905,
+                      "line": 15
+                    },
+                    "snippet": "  13 | test.afterAll(()=>db.$disconnect());\n  14 | test('DE01 preference persistence, user/tenant isolation and concurrent conflict/reset version',async()=>{const a=await account(),b=await account();try{const initial=await preference(a.api);expect(initial.version).toBe(0);const doc=copy(initial);doc.widgets[0].visible=false;const results=await Promise.all([save(a.api,doc),save(a.api,doc)]);expect(results.map(r=>r.status()).sort()).toEqual([200,409]);expect((await preference(a.api)).widgets[0].visible).toBe(false);expect((await preference(b.api)).version).toBe(0);await db.membership.create({data:{orgId:a.me.org.id,userId:b.me.user.id,role:'OWNER'}});expect((await b.api.post('/api/switch',{data:{orgId:a.me.org.id}})).status()).toBe(200);expect((await preference(b.api)).version).toBe(0);expect((await b.api.post('/api/switch',{data:{orgId:b.me.org.id}})).status()).toBe(200);expect((await preference(b.api)).version).toBe(0);expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:1,reset:true}})).status()).toBe(200);expect((await preference(a.api)).isDefault).toBe(true);expect((await save(a.api,doc,1)).status()).toBe(409);}finally{await a.api.dispose();await b.api.dispose();}});\n> 15 | test('DE02 strict hostile payload, bounds, unknown types, extra identities and schema writes',async()=>{const a=await account();try{const original=await preference(a.api);for(const mutate of [(d:any)=>d.widgets[0].type='arbitrary-code',(d:any)=>d.layout.lg[0].x=-1,(d:any)=>d.layout.lg[0].w=999,(d:any)=>d.widgets.push(...Array(21).fill(d.widgets[0])),(d:any)=>d.schemaVersion=1,(d:any)=>d.widgets[0].settings.sql='DROP TABLE',(d:any)=>d.layout.lg[1]={...d.layout.lg[0],i:d.layout.lg[1].i}]){const d={schemaVersion:2,widgets:copy(original.widgets),layout:copy(original.layout)};mutate(d);expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:0,document:d}})).status()).toBe(400);}expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:0,reset:true,userId:'foreign'}})).status()).toBe(400);expect((await preference(a.api)).version).toBe(0);expect((await request.get(origin+'/api/dashboard-engine/preferences')).status()).toBe(401);}finally{await a.api.dispose();}});\n     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^\n  16 | test('DE03 every widget reads real DB with server RBAC; role downgrade preserves safe preference',async()=>{const a=await account();try{for(const type of Object.keys(widgetRegistry)){const r=await a.api.get('/api/dashboard-engine/widget',{params:{type,settings:JSON.stringify(defaultSettings)}});expect(r.status(),type+':'+await r.text()).toBe(200);}const p=await preference(a.api);expect((await save(a.api,p)).status()).toBe(200);await db.membership.update({where:{orgId_userId:{orgId:a.me.org.id,userId:a.me.user.id}},data:{role:'WAREHOUSE'}});for(const type of ['income','receivable','cashflow','financial','balances','overdue','sales','activity'])expect((await a.api.get('/api/dashboard-engine/widget',{params:{type}})).status(),type).toBe(403);expect((await a.api.get('/api/dashboard-engine/widget',{params:{type:'stock'}})).status()).toBe(200);const retained=await preference(a.api);expect(retained.widgets.length).toBe(p.widgets.length);const newFinance={id:'injected',type:'balances',visible:true,settings:defaultSettings};const widgets=[newFinance],layout=Object.fromEntries(Object.keys(columns).map(bp=>[bp,pack(widgets,bp as Breakpoint)]));expect((await save(a.api,{widgets,layout},1)).status()).toBe(403);}finally{await a.api.dispose();}});\n  17 | test('DE04 schema read migration preserves valid settings and safe unknown omission',async()=>{const a=await account();try{await withTenant(a.me.org.id,()=>db.$transaction(async tx=>{await tx.$executeRaw`SELECT set_config('vila.user_id',${a.me.user.id},true)`;await tx.dashboardPreference.create({data:{orgId:a.me.org.id,userId:a.me.user.id,schemaVersion:1,version:7,layout:{lg:[{i:'keep',x:-10,y:0,w:999,h:2}]},widgets:[{id:'keep',type:'projects',visible:true,settings:{...defaultSettings,limit:10}},{id:'obsolete',type:'retired-widget',visible:true,settings:{}}]}});}));const p=await preference(a.api);expect(p.schemaVersion).toBe(2);expect(p.version).toBe(7);expect(p.widgets).toHaveLength(1);expect(p.widgets[0].settings.limit).toBe(10);expect(p.layout.xs[0].w).toBe(2);expect((await save(a.api,p,7)).status()).toBe(200);}finally{await a.api.dispose();}});\n  18 | test('DE05 browser edit, drag/resize, no fetch while moving, undo/redo, cancel and persistence',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));let widgetCalls=0;page.on('request',r=>{if(r.url().includes('/dashboard-engine/widget'))widgetCalls++;});await page.goto('/');await expect(page.locator('.widget-card')).toHaveCount(10);await expect(page.locator('.skeleton')).toHaveCount(0);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();const before=widgetCalls;const first=page.locator('[data-widget-type=\"income\"]');const handle=first.locator('.widget-drag-handle');const box=(await handle.boundingBox())!;await page.mouse.move(box.x+10,box.y+10);await page.mouse.down();await page.mouse.move(box.x+220,box.y+230,{steps:15});await page.mouse.up();await expect(page.getByRole('button',{name:'Geri al',exact:true})).toBeEnabled();expect(widgetCalls).toBe(before);const sizeBefore=await first.boundingBox();const resize=(await first.locator('.react-resizable-handle').boundingBox())!;await page.mouse.move(resize.x+10,resize.y+10);await page.mouse.down();await page.mouse.move(resize.x+110,resize.y+110,{steps:12});await page.mouse.up();expect((await first.boundingBox())!.height).toBeGreaterThan(sizeBefore!.height);expect(widgetCalls).toBe(before);await page.getByRole('button',{name:'Geri al',exact:true}).click();await page.getByRole('button',{name:'Yinele',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const stored=await preference(a.api);expect(stored.version).toBe(1);expect(stored.layout.lg).not.toEqual(defaults('OWNER').layout.lg);await page.reload();await expect(page.locator('.widget-card')).toHaveCount(10);expect((await preference(a.api)).layout).toEqual(stored.layout);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Tahsil edilen tutar gizle',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(9);await page.getByRole('button',{name:'Vazgeç',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(10);await page.getByRole('button',{name:'Tahsil edilen tutar modülünü aç'}).click();await expect(page.locator('main')).toHaveAttribute('data-view','finance');expect(errors).toEqual([]);}finally{await context.close();await a.api.dispose();}});"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                        "column": 905,
+                        "line": 15
+                      },
+                      "message": "TypeError: _test.request.get is not a function\n\n  13 | test.afterAll(()=>db.$disconnect());\n  14 | test('DE01 preference persistence, user/tenant isolation and concurrent conflict/reset version',async()=>{const a=await account(),b=await account();try{const initial=await preference(a.api);expect(initial.version).toBe(0);const doc=copy(initial);doc.widgets[0].visible=false;const results=await Promise.all([save(a.api,doc),save(a.api,doc)]);expect(results.map(r=>r.status()).sort()).toEqual([200,409]);expect((await preference(a.api)).widgets[0].visible).toBe(false);expect((await preference(b.api)).version).toBe(0);await db.membership.create({data:{orgId:a.me.org.id,userId:b.me.user.id,role:'OWNER'}});expect((await b.api.post('/api/switch',{data:{orgId:a.me.org.id}})).status()).toBe(200);expect((await preference(b.api)).version).toBe(0);expect((await b.api.post('/api/switch',{data:{orgId:b.me.org.id}})).status()).toBe(200);expect((await preference(b.api)).version).toBe(0);expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:1,reset:true}})).status()).toBe(200);expect((await preference(a.api)).isDefault).toBe(true);expect((await save(a.api,doc,1)).status()).toBe(409);}finally{await a.api.dispose();await b.api.dispose();}});\n> 15 | test('DE02 strict hostile payload, bounds, unknown types, extra identities and schema writes',async()=>{const a=await account();try{const original=await preference(a.api);for(const mutate of [(d:any)=>d.widgets[0].type='arbitrary-code',(d:any)=>d.layout.lg[0].x=-1,(d:any)=>d.layout.lg[0].w=999,(d:any)=>d.widgets.push(...Array(21).fill(d.widgets[0])),(d:any)=>d.schemaVersion=1,(d:any)=>d.widgets[0].settings.sql='DROP TABLE',(d:any)=>d.layout.lg[1]={...d.layout.lg[0],i:d.layout.lg[1].i}]){const d={schemaVersion:2,widgets:copy(original.widgets),layout:copy(original.layout)};mutate(d);expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:0,document:d}})).status()).toBe(400);}expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:0,reset:true,userId:'foreign'}})).status()).toBe(400);expect((await preference(a.api)).version).toBe(0);expect((await request.get(origin+'/api/dashboard-engine/preferences')).status()).toBe(401);}finally{await a.api.dispose();}});\n     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^\n  16 | test('DE03 every widget reads real DB with server RBAC; role downgrade preserves safe preference',async()=>{const a=await account();try{for(const type of Object.keys(widgetRegistry)){const r=await a.api.get('/api/dashboard-engine/widget',{params:{type,settings:JSON.stringify(defaultSettings)}});expect(r.status(),type+':'+await r.text()).toBe(200);}const p=await preference(a.api);expect((await save(a.api,p)).status()).toBe(200);await db.membership.update({where:{orgId_userId:{orgId:a.me.org.id,userId:a.me.user.id}},data:{role:'WAREHOUSE'}});for(const type of ['income','receivable','cashflow','financial','balances','overdue','sales','activity'])expect((await a.api.get('/api/dashboard-engine/widget',{params:{type}})).status(),type).toBe(403);expect((await a.api.get('/api/dashboard-engine/widget',{params:{type:'stock'}})).status()).toBe(200);const retained=await preference(a.api);expect(retained.widgets.length).toBe(p.widgets.length);const newFinance={id:'injected',type:'balances',visible:true,settings:defaultSettings};const widgets=[newFinance],layout=Object.fromEntries(Object.keys(columns).map(bp=>[bp,pack(widgets,bp as Breakpoint)]));expect((await save(a.api,{widgets,layout},1)).status()).toBe(403);}finally{await a.api.dispose();}});\n  17 | test('DE04 schema read migration preserves valid settings and safe unknown omission',async()=>{const a=await account();try{await withTenant(a.me.org.id,()=>db.$transaction(async tx=>{await tx.$executeRaw`SELECT set_config('vila.user_id',${a.me.user.id},true)`;await tx.dashboardPreference.create({data:{orgId:a.me.org.id,userId:a.me.user.id,schemaVersion:1,version:7,layout:{lg:[{i:'keep',x:-10,y:0,w:999,h:2}]},widgets:[{id:'keep',type:'projects',visible:true,settings:{...defaultSettings,limit:10}},{id:'obsolete',type:'retired-widget',visible:true,settings:{}}]}});}));const p=await preference(a.api);expect(p.schemaVersion).toBe(2);expect(p.version).toBe(7);expect(p.widgets).toHaveLength(1);expect(p.widgets[0].settings.limit).toBe(10);expect(p.layout.xs[0].w).toBe(2);expect((await save(a.api,p,7)).status()).toBe(200);}finally{await a.api.dispose();}});\n  18 | test('DE05 browser edit, drag/resize, no fetch while moving, undo/redo, cancel and persistence',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));let widgetCalls=0;page.on('request',r=>{if(r.url().includes('/dashboard-engine/widget'))widgetCalls++;});await page.goto('/');await expect(page.locator('.widget-card')).toHaveCount(10);await expect(page.locator('.skeleton')).toHaveCount(0);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();const before=widgetCalls;const first=page.locator('[data-widget-type=\"income\"]');const handle=first.locator('.widget-drag-handle');const box=(await handle.boundingBox())!;await page.mouse.move(box.x+10,box.y+10);await page.mouse.down();await page.mouse.move(box.x+220,box.y+230,{steps:15});await page.mouse.up();await expect(page.getByRole('button',{name:'Geri al',exact:true})).toBeEnabled();expect(widgetCalls).toBe(before);const sizeBefore=await first.boundingBox();const resize=(await first.locator('.react-resizable-handle').boundingBox())!;await page.mouse.move(resize.x+10,resize.y+10);await page.mouse.down();await page.mouse.move(resize.x+110,resize.y+110,{steps:12});await page.mouse.up();expect((await first.boundingBox())!.height).toBeGreaterThan(sizeBefore!.height);expect(widgetCalls).toBe(before);await page.getByRole('button',{name:'Geri al',exact:true}).click();await page.getByRole('button',{name:'Yinele',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const stored=await preference(a.api);expect(stored.version).toBe(1);expect(stored.layout.lg).not.toEqual(defaults('OWNER').layout.lg);await page.reload();await expect(page.locator('.widget-card')).toHaveCount(10);expect((await preference(a.api)).layout).toEqual(stored.layout);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Tahsil edilen tutar gizle',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(9);await page.getByRole('button',{name:'Vazgeç',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(10);await page.getByRole('button',{name:'Tahsil edilen tutar modülünü aç'}).click();await expect(page.locator('main')).toHaveAttribute('data-view','finance');expect(errors).toEqual([]);}finally{await context.close();await a.api.dispose();}});\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts:15:905"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T09:22:13.539Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE02-stri-88223-dentities-and-schema-writes\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE02-stri-88223-dentities-and-schema-writes\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE02-stri-88223-dentities-and-schema-writes\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                    "column": 905,
+                    "line": 15
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3e94e467377695d32b1b-1c81dd6ee04f61d726d8",
+          "file": "dashboard-engine.spec.ts",
+          "line": 15,
+          "column": 5
+        },
+        {
+          "title": "DE03 every widget reads real DB with server RBAC; role downgrade preserves safe preference",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 290,
+                  "error": {
+                    "message": "Error: cashflow:{\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m",
+                    "stack": "Error: cashflow:{\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts:16:340",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                      "column": 340,
+                      "line": 16
+                    },
+                    "snippet": "  14 | test('DE01 preference persistence, user/tenant isolation and concurrent conflict/reset version',async()=>{const a=await account(),b=await account();try{const initial=await preference(a.api);expect(initial.version).toBe(0);const doc=copy(initial);doc.widgets[0].visible=false;const results=await Promise.all([save(a.api,doc),save(a.api,doc)]);expect(results.map(r=>r.status()).sort()).toEqual([200,409]);expect((await preference(a.api)).widgets[0].visible).toBe(false);expect((await preference(b.api)).version).toBe(0);await db.membership.create({data:{orgId:a.me.org.id,userId:b.me.user.id,role:'OWNER'}});expect((await b.api.post('/api/switch',{data:{orgId:a.me.org.id}})).status()).toBe(200);expect((await preference(b.api)).version).toBe(0);expect((await b.api.post('/api/switch',{data:{orgId:b.me.org.id}})).status()).toBe(200);expect((await preference(b.api)).version).toBe(0);expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:1,reset:true}})).status()).toBe(200);expect((await preference(a.api)).isDefault).toBe(true);expect((await save(a.api,doc,1)).status()).toBe(409);}finally{await a.api.dispose();await b.api.dispose();}});\n  15 | test('DE02 strict hostile payload, bounds, unknown types, extra identities and schema writes',async()=>{const a=await account();try{const original=await preference(a.api);for(const mutate of [(d:any)=>d.widgets[0].type='arbitrary-code',(d:any)=>d.layout.lg[0].x=-1,(d:any)=>d.layout.lg[0].w=999,(d:any)=>d.widgets.push(...Array(21).fill(d.widgets[0])),(d:any)=>d.schemaVersion=1,(d:any)=>d.widgets[0].settings.sql='DROP TABLE',(d:any)=>d.layout.lg[1]={...d.layout.lg[0],i:d.layout.lg[1].i}]){const d={schemaVersion:2,widgets:copy(original.widgets),layout:copy(original.layout)};mutate(d);expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:0,document:d}})).status()).toBe(400);}expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:0,reset:true,userId:'foreign'}})).status()).toBe(400);expect((await preference(a.api)).version).toBe(0);expect((await request.get(origin+'/api/dashboard-engine/preferences')).status()).toBe(401);}finally{await a.api.dispose();}});\n> 16 | test('DE03 every widget reads real DB with server RBAC; role downgrade preserves safe preference',async()=>{const a=await account();try{for(const type of Object.keys(widgetRegistry)){const r=await a.api.get('/api/dashboard-engine/widget',{params:{type,settings:JSON.stringify(defaultSettings)}});expect(r.status(),type+':'+await r.text()).toBe(200);}const p=await preference(a.api);expect((await save(a.api,p)).status()).toBe(200);await db.membership.update({where:{orgId_userId:{orgId:a.me.org.id,userId:a.me.user.id}},data:{role:'WAREHOUSE'}});for(const type of ['income','receivable','cashflow','financial','balances','overdue','sales','activity'])expect((await a.api.get('/api/dashboard-engine/widget',{params:{type}})).status(),type).toBe(403);expect((await a.api.get('/api/dashboard-engine/widget',{params:{type:'stock'}})).status()).toBe(200);const retained=await preference(a.api);expect(retained.widgets.length).toBe(p.widgets.length);const newFinance={id:'injected',type:'balances',visible:true,settings:defaultSettings};const widgets=[newFinance],layout=Object.fromEntries(Object.keys(columns).map(bp=>[bp,pack(widgets,bp as Breakpoint)]));expect((await save(a.api,{widgets,layout},1)).status()).toBe(403);}finally{await a.api.dispose();}});\n     |                                                                                                                                                                                                                                                                                                                                                    ^\n  17 | test('DE04 schema read migration preserves valid settings and safe unknown omission',async()=>{const a=await account();try{await withTenant(a.me.org.id,()=>db.$transaction(async tx=>{await tx.$executeRaw`SELECT set_config('vila.user_id',${a.me.user.id},true)`;await tx.dashboardPreference.create({data:{orgId:a.me.org.id,userId:a.me.user.id,schemaVersion:1,version:7,layout:{lg:[{i:'keep',x:-10,y:0,w:999,h:2}]},widgets:[{id:'keep',type:'projects',visible:true,settings:{...defaultSettings,limit:10}},{id:'obsolete',type:'retired-widget',visible:true,settings:{}}]}});}));const p=await preference(a.api);expect(p.schemaVersion).toBe(2);expect(p.version).toBe(7);expect(p.widgets).toHaveLength(1);expect(p.widgets[0].settings.limit).toBe(10);expect(p.layout.xs[0].w).toBe(2);expect((await save(a.api,p,7)).status()).toBe(200);}finally{await a.api.dispose();}});\n  18 | test('DE05 browser edit, drag/resize, no fetch while moving, undo/redo, cancel and persistence',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));let widgetCalls=0;page.on('request',r=>{if(r.url().includes('/dashboard-engine/widget'))widgetCalls++;});await page.goto('/');await expect(page.locator('.widget-card')).toHaveCount(10);await expect(page.locator('.skeleton')).toHaveCount(0);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();const before=widgetCalls;const first=page.locator('[data-widget-type=\"income\"]');const handle=first.locator('.widget-drag-handle');const box=(await handle.boundingBox())!;await page.mouse.move(box.x+10,box.y+10);await page.mouse.down();await page.mouse.move(box.x+220,box.y+230,{steps:15});await page.mouse.up();await expect(page.getByRole('button',{name:'Geri al',exact:true})).toBeEnabled();expect(widgetCalls).toBe(before);const sizeBefore=await first.boundingBox();const resize=(await first.locator('.react-resizable-handle').boundingBox())!;await page.mouse.move(resize.x+10,resize.y+10);await page.mouse.down();await page.mouse.move(resize.x+110,resize.y+110,{steps:12});await page.mouse.up();expect((await first.boundingBox())!.height).toBeGreaterThan(sizeBefore!.height);expect(widgetCalls).toBe(before);await page.getByRole('button',{name:'Geri al',exact:true}).click();await page.getByRole('button',{name:'Yinele',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const stored=await preference(a.api);expect(stored.version).toBe(1);expect(stored.layout.lg).not.toEqual(defaults('OWNER').layout.lg);await page.reload();await expect(page.locator('.widget-card')).toHaveCount(10);expect((await preference(a.api)).layout).toEqual(stored.layout);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Tahsil edilen tutar gizle',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(9);await page.getByRole('button',{name:'Vazgeç',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(10);await page.getByRole('button',{name:'Tahsil edilen tutar modülünü aç'}).click();await expect(page.locator('main')).toHaveAttribute('data-view','finance');expect(errors).toEqual([]);}finally{await context.close();await a.api.dispose();}});\n  19 | test('DE06 catalog/settings/hide, login persistence, reset confirmation and mobile layouts',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage();await page.goto('/');await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Widget Ekle',exact:true}).click();await page.getByRole('button',{name:'Yaklaşan görevler ekle',exact:true}).click();await page.getByRole('button',{name:'Kapat',exact:true}).click();await page.getByRole('button',{name:'Yaklaşan görevler ayarları',exact:true}).click();await page.getByLabel('Kayıt sayısı').selectOption('10');await page.getByRole('button',{name:'Tamam',exact:true}).click();await page.getByRole('button',{name:'Öne çıkan fırsatlar gizle',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const p=await preference(a.api);expect(p.widgets.find((w:any)=>w.type==='tasks').settings.limit).toBe(10);expect(p.widgets.find((w:any)=>w.type==='opportunities').visible).toBe(false);await a.api.post('/api/auth/logout',{data:{}});expect((await a.api.post('/api/auth/login',{data:a.credentials})).status()).toBe(200);expect((await preference(a.api)).layout).toEqual(p.layout);for(const width of [800,390,1440]){await page.setViewportSize({width,height:900});await expect(page.locator('.widget-card').first()).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'Varsayılana Döndür',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();expect((await preference(a.api)).isDefault).toBe(true);}finally{await context.close();await a.api.dispose();}});"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                        "column": 340,
+                        "line": 16
+                      },
+                      "message": "Error: cashflow:{\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m\n\n  14 | test('DE01 preference persistence, user/tenant isolation and concurrent conflict/reset version',async()=>{const a=await account(),b=await account();try{const initial=await preference(a.api);expect(initial.version).toBe(0);const doc=copy(initial);doc.widgets[0].visible=false;const results=await Promise.all([save(a.api,doc),save(a.api,doc)]);expect(results.map(r=>r.status()).sort()).toEqual([200,409]);expect((await preference(a.api)).widgets[0].visible).toBe(false);expect((await preference(b.api)).version).toBe(0);await db.membership.create({data:{orgId:a.me.org.id,userId:b.me.user.id,role:'OWNER'}});expect((await b.api.post('/api/switch',{data:{orgId:a.me.org.id}})).status()).toBe(200);expect((await preference(b.api)).version).toBe(0);expect((await b.api.post('/api/switch',{data:{orgId:b.me.org.id}})).status()).toBe(200);expect((await preference(b.api)).version).toBe(0);expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:1,reset:true}})).status()).toBe(200);expect((await preference(a.api)).isDefault).toBe(true);expect((await save(a.api,doc,1)).status()).toBe(409);}finally{await a.api.dispose();await b.api.dispose();}});\n  15 | test('DE02 strict hostile payload, bounds, unknown types, extra identities and schema writes',async()=>{const a=await account();try{const original=await preference(a.api);for(const mutate of [(d:any)=>d.widgets[0].type='arbitrary-code',(d:any)=>d.layout.lg[0].x=-1,(d:any)=>d.layout.lg[0].w=999,(d:any)=>d.widgets.push(...Array(21).fill(d.widgets[0])),(d:any)=>d.schemaVersion=1,(d:any)=>d.widgets[0].settings.sql='DROP TABLE',(d:any)=>d.layout.lg[1]={...d.layout.lg[0],i:d.layout.lg[1].i}]){const d={schemaVersion:2,widgets:copy(original.widgets),layout:copy(original.layout)};mutate(d);expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:0,document:d}})).status()).toBe(400);}expect((await a.api.post('/api/dashboard-engine/preferences',{data:{version:0,reset:true,userId:'foreign'}})).status()).toBe(400);expect((await preference(a.api)).version).toBe(0);expect((await request.get(origin+'/api/dashboard-engine/preferences')).status()).toBe(401);}finally{await a.api.dispose();}});\n> 16 | test('DE03 every widget reads real DB with server RBAC; role downgrade preserves safe preference',async()=>{const a=await account();try{for(const type of Object.keys(widgetRegistry)){const r=await a.api.get('/api/dashboard-engine/widget',{params:{type,settings:JSON.stringify(defaultSettings)}});expect(r.status(),type+':'+await r.text()).toBe(200);}const p=await preference(a.api);expect((await save(a.api,p)).status()).toBe(200);await db.membership.update({where:{orgId_userId:{orgId:a.me.org.id,userId:a.me.user.id}},data:{role:'WAREHOUSE'}});for(const type of ['income','receivable','cashflow','financial','balances','overdue','sales','activity'])expect((await a.api.get('/api/dashboard-engine/widget',{params:{type}})).status(),type).toBe(403);expect((await a.api.get('/api/dashboard-engine/widget',{params:{type:'stock'}})).status()).toBe(200);const retained=await preference(a.api);expect(retained.widgets.length).toBe(p.widgets.length);const newFinance={id:'injected',type:'balances',visible:true,settings:defaultSettings};const widgets=[newFinance],layout=Object.fromEntries(Object.keys(columns).map(bp=>[bp,pack(widgets,bp as Breakpoint)]));expect((await save(a.api,{widgets,layout},1)).status()).toBe(403);}finally{await a.api.dispose();}});\n     |                                                                                                                                                                                                                                                                                                                                                    ^\n  17 | test('DE04 schema read migration preserves valid settings and safe unknown omission',async()=>{const a=await account();try{await withTenant(a.me.org.id,()=>db.$transaction(async tx=>{await tx.$executeRaw`SELECT set_config('vila.user_id',${a.me.user.id},true)`;await tx.dashboardPreference.create({data:{orgId:a.me.org.id,userId:a.me.user.id,schemaVersion:1,version:7,layout:{lg:[{i:'keep',x:-10,y:0,w:999,h:2}]},widgets:[{id:'keep',type:'projects',visible:true,settings:{...defaultSettings,limit:10}},{id:'obsolete',type:'retired-widget',visible:true,settings:{}}]}});}));const p=await preference(a.api);expect(p.schemaVersion).toBe(2);expect(p.version).toBe(7);expect(p.widgets).toHaveLength(1);expect(p.widgets[0].settings.limit).toBe(10);expect(p.layout.xs[0].w).toBe(2);expect((await save(a.api,p,7)).status()).toBe(200);}finally{await a.api.dispose();}});\n  18 | test('DE05 browser edit, drag/resize, no fetch while moving, undo/redo, cancel and persistence',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));let widgetCalls=0;page.on('request',r=>{if(r.url().includes('/dashboard-engine/widget'))widgetCalls++;});await page.goto('/');await expect(page.locator('.widget-card')).toHaveCount(10);await expect(page.locator('.skeleton')).toHaveCount(0);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();const before=widgetCalls;const first=page.locator('[data-widget-type=\"income\"]');const handle=first.locator('.widget-drag-handle');const box=(await handle.boundingBox())!;await page.mouse.move(box.x+10,box.y+10);await page.mouse.down();await page.mouse.move(box.x+220,box.y+230,{steps:15});await page.mouse.up();await expect(page.getByRole('button',{name:'Geri al',exact:true})).toBeEnabled();expect(widgetCalls).toBe(before);const sizeBefore=await first.boundingBox();const resize=(await first.locator('.react-resizable-handle').boundingBox())!;await page.mouse.move(resize.x+10,resize.y+10);await page.mouse.down();await page.mouse.move(resize.x+110,resize.y+110,{steps:12});await page.mouse.up();expect((await first.boundingBox())!.height).toBeGreaterThan(sizeBefore!.height);expect(widgetCalls).toBe(before);await page.getByRole('button',{name:'Geri al',exact:true}).click();await page.getByRole('button',{name:'Yinele',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const stored=await preference(a.api);expect(stored.version).toBe(1);expect(stored.layout.lg).not.toEqual(defaults('OWNER').layout.lg);await page.reload();await expect(page.locator('.widget-card')).toHaveCount(10);expect((await preference(a.api)).layout).toEqual(stored.layout);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Tahsil edilen tutar gizle',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(9);await page.getByRole('button',{name:'Vazgeç',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(10);await page.getByRole('button',{name:'Tahsil edilen tutar modülünü aç'}).click();await expect(page.locator('main')).toHaveAttribute('data-view','finance');expect(errors).toEqual([]);}finally{await context.close();await a.api.dispose();}});\n  19 | test('DE06 catalog/settings/hide, login persistence, reset confirmation and mobile layouts',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage();await page.goto('/');await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Widget Ekle',exact:true}).click();await page.getByRole('button',{name:'Yaklaşan görevler ekle',exact:true}).click();await page.getByRole('button',{name:'Kapat',exact:true}).click();await page.getByRole('button',{name:'Yaklaşan görevler ayarları',exact:true}).click();await page.getByLabel('Kayıt sayısı').selectOption('10');await page.getByRole('button',{name:'Tamam',exact:true}).click();await page.getByRole('button',{name:'Öne çıkan fırsatlar gizle',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const p=await preference(a.api);expect(p.widgets.find((w:any)=>w.type==='tasks').settings.limit).toBe(10);expect(p.widgets.find((w:any)=>w.type==='opportunities').visible).toBe(false);await a.api.post('/api/auth/logout',{data:{}});expect((await a.api.post('/api/auth/login',{data:a.credentials})).status()).toBe(200);expect((await preference(a.api)).layout).toEqual(p.layout);for(const width of [800,390,1440]){await page.setViewportSize({width,height:900});await expect(page.locator('.widget-card').first()).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'Varsayılana Döndür',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();expect((await preference(a.api)).isDefault).toBe(true);}finally{await context.close();await a.api.dispose();}});\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts:16:340"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T09:22:14.848Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE03-ever-7bfa4-e-preserves-safe-preference\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE03-ever-7bfa4-e-preserves-safe-preference\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE03-ever-7bfa4-e-preserves-safe-preference\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                    "column": 340,
+                    "line": 16
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3e94e467377695d32b1b-ee096aa749d26e268fa1",
+          "file": "dashboard-engine.spec.ts",
+          "line": 16,
+          "column": 5
+        },
+        {
+          "title": "DE04 schema read migration preserves valid settings and safe unknown omission",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 456,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T09:22:16.179Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e94e467377695d32b1b-d95e1bd92b9bc91410e7",
+          "file": "dashboard-engine.spec.ts",
+          "line": 17,
+          "column": 5
+        },
+        {
+          "title": "DE05 browser edit, drag/resize, no fetch while moving, undo/redo, cancel and persistence",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4100,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T09:22:16.723Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e94e467377695d32b1b-3130da8ad8431444dbbf",
+          "file": "dashboard-engine.spec.ts",
+          "line": 18,
+          "column": 5
+        },
+        {
+          "title": "DE06 catalog/settings/hide, login persistence, reset confirmation and mobile layouts",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2117,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts:19:1688",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                      "column": 1688,
+                      "line": 19
+                    },
+                    "snippet": "  17 | test('DE04 schema read migration preserves valid settings and safe unknown omission',async()=>{const a=await account();try{await withTenant(a.me.org.id,()=>db.$transaction(async tx=>{await tx.$executeRaw`SELECT set_config('vila.user_id',${a.me.user.id},true)`;await tx.dashboardPreference.create({data:{orgId:a.me.org.id,userId:a.me.user.id,schemaVersion:1,version:7,layout:{lg:[{i:'keep',x:-10,y:0,w:999,h:2}]},widgets:[{id:'keep',type:'projects',visible:true,settings:{...defaultSettings,limit:10}},{id:'obsolete',type:'retired-widget',visible:true,settings:{}}]}});}));const p=await preference(a.api);expect(p.schemaVersion).toBe(2);expect(p.version).toBe(7);expect(p.widgets).toHaveLength(1);expect(p.widgets[0].settings.limit).toBe(10);expect(p.layout.xs[0].w).toBe(2);expect((await save(a.api,p,7)).status()).toBe(200);}finally{await a.api.dispose();}});\n  18 | test('DE05 browser edit, drag/resize, no fetch while moving, undo/redo, cancel and persistence',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));let widgetCalls=0;page.on('request',r=>{if(r.url().includes('/dashboard-engine/widget'))widgetCalls++;});await page.goto('/');await expect(page.locator('.widget-card')).toHaveCount(10);await expect(page.locator('.skeleton')).toHaveCount(0);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();const before=widgetCalls;const first=page.locator('[data-widget-type=\"income\"]');const handle=first.locator('.widget-drag-handle');const box=(await handle.boundingBox())!;await page.mouse.move(box.x+10,box.y+10);await page.mouse.down();await page.mouse.move(box.x+220,box.y+230,{steps:15});await page.mouse.up();await expect(page.getByRole('button',{name:'Geri al',exact:true})).toBeEnabled();expect(widgetCalls).toBe(before);const sizeBefore=await first.boundingBox();const resize=(await first.locator('.react-resizable-handle').boundingBox())!;await page.mouse.move(resize.x+10,resize.y+10);await page.mouse.down();await page.mouse.move(resize.x+110,resize.y+110,{steps:12});await page.mouse.up();expect((await first.boundingBox())!.height).toBeGreaterThan(sizeBefore!.height);expect(widgetCalls).toBe(before);await page.getByRole('button',{name:'Geri al',exact:true}).click();await page.getByRole('button',{name:'Yinele',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const stored=await preference(a.api);expect(stored.version).toBe(1);expect(stored.layout.lg).not.toEqual(defaults('OWNER').layout.lg);await page.reload();await expect(page.locator('.widget-card')).toHaveCount(10);expect((await preference(a.api)).layout).toEqual(stored.layout);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Tahsil edilen tutar gizle',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(9);await page.getByRole('button',{name:'Vazgeç',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(10);await page.getByRole('button',{name:'Tahsil edilen tutar modülünü aç'}).click();await expect(page.locator('main')).toHaveAttribute('data-view','finance');expect(errors).toEqual([]);}finally{await context.close();await a.api.dispose();}});\n> 19 | test('DE06 catalog/settings/hide, login persistence, reset confirmation and mobile layouts',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage();await page.goto('/');await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Widget Ekle',exact:true}).click();await page.getByRole('button',{name:'Yaklaşan görevler ekle',exact:true}).click();await page.getByRole('button',{name:'Kapat',exact:true}).click();await page.getByRole('button',{name:'Yaklaşan görevler ayarları',exact:true}).click();await page.getByLabel('Kayıt sayısı').selectOption('10');await page.getByRole('button',{name:'Tamam',exact:true}).click();await page.getByRole('button',{name:'Öne çıkan fırsatlar gizle',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const p=await preference(a.api);expect(p.widgets.find((w:any)=>w.type==='tasks').settings.limit).toBe(10);expect(p.widgets.find((w:any)=>w.type==='opportunities').visible).toBe(false);await a.api.post('/api/auth/logout',{data:{}});expect((await a.api.post('/api/auth/login',{data:a.credentials})).status()).toBe(200);expect((await preference(a.api)).layout).toEqual(p.layout);for(const width of [800,390,1440]){await page.setViewportSize({width,height:900});await expect(page.locator('.widget-card').first()).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'Varsayılana Döndür',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();expect((await preference(a.api)).isDefault).toBe(true);}finally{await context.close();await a.api.dispose();}});\n     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^\n  20 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                        "column": 1688,
+                        "line": 19
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  17 | test('DE04 schema read migration preserves valid settings and safe unknown omission',async()=>{const a=await account();try{await withTenant(a.me.org.id,()=>db.$transaction(async tx=>{await tx.$executeRaw`SELECT set_config('vila.user_id',${a.me.user.id},true)`;await tx.dashboardPreference.create({data:{orgId:a.me.org.id,userId:a.me.user.id,schemaVersion:1,version:7,layout:{lg:[{i:'keep',x:-10,y:0,w:999,h:2}]},widgets:[{id:'keep',type:'projects',visible:true,settings:{...defaultSettings,limit:10}},{id:'obsolete',type:'retired-widget',visible:true,settings:{}}]}});}));const p=await preference(a.api);expect(p.schemaVersion).toBe(2);expect(p.version).toBe(7);expect(p.widgets).toHaveLength(1);expect(p.widgets[0].settings.limit).toBe(10);expect(p.layout.xs[0].w).toBe(2);expect((await save(a.api,p,7)).status()).toBe(200);}finally{await a.api.dispose();}});\n  18 | test('DE05 browser edit, drag/resize, no fetch while moving, undo/redo, cancel and persistence',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));let widgetCalls=0;page.on('request',r=>{if(r.url().includes('/dashboard-engine/widget'))widgetCalls++;});await page.goto('/');await expect(page.locator('.widget-card')).toHaveCount(10);await expect(page.locator('.skeleton')).toHaveCount(0);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();const before=widgetCalls;const first=page.locator('[data-widget-type=\"income\"]');const handle=first.locator('.widget-drag-handle');const box=(await handle.boundingBox())!;await page.mouse.move(box.x+10,box.y+10);await page.mouse.down();await page.mouse.move(box.x+220,box.y+230,{steps:15});await page.mouse.up();await expect(page.getByRole('button',{name:'Geri al',exact:true})).toBeEnabled();expect(widgetCalls).toBe(before);const sizeBefore=await first.boundingBox();const resize=(await first.locator('.react-resizable-handle').boundingBox())!;await page.mouse.move(resize.x+10,resize.y+10);await page.mouse.down();await page.mouse.move(resize.x+110,resize.y+110,{steps:12});await page.mouse.up();expect((await first.boundingBox())!.height).toBeGreaterThan(sizeBefore!.height);expect(widgetCalls).toBe(before);await page.getByRole('button',{name:'Geri al',exact:true}).click();await page.getByRole('button',{name:'Yinele',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const stored=await preference(a.api);expect(stored.version).toBe(1);expect(stored.layout.lg).not.toEqual(defaults('OWNER').layout.lg);await page.reload();await expect(page.locator('.widget-card')).toHaveCount(10);expect((await preference(a.api)).layout).toEqual(stored.layout);await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Tahsil edilen tutar gizle',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(9);await page.getByRole('button',{name:'Vazgeç',exact:true}).click();await expect(page.locator('.widget-card')).toHaveCount(10);await page.getByRole('button',{name:'Tahsil edilen tutar modülünü aç'}).click();await expect(page.locator('main')).toHaveAttribute('data-view','finance');expect(errors).toEqual([]);}finally{await context.close();await a.api.dispose();}});\n> 19 | test('DE06 catalog/settings/hide, login persistence, reset confirmation and mobile layouts',async({browser})=>{const a=await account();const context=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});try{const page=await context.newPage();await page.goto('/');await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();await page.getByRole('button',{name:'Widget Ekle',exact:true}).click();await page.getByRole('button',{name:'Yaklaşan görevler ekle',exact:true}).click();await page.getByRole('button',{name:'Kapat',exact:true}).click();await page.getByRole('button',{name:'Yaklaşan görevler ayarları',exact:true}).click();await page.getByLabel('Kayıt sayısı').selectOption('10');await page.getByRole('button',{name:'Tamam',exact:true}).click();await page.getByRole('button',{name:'Öne çıkan fırsatlar gizle',exact:true}).click();await page.getByRole('button',{name:'Kaydet',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();const p=await preference(a.api);expect(p.widgets.find((w:any)=>w.type==='tasks').settings.limit).toBe(10);expect(p.widgets.find((w:any)=>w.type==='opportunities').visible).toBe(false);await a.api.post('/api/auth/logout',{data:{}});expect((await a.api.post('/api/auth/login',{data:a.credentials})).status()).toBe(200);expect((await preference(a.api)).layout).toEqual(p.layout);for(const width of [800,390,1440]){await page.setViewportSize({width,height:900});await expect(page.locator('.widget-card').first()).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}await page.getByRole('button',{name:\"Dashboard'u Özelleştir\"}).click();page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'Varsayılana Döndür',exact:true}).click();await expect(page.getByRole('button',{name:\"Dashboard'u Özelleştir\"})).toBeVisible();expect((await preference(a.api)).isDefault).toBe(true);}finally{await context.close();await a.api.dispose();}});\n     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^\n  20 |\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts:19:1688"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T09:22:21.213Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE06-cata-e3332-irmation-and-mobile-layouts\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE06-cata-e3332-irmation-and-mobile-layouts\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE06-cata-e3332-irmation-and-mobile-layouts\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\test-results\\dashboard-engine-DE06-cata-e3332-irmation-and-mobile-layouts\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-dashboard\\tests\\e2e\\dashboard-engine.spec.ts",
+                    "column": 1688,
+                    "line": 19
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3e94e467377695d32b1b-05bd0830e0e2e8f3e313",
+          "file": "dashboard-engine.spec.ts",
+          "line": 19,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-04T09:22:10.550Z",
+    "duration": 13398.737000000001,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}
