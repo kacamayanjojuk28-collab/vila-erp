@@ -84,3 +84,6 @@ Kaynak commit dosyaları:
 İzole geliştirme kabulü için kalan ölçülmüş engel yok. Production yayını yapılmadı; bu rapor production onayı değildir. WebSocket, marketplace, harici JavaScript widget'ları, şirket lisanslama veya yeni ERP modülü eklenmedi.
 
 Pilot operasyonda sorumlu kişi bu feature commit'ini incelemeli, hedef ortam yedeğini doğrulamalı ve ortamına özel bağlantı/runtime role/14 migration zincirini planlamalıdır. Migration ve deployment bu görevin dışında, ayrı kontrollü operasyon olarak yapılmalıdır. Yerel inceleme 3500 adresinde yapılabilir; eski Finance başlatıcısı 3400 hedefini korur.
+
+## Nakit akışı büyütme düzeltmesi — 5 Kasım 2026
+Normal kartın width:100% kuralı büyütülmüş sabit konumlu karta da uygulanarak sağ kenarda taşmaya neden oluyordu. Kural yalnız .is-focus olmayan kartlara sınırlandı. Yeni cashflow-expand E2E testi 1440px ve 390px ekranlarda, normal/azaltılmış animasyonla ortalama, ekran sınırları, yatay taşma, görünür kapatma ve Escape sonrası eski genişliğin korunmasını doğrular. Test geçti; TypeScript ve production build başarılı. Önceki 64 testin sonuçları tarihsel olarak korunur; bu düzeltmede hedefli regresyon testi çalıştırıldı. Kanıt: docs/verification/cashflow-expand-results.json.
