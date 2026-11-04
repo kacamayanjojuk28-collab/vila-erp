@@ -208,3 +208,188 @@ model MutationReceipt {
   createdAt DateTime @default(now())
   @@id([orgId, scope, key])
 }
+
+
+model LedgerAccount {
+id String @id @default(cuid())
+orgId String
+code String
+name String
+category String
+purpose String?
+parentId String?
+partyId String?
+active Boolean @default(true)
+@@unique([orgId,id])
+@@unique([orgId,code])
+@@unique([orgId,purpose])
+}
+
+model AccountingPeriod {
+id String @id @default(cuid())
+orgId String
+name String
+startsOn DateTime @db.Date
+endsOn DateTime @db.Date
+status String @default("OPEN")
+closedBy String?
+closedAt DateTime? @db.Timestamptz(3)
+@@unique([orgId,id])
+@@index([orgId,startsOn,endsOn])
+}
+
+model FinanceCounter {
+id String @id @default(cuid())
+orgId String
+kind String
+value Int @default(0)
+@@unique([orgId,kind])
+}
+
+model TaxRule {
+id String @id @default(cuid())
+orgId String
+code String
+classification String
+rate Decimal @db.Decimal(5,2)
+validFrom DateTime @db.Date
+validTo DateTime @db.Date
+@@unique([orgId,id])
+@@unique([orgId,code,validFrom])
+}
+
+model JournalEntry {
+id String @id @default(cuid())
+orgId String
+number String
+periodId String
+effectiveOn DateTime @db.Date
+currency String @default("TRY")
+sourceType String
+sourceId String
+description String
+createdBy String
+status String @default("DRAFT")
+reversalOf String? @unique
+createdAt DateTime @default(now()) @db.Timestamptz(3)
+@@unique([orgId,id])
+@@unique([orgId,number])
+@@unique([orgId,sourceType,sourceId])
+@@index([orgId,effectiveOn,id])
+}
+
+model JournalLine {
+id String @id @default(cuid())
+orgId String
+entryId String
+accountId String
+partyId String?
+debit Decimal @db.Decimal(18,2)
+credit Decimal @db.Decimal(18,2)
+description String
+@@unique([orgId,id])
+@@index([orgId,entryId])
+@@index([orgId,partyId,accountId])
+@@index([orgId,accountId,entryId])
+}
+
+model FinancialInvoice {
+id String @id @default(cuid())
+orgId String
+number String
+kind String
+partyId String
+partyName String
+issuedOn DateTime @db.Date
+dueOn DateTime @db.Date
+currency String @default("TRY")
+status String @default("DRAFT")
+orderId String?
+movementId String?
+originalId String?
+net Decimal @db.Decimal(18,2)
+discount Decimal @db.Decimal(18,2)
+tax Decimal @db.Decimal(18,2)
+total Decimal @db.Decimal(18,2)
+journalId String? @unique
+createdBy String
+createdAt DateTime @default(now()) @db.Timestamptz(3)
+@@unique([orgId,id])
+@@unique([orgId,number])
+@@index([orgId,partyId,issuedOn])
+@@index([orgId,status,dueOn])
+@@index([orgId,originalId])
+}
+
+model InvoiceLine {
+id String @id @default(cuid())
+orgId String
+invoiceId String
+productId String?
+sourceLineId String?
+originalLineId String?
+name String
+quantity Decimal @db.Decimal(18,3)
+unitPrice Decimal @db.Decimal(18,2)
+discountRate Decimal @db.Decimal(5,2)
+taxRuleId String
+taxRate Decimal @db.Decimal(5,2)
+taxClassification String
+accountId String
+net Decimal @db.Decimal(18,2)
+discount Decimal @db.Decimal(18,2)
+tax Decimal @db.Decimal(18,2)
+total Decimal @db.Decimal(18,2)
+@@unique([orgId,id])
+@@index([orgId,invoiceId])
+@@index([orgId,sourceLineId])
+}
+
+model FinancePayment {
+id String @id
+orgId String
+partyId String
+partyName String
+accountId String
+journalId String @unique
+direction String
+amount Decimal @db.Decimal(18,2)
+currency String @default("TRY")
+effectiveOn DateTime @db.Date
+reversalOf String? @unique
+createdBy String
+createdAt DateTime @default(now()) @db.Timestamptz(3)
+@@unique([orgId,id])
+@@index([orgId,partyId,effectiveOn])
+}
+
+model PaymentAllocation {
+id String @id @default(cuid())
+orgId String
+paymentId String
+invoiceId String
+journalId String @unique
+amount Decimal @db.Decimal(18,2)
+effectiveOn DateTime @db.Date
+reversalOf String? @unique
+createdBy String
+createdAt DateTime @default(now()) @db.Timestamptz(3)
+@@unique([orgId,id])
+@@index([orgId,paymentId,effectiveOn])
+@@index([orgId,invoiceId,effectiveOn])
+}
+
+model ReconciliationRecord {
+id String @id @default(cuid())
+orgId String
+asOf DateTime @db.Date
+knownAt DateTime @db.Timestamptz(3)
+status String
+debit Decimal @db.Decimal(18,2)
+credit Decimal @db.Decimal(18,2)
+partyDifference Decimal @db.Decimal(18,2)
+invoiceDifference Decimal @db.Decimal(18,2)
+createdBy String
+createdAt DateTime @default(now()) @db.Timestamptz(3)
+@@index([orgId,asOf])
+}

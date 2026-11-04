@@ -1,3 +1,4 @@
+import { handleFinanceCore } from "@/lib/finance-api";
 import { canRead } from "@/lib/permissions";
 import { beginLogin, finishLogin } from "@/lib/login-limit";
 import {validateEndpoint} from "@/lib/api-contract";
@@ -55,7 +56,7 @@ async function handler(
 ) {
   try {
     const { path } = await params;
-    validateEndpoint(path, req.method);
+    if(path[0]!=="finance-core") validateEndpoint(path, req.method);
     const [kind, id, action] = path;
     const url = new URL(req.url);
     const write = req.method !== "GET";
@@ -70,6 +71,7 @@ async function handler(
         throw new AppError("Geçersiz JSON isteği.", 400);
       }
     }
+    if(kind === "finance-core") { const actor=await session(); if(write)await rateLimit("write:"+actor.userId,600); return await withTenant(actor.orgId,()=>handleFinanceCore(req,path.slice(1),body,actor,url)); }
     if (kind === "auth" && write) {
       if (id === "logout") {
         const a = await session();
@@ -231,7 +233,8 @@ async function handler(
       const result = await transaction(async (tx) => {
         if (
           v.currency !== a.org.currency &&
-          ((await tx.document.count({ where: { orgId: a.orgId } })) ||
+          ((await tx.journalEntry.count({where:{orgId:a.orgId}})) ||
+          (await tx.document.count({ where: { orgId: a.orgId } })) ||
             (await tx.payment.count({ where: { orgId: a.orgId } })))
         )
           throw new AppError(
@@ -659,6 +662,7 @@ async function handler(
     }
     if (kind === "finance" && id && action === "reverse" && write) {
       authorize(a, "finance");
+      if(await db.financePayment.findFirst({where:{orgId:a.orgId,id}}))throw new AppError("Bu ödeme Finance Core üzerinden ters çevrilmelidir.",409);
       const v = z
         .object({ reason: z.string().trim().min(3).max(160) })
         .parse(body);

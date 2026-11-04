@@ -22,6 +22,10 @@ try{
  await c.query(`REVOKE UPDATE, DELETE ON "Audit", "Movement", "Payment", "MutationReceipt" FROM ${ident(role)}`);
  await c.query(`REVOKE ALL ON "_prisma_migrations" FROM ${ident(role)}`);
  await c.query(`ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO ${ident(role)}`);
+ for(const table of ['FinancePayment','PaymentAllocation','JournalLine','TaxRule','ReconciliationRecord']) {
+  if((await c.query('SELECT to_regclass($1) AS name',[ident(table)])).rows[0].name)
+   await c.query(`REVOKE UPDATE, DELETE ON ${ident(table)} FROM ${ident(role)}`);
+ }
  await c.query('COMMIT');
  console.log('Migrations and restricted runtime permissions applied.');
 }catch(e){await c.query('ROLLBACK');throw e}finally{await c.end()}

@@ -22,6 +22,7 @@ import { useCallback, useEffect, useState } from "react";
 import Auth from "./auth";
 import CalendarPage from "./calendar";
 import Dashboard from "./dashboard";
+import FinanceCore from "./finance-core";
 import Editor from "./editor";
 import ModulePage from "./module-page";
 import { useReferenceMotion } from "./motion";
@@ -258,6 +259,8 @@ export default function Workspace() {
             <p role="alert" className="error">Bu işlem için yetkiniz yok.</p>
           ) : view === "overview" ? (
             <Dashboard revision={revision} money={money} go={go} role={me.role} />
+          ) : view === "finance-core" ? (
+            <FinanceCore me={me} money={money} notify={notify} />
           ) : view === "calendar" ? (
             <CalendarPage
               revision={revision}

@@ -19,6 +19,7 @@ const email = { key: "email", label: "E-posta", type: "email" },
     required: true,
   };
 export const modules: Record<string, Module> = {
+  "finance-core": {title:"Finans çekirdeği",subtitle:"Cari, iç fatura ve çift taraflı muhasebe",fields:[]},
   calendar: {
     title: "Ekip takvimi",
     subtitle: "Görev ve görüşme takvimi.",

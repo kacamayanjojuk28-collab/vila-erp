@@ -417,6 +417,11 @@ export async function archive(a: Actor, kind: string, id: string) {
       await tx.document.update({ where: { id }, data: { archived: true } });
     } else {
       const archivedRecord = await ref(tx, a, id, kind);
+      if (["customers","suppliers"].includes(kind) && (
+        await tx.financialInvoice.count({where:{orgId:a.orgId,partyId:id}}) ||
+        await tx.financePayment.count({where:{orgId:a.orgId,partyId:id}}) ||
+        await tx.journalLine.count({where:{orgId:a.orgId,partyId:id}})
+      )) throw new AppError("Finansal hareketi olan cari arşivlenemez.",409);
       if (["customers", "projects"].includes(kind)) {
         const key = kind === "customers" ? "customerId" : "projectId";
         if (

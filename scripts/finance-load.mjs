@@ -1,0 +1,38 @@
+import pg from 'pg';import {request} from '@playwright/test';import {randomUUID,randomBytes} from 'node:crypto';import {writeFileSync} from 'node:fs';import assert from 'node:assert/strict';
+const url=new URL(process.env.DATABASE_URL);if(url.hostname!=='127.0.0.1'||url.port!=='9543'||url.pathname!=='/vila_finance_v1')throw Error('Finance DB required');
+const origin=process.env.VILA_TEST_ORIGIN,date=new Date().toLocaleDateString('sv-SE'),year=date.slice(0,4),count=2500;
+const tenants=[];
+async function post(api,path,data){const r=await api.post('/api/'+path,{data,headers:{'Idempotency-Key':randomBytes(16).toString('hex')}});assert.equal(r.status(),200,await r.text());return r.json();}
+for(let tenant=0;tenant<2;tenant++){
+ const api=await request.newContext({baseURL:origin,extraHTTPHeaders:{Origin:origin}});
+ await post(api,'auth/register',{email:`fc-load-${randomUUID()}@example.test`,password:randomBytes(20).toString('hex'),name:'Load Owner',company:'Finance load '+tenant});
+ const me=await(await api.get('/api/me')).json();const boot=await post(api,'finance-core/bootstrap',{acknowledgeInternalPolicy:true,startsOn:year+'-01-01',endsOn:year+'-12-31',name:'Load year'});
+ const rule=await post(api,'finance-core/tax-rules',{code:'EXAMPLE20',classification:'STANDARD',rate:'20',validFrom:year+'-01-01',validTo:year+'-12-31'});
+ const party=await post(api,'customers',{name:'LOAD PARTY '+tenant,status:'ACTIVE',data:{email:'load@example.test',phone:'',company:'Load',segment:'SMB',notes:''}});
+ const accounts=(await(await api.get('/api/finance-core/accounts?take=100')).json()).rows,acc=p=>accounts.find(a=>a.purpose===p).id;
+ const c=new pg.Client({connectionString:url.href});await c.connect();const prefix='load-'+randomUUID(),net=1000*(tenant+1),tax=net/5,total=net+tax;
+ // Scale fixtures only; business correctness is tested through HTTP separately.
+ try{for(let start=1;start<=count;start+=100){const end=Math.min(start+99,count);await c.query('BEGIN');await c.query("SELECT set_config('vila.tenant_id',$1,true)",[me.org.id]);
+ await c.query(`INSERT INTO "FinancialInvoice"(id,"orgId",number,kind,"partyId","partyName","issuedOn","dueOn",net,discount,tax,total,"createdBy") SELECT $1||'-i-'||g,$2,'LOAD-'||g,'SALE',$3,$4,$5::date,$5::date,$6::numeric,0,$7::numeric,$8::numeric,$9 FROM generate_series($10::int,$11::int) g`,[prefix,me.org.id,party.id,party.name,date,net,tax,total,me.user.id,start,end]);
+ await c.query(`INSERT INTO "InvoiceLine"(id,"orgId","invoiceId",name,quantity,"unitPrice","discountRate","taxRuleId","taxRate","taxClassification","accountId",net,discount,tax,total) SELECT $1||'-l-'||g,$2,$1||'-i-'||g,'LOAD service',1,$3::numeric,0,$4,20,'STANDARD',$5,$3::numeric,0,$6::numeric,$7::numeric FROM generate_series($8::int,$9::int) g`,[prefix,me.org.id,net,rule.id,acc('REVENUE'),tax,total,start,end]);
+ await c.query(`INSERT INTO "JournalEntry"(id,"orgId",number,"periodId","effectiveOn","sourceType","sourceId",description,"createdBy") SELECT $1||'-j-'||g,$2,'LOAD-JV-'||g,$3,$4::date,'INVOICE',$1||'-i-'||g,'LOAD invoice',$5 FROM generate_series($6::int,$7::int) g`,[prefix,me.org.id,boot.period.id,date,me.user.id,start,end]);
+ for(const [purpose,d,cr,p]of [['AR',total,0,party.id],['REVENUE',0,net,null],['OUTPUT_TAX',0,tax,null]])await c.query(`INSERT INTO "JournalLine"(id,"orgId","entryId","accountId","partyId",debit,credit,description) SELECT $1||'-'||$2||'-jl-'||g,$3,$1||'-j-'||g,$4,$5,$6::numeric,$7::numeric,'LOAD' FROM generate_series($8::int,$9::int) g`,[prefix,purpose,me.org.id,acc(purpose),p,d,cr,start,end]);
+ await c.query(`UPDATE "JournalEntry" SET status='POSTED' WHERE "orgId"=$1 AND id LIKE $2 AND status='DRAFT'`,[me.org.id,prefix+'-j-%']);
+ await c.query(`UPDATE "FinancialInvoice" SET status='APPROVED' WHERE "orgId"=$1 AND id LIKE $2 AND status='DRAFT'`,[me.org.id,prefix+'-i-%']);
+ await c.query(`UPDATE "FinancialInvoice" SET status='POSTED',"journalId"=replace(id,'-i-','-j-') WHERE "orgId"=$1 AND id LIKE $2 AND status='APPROVED'`,[me.org.id,prefix+'-i-%']);await c.query('COMMIT');}
+ }catch(e){await c.query('ROLLBACK');throw e;}finally{await c.end();}
+ tenants.push({api,orgId:me.org.id,partyId:party.id,total:count*total});
+}
+const result={date,fixture:{tenants:2,invoicesPerTenant:count,journalLinesPerTenant:count*3,method:'Runtime-role SQL scale fixtures, every finance constraint/RLS enabled; no customer data'},measurements:[],plans:[]};
+// Record the new tenant plan before measured requests; EXPLAIN does not execute or warm data.
+const probe=new pg.Client({connectionString:url.href});await probe.connect();try{await probe.query('BEGIN');await probe.query("SELECT set_config('vila.tenant_id',$1,true)",[tenants[0].orgId]);
+ const trial=`WITH amounts AS MATERIALIZED (SELECT l."accountId",sum(l.debit) debit,sum(l.credit) credit FROM "JournalLine" l JOIN "JournalEntry" j ON j.id=l."entryId" AND j."orgId"=l."orgId" WHERE j."orgId"=$1 AND j.status='POSTED' AND j."effectiveOn"<=$2::date AND j."createdAt"<=$3 GROUP BY l."accountId") SELECT a.id,a.code,coalesce(x.debit,0),coalesce(x.credit,0),count(*) OVER() FROM "LedgerAccount" a LEFT JOIN amounts x ON x."accountId"=a.id WHERE a."orgId"=$1 ORDER BY a.code LIMIT 25`;
+ result.coldTrialAggregatePlan=(await probe.query('EXPLAIN (FORMAT JSON) '+trial,[tenants[0].orgId,date,new Date()])).rows[0]['QUERY PLAN'];await probe.query('ROLLBACK');}finally{await probe.end();}
+for(const concurrency of [1,4,20]){
+ const times=[],errors=[];let next=0;
+ await Promise.all(Array.from({length:concurrency},async()=>{while(true){const i=next++;if(i>=80)break;const tenant=tenants[i%2],resource=['open','trial','statement','aging'][Math.floor(i/2)%4],start=performance.now();try{const r=await tenant.api.get('/api/finance-core/'+resource+'?take=25&partyId='+tenant.partyId);assert.equal(r.status(),200);const data=await r.json();assert.ok(data.rows.length<=25);if(resource==='statement')assert.equal(Number(data.balance),tenant.total);if(resource==='open')assert.equal(data.total,count);if(resource==='aging')assert.equal(data.rows.reduce((s,x)=>s+Number(x.amount),0),tenant.total);if(resource==='trial'){assert.equal(data.totals.debit,data.totals.credit);assert.equal(Number(data.totals.debit),tenant.total);}times.push(performance.now()-start);}catch(e){errors.push(String(e).replace(/vila_session=[a-f0-9]+/g,'vila_session=[REDACTED]'));}}}));
+ times.sort((a,b)=>a-b);const pct=p=>times[Math.min(times.length-1,Math.ceil(times.length*p)-1)];result.measurements.push({concurrency,requests:80,successes:times.length,errors,p50Ms:pct(.5),p95Ms:pct(.95),p99Ms:pct(.99)});
+}
+const c=new pg.Client({connectionString:url.href});await c.connect();try{await c.query('BEGIN');await c.query("SELECT set_config('vila.tenant_id',$1,true)",[tenants[0].orgId]);for(const sql of ['SELECT sum(l.debit-l.credit) FROM "JournalLine" l JOIN "JournalEntry" j ON j.id=l."entryId" AND j."orgId"=l."orgId" WHERE l."orgId"=$1 AND j.status=\'POSTED\' AND j."effectiveOn"<=CURRENT_DATE','SELECT id,total FROM "FinancialInvoice" WHERE "orgId"=$1 AND status=\'POSTED\' ORDER BY "dueOn",id LIMIT 25'])result.plans.push((await c.query('EXPLAIN (ANALYZE,BUFFERS,FORMAT JSON) '+sql,[tenants[0].orgId])).rows[0]['QUERY PLAN']);await c.query('ROLLBACK');}finally{await c.end();}
+for(const t of tenants){const r=await t.api.get('/api/finance-core/reconciliation');const x=await r.json();assert.equal(x.status,'MATCH');await t.api.dispose();}
+writeFileSync('docs/verification/finance-performance.json',JSON.stringify(result,null,2));console.log(result.measurements.map(({errors,...m})=>({...m,errorCount:errors.length})));assert.ok(result.measurements.every(m=>m.errors.length===0));

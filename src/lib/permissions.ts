@@ -10,6 +10,7 @@ export function canWrite(role: string, scope: string) {
 }
 export function canRead(role: string, scope: string): boolean {
   if (!Object.hasOwn(writeScopes, role)) return false;
+  if (scope === "finance-core") return canWrite(role, "finance");
   if (scope === "audit") return canWrite(role, "settings");
   if (scope === "reports") return canRead(role, "sales") || canRead(role, "purchases");
   if (["finance", "quotes", "sales", "purchases", "requests"].includes(scope))
