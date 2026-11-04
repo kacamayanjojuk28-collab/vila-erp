@@ -1,0 +1,700 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\node_modules\\playwright\\cli.js",
+      "test",
+      "tests/e2e/finance-core.spec.ts"
+    ],
+    "configFile": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\playwright.config.ts",
+    "rootDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-finance/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-finance/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/enesc/Documents/Codex/2026-11-04/vila-erp-final-stabilization-release-candidate-2/work/vila-finance/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e",
+        "snapshotDir": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "baseURL": "http://localhost:3400",
+          "channel": "msedge",
+          "headless": true,
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "docs/verification/e2e-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "finance-core.spec.ts",
+      "file": "finance-core.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "FC01 full sale: posted invoice, full receipt, statement and trial balance reconcile",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 197,
+                  "error": {
+                    "message": "Error: finance-core/invoices/cmw1bp98a0015ugbbl7td6fdc/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: finance-core/invoices/cmw1bp98a0015ugbbl7td6fdc/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:27:49",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                      "column": 187,
+                      "line": 10
+                    },
+                    "snippet": "   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                        "column": 187,
+                        "line": 10
+                      },
+                      "message": "Error: finance-core/invoices/cmw1bp98a0015ugbbl7td6fdc/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n\n   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:27:49"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:44.128Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC01-full-sal-b7e8e-and-trial-balance-reconcile\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC01-full-sal-b7e8e-and-trial-balance-reconcile\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC01-full-sal-b7e8e-and-trial-balance-reconcile\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                    "column": 187,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-f40923229844d9c8f8f8",
+          "file": "finance-core.spec.ts",
+          "line": 26,
+          "column": 5
+        },
+        {
+          "title": "FC02 partial receipt 1200-500=700; historical aging ignores later allocation",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 107,
+                  "error": {
+                    "message": "Error: finance-core/invoices/cmw1bpacd002kugbbzy89tqto/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: finance-core/invoices/cmw1bpacd002kugbbzy89tqto/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:30:91",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                      "column": 187,
+                      "line": 10
+                    },
+                    "snippet": "   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                        "column": 187,
+                        "line": 10
+                      },
+                      "message": "Error: finance-core/invoices/cmw1bpacd002kugbbzy89tqto/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n\n   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:30:91"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:46.198Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC02-partial--4eadb-ng-ignores-later-allocation\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC02-partial--4eadb-ng-ignores-later-allocation\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC02-partial--4eadb-ng-ignores-later-allocation\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                    "column": 187,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-64f5d44aa48128c79d8e",
+          "file": "finance-core.spec.ts",
+          "line": 29,
+          "column": 5
+        },
+        {
+          "title": "FC03 advance 300 is liability, later allocated once; linked allocation reversal preserves history",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 99,
+                  "error": {
+                    "message": "Error: finance-core/payments: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: finance-core/payments: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:34:35",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                      "column": 187,
+                      "line": 10
+                    },
+                    "snippet": "   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                        "column": 187,
+                        "line": 10
+                      },
+                      "message": "Error: finance-core/payments: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n\n   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:34:35"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:47.657Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC03-advance--99468--reversal-preserves-history\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC03-advance--99468--reversal-preserves-history\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC03-advance--99468--reversal-preserves-history\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                    "column": 187,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-3b4fa3d698b72428f1c2",
+          "file": "finance-core.spec.ts",
+          "line": 33,
+          "column": 5
+        },
+        {
+          "title": "FC04 purchase receipt and two partial invoices do not double-post inventory; supplier partial payment",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 536,
+                  "error": {
+                    "message": "Error: finance-core/invoices/cmw1bpcz6005jugbbsj3iuvyh/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: finance-core/invoices/cmw1bpcz6005jugbbsj3iuvyh/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:44:40",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                      "column": 187,
+                      "line": 10
+                    },
+                    "snippet": "   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                        "column": 187,
+                        "line": 10
+                      },
+                      "message": "Error: finance-core/invoices/cmw1bpcz6005jugbbsj3iuvyh/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n\n   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:44:40"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:49.245Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC04-purchase-e00af-ry-supplier-partial-payment\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC04-purchase-e00af-ry-supplier-partial-payment\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC04-purchase-e00af-ry-supplier-partial-payment\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                    "column": 187,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-74dfe1b2662baedf0265",
+          "file": "finance-core.spec.ts",
+          "line": 39,
+          "column": 5
+        },
+        {
+          "title": "FC05 payment across two invoices and concurrent over-allocation roll back atomically",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 129,
+                  "error": {
+                    "message": "Error: finance-core/invoices/cmw1bpe8r0072ugbb9qmdvpzd/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: finance-core/invoices/cmw1bpe8r0072ugbb9qmdvpzd/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:49:85",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                      "column": 187,
+                      "line": 10
+                    },
+                    "snippet": "   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                        "column": 187,
+                        "line": 10
+                      },
+                      "message": "Error: finance-core/invoices/cmw1bpe8r0072ugbb9qmdvpzd/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n\n   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:49:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:51.250Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC05-payment--54e1f-cation-roll-back-atomically\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC05-payment--54e1f-cation-roll-back-atomically\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC05-payment--54e1f-cation-roll-back-atomically\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                    "column": 187,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-e820db0af2484b457520",
+          "file": "finance-core.spec.ts",
+          "line": 48,
+          "column": 5
+        },
+        {
+          "title": "FC06 partial credit note and payment reversal retain originals; posted journals immutable",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 110,
+                  "error": {
+                    "message": "Error: finance-core/invoices/cmw1bpfgm008lugbbnd5aauex/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: finance-core/invoices/cmw1bpfgm008lugbbnd5aauex/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:54:49",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                      "column": 187,
+                      "line": 10
+                    },
+                    "snippet": "   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                        "column": 187,
+                        "line": 10
+                      },
+                      "message": "Error: finance-core/invoices/cmw1bpfgm008lugbbnd5aauex/post: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31mfalse\u001b[39m\n\n   8 | const options={baseURL:origin,extraHTTPHeaders:{Origin:origin}};\n   9 | const key=()=>randomBytes(16).toString('hex');\n> 10 | async function post(c:APIRequestContext,path:string,data:any,k=key()){const r=await c.post('/api/'+path,{data,headers:{'Idempotency-Key':k}});expect(r.ok(),`${path}: ${await r.text()}`).toBeTruthy();return r.json();}\n     |                                                                                                                                                                                           ^\n  11 | async function get(c:APIRequestContext,path:string){const r=await c.get('/api/finance-core/'+path);expect(r.ok(),await r.text()).toBeTruthy();return r.json();}\n  12 | async function customer(c=a,kind='customers'){return post(c,kind,{name:'Finance '+randomUUID(),status:'ACTIVE',data:{email:'finance@example.test',phone:'',company:'Test',notes:'',...(kind==='customers'?{segment:'SMB'}:{})}});}\n  13 | async function invoice(partyId:string,amount='1000',kind='SALE',issuedOn=date,dueOn=issuedOn,c=a,rule=tax.id){return post(c,'finance-core/invoices',{kind,partyId,issuedOn,dueOn,lines:[{name:'Türkçe hizmet — İğüşöç',quantity:'1',unitPrice:amount,taxRuleId:rule}]});}\n    at post (C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:10:187)\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:54:49"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:52.850Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC06-partial--e8537-s-posted-journals-immutable\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC06-partial--e8537-s-posted-journals-immutable\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC06-partial--e8537-s-posted-journals-immutable\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                    "column": 187,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-6111d6fcbae816635bf3",
+          "file": "finance-core.spec.ts",
+          "line": 53,
+          "column": 5
+        },
+        {
+          "title": "FC07 tenant and role controls protect all finance resources and composite references",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 503,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:54.406Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-43be5fe99e7b31f6729b",
+          "file": "finance-core.spec.ts",
+          "line": 60,
+          "column": 5
+        },
+        {
+          "title": "FC08 parallel invoice posting idempotency: one source journal; different content rejected",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 651,
+                  "error": {
+                    "message": "Error: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m",
+                    "stack": "Error: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:72:358",
+                    "location": {
+                      "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                      "column": 358,
+                      "line": 72
+                    },
+                    "snippet": "  70 | });\n  71 | test('FC08 parallel invoice posting idempotency: one source journal; different content rejected',async()=>{\n> 72 |  const p=await customer(),i=await invoice(p.id);await post(a,`finance-core/invoices/${i.id}/approve`,{});const k=key(),body={effectiveOn:date,backdateReason};const rs=await Promise.all(Array.from({length:6},()=>a.post(`/api/finance-core/invoices/${i.id}/post`,{data:body,headers:{'Idempotency-Key':k}})));for(const r of rs)expect(r.status(),await r.text()).toBe(200);\n     |                                                                                                                                                                                                                                                                                                                                                                      ^\n  73 |  expect(await withTenant(org,()=>db.journalEntry.count({where:{orgId:org,sourceType:'INVOICE',sourceId:i.id}}))).toBe(1);expect((await a.post(`/api/finance-core/invoices/${i.id}/post`,{data:{...body,reason:'changed'},headers:{'Idempotency-Key':k}})).status()).toBe(409);await reconciles();\n  74 | });\n  75 | test('FC09 periods reject unbalanced and closed posting; reversing in another open period is supported',async()=>{"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                        "column": 358,
+                        "line": 72
+                      },
+                      "message": "Error: {\"error\":\"İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.\"}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m500\u001b[39m\n\n  70 | });\n  71 | test('FC08 parallel invoice posting idempotency: one source journal; different content rejected',async()=>{\n> 72 |  const p=await customer(),i=await invoice(p.id);await post(a,`finance-core/invoices/${i.id}/approve`,{});const k=key(),body={effectiveOn:date,backdateReason};const rs=await Promise.all(Array.from({length:6},()=>a.post(`/api/finance-core/invoices/${i.id}/post`,{data:body,headers:{'Idempotency-Key':k}})));for(const r of rs)expect(r.status(),await r.text()).toBe(200);\n     |                                                                                                                                                                                                                                                                                                                                                                      ^\n  73 |  expect(await withTenant(org,()=>db.journalEntry.count({where:{orgId:org,sourceType:'INVOICE',sourceId:i.id}}))).toBe(1);expect((await a.post(`/api/finance-core/invoices/${i.id}/post`,{data:{...body,reason:'changed'},headers:{'Idempotency-Key':k}})).status()).toBe(409);await reconciles();\n  74 | });\n  75 | test('FC09 periods reject unbalanced and closed posting; reversing in another open period is supported',async()=>{\n    at C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts:72:358"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:55.322Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC08-parallel-95635--different-content-rejected\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC08-parallel-95635--different-content-rejected\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\test-results\\finance-core-FC08-parallel-95635--different-content-rejected\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\enesc\\Documents\\Codex\\2026-11-04\\vila-erp-final-stabilization-release-candidate-2\\work\\vila-finance\\tests\\e2e\\finance-core.spec.ts",
+                    "column": 358,
+                    "line": 72
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-f1d1de843ec0ebfad513",
+          "file": "finance-core.spec.ts",
+          "line": 71,
+          "column": 5
+        },
+        {
+          "title": "FC09 periods reject unbalanced and closed posting; reversing in another open period is supported",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 355,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-03T23:32:57.079Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e4ebdce8635f39720f2-fa18573707e23e07c8dc",
+          "file": "finance-core.spec.ts",
+          "line": 75,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-03T23:32:42.535Z",
+    "duration": 15401.557999999999,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 7,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,21 @@
+✔ Decimal pricing: fractional money, discount and VAT round once per line (4.371ms)
+✔ reject negative, exponent, excessive precision and invalid percentage inputs (3.9581ms)
+✔ password hash uses unique salts and verifies without plaintext storage (265.3627ms)
+✔ RBAC denies finance mutations to sales and all writes to viewers (1.9495ms)
+✔ Finance Decimal policy: discounted base, per-line tax and half-up cents (7.7783ms)
+✔ Finance dates reject rollover and preserve valid leap days (12.6725ms)
+✔ Finance business date remains Istanbul while transaction timestamps use UTC (37.5565ms)
+✔ Async scrypt reads historical N=16384 salt:hex hashes (469.7613ms)
+✔ scrypt yields to the event loop during concurrent derivations (204.3312ms)
+✔ read matrix explicitly covers all roles and sensitive modules (0.7044ms)
+✔ forwarded IP requires a verified proxy token and a single valid address (5.8163ms)
+✔ SEO origin stays absent on staging and rejects unsafe production origins (5.8621ms)
+✔ Private shell is noindex even with verified production origin (3.7878ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2733.1973

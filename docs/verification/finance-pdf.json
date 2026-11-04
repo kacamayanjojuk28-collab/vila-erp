@@ -1,0 +1,13 @@
+{
+  "pages": 1,
+  "sha256": "5b401431b0672727f85a8443fb64ed3941fcd9d7aec8dfe50c9bf20409dd3124",
+  "checks": {
+    "Türkçe hizmet": true,
+    "Resmî e-belge değildir": true,
+    "VILA": true,
+    "1200": true
+  },
+  "format": "A4",
+  "visualReview": "rendered and inspected",
+  "officialEDocument": false
+}

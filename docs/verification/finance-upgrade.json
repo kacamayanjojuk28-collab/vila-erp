@@ -1,0 +1,177 @@
+{
+  "isolatedDatabase": "vila_finance_upgrade_1793751581788",
+  "migrations": [
+    {
+      "migration_name": "20261101195553_initial",
+      "applied": true
+    },
+    {
+      "migration_name": "20261101210000_integrity",
+      "applied": true
+    },
+    {
+      "migration_name": "20261101220000_due_date",
+      "applied": true
+    },
+    {
+      "migration_name": "20261102010000_access_lifecycle",
+      "applied": true
+    },
+    {
+      "migration_name": "20261102220000_partial_fulfillment",
+      "applied": true
+    },
+    {
+      "migration_name": "20261103010000_request_receipts",
+      "applied": true
+    },
+    {
+      "migration_name": "20261103020000_tenant_line_integrity",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104010000_finance_core",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104020000_finance_source_guards",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104030000_finance_posting_validation",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104040000_finance_temporal_integrity",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104050000_finance_business_date",
+      "applied": true
+    },
+    {
+      "migration_name": "20261104060000_finance_subaccounts",
+      "applied": true
+    }
+  ],
+  "rls": [
+    {
+      "tablename": "AccountingPeriod"
+    },
+    {
+      "tablename": "Audit"
+    },
+    {
+      "tablename": "Document"
+    },
+    {
+      "tablename": "DocumentLine"
+    },
+    {
+      "tablename": "FinanceCounter"
+    },
+    {
+      "tablename": "FinancePayment"
+    },
+    {
+      "tablename": "FinancialInvoice"
+    },
+    {
+      "tablename": "InvoiceLine"
+    },
+    {
+      "tablename": "JournalEntry"
+    },
+    {
+      "tablename": "JournalLine"
+    },
+    {
+      "tablename": "LedgerAccount"
+    },
+    {
+      "tablename": "Movement"
+    },
+    {
+      "tablename": "MutationReceipt"
+    },
+    {
+      "tablename": "Payment"
+    },
+    {
+      "tablename": "PaymentAllocation"
+    },
+    {
+      "tablename": "ReconciliationRecord"
+    },
+    {
+      "tablename": "Record"
+    },
+    {
+      "tablename": "Stock"
+    },
+    {
+      "tablename": "TaxRule"
+    }
+  ],
+  "legacyRowsPreserved": {
+    "User": {
+      "count": 20,
+      "digest": "0351d70b09e41a08c78a55ac91428b67"
+    },
+    "Organization": {
+      "count": 20,
+      "digest": "bcdc8cad9d9ff7271581ab1a4cb25718"
+    },
+    "Membership": {
+      "count": 22,
+      "digest": "2410978a25030e00fe9ae59ad682c37a"
+    },
+    "Session": {
+      "count": 21,
+      "digest": "34e232e6d620c8843bec8f93fccf0188"
+    },
+    "Invite": {
+      "count": 6,
+      "digest": "bddaa177999d78c3a411f47f5a130f8d"
+    },
+    "Record": {
+      "count": 8091,
+      "digest": "33116189622c249251cc7a73b4ba75d6"
+    },
+    "Document": {
+      "count": 20048,
+      "digest": "ac254cfc5d9b4343c912c1f15a129241"
+    },
+    "DocumentLine": {
+      "count": 20046,
+      "digest": "012f0e3e023b474716e1007b0f9b62ba"
+    },
+    "Stock": {
+      "count": 11,
+      "digest": "f29be2af856d80716dbe2c9f69386ce5"
+    },
+    "Movement": {
+      "count": 20021,
+      "digest": "cabcac9ffae5b25af2cb0f9622022395"
+    },
+    "Payment": {
+      "count": 20015,
+      "digest": "babd1b7f54ac09fb55d0dd87372f5d3d"
+    },
+    "Audit": {
+      "count": 275,
+      "digest": "61bf4a2f5f39ef60fa895f71c73eb612"
+    },
+    "RateLimit": {
+      "count": 46,
+      "digest": "ab6b48b78376b191911fa833736f14ef"
+    },
+    "MutationReceipt": {
+      "count": 10,
+      "digest": "68b7078a4f96087db4f01632e70ae3d4"
+    }
+  },
+  "allLegacyDigestsUnchanged": true,
+  "newFinancialRows": 0,
+  "mainDatabaseTouched": false
+}

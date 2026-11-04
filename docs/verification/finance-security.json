@@ -1,0 +1,162 @@
+{
+  "tables": [
+    {
+      "table": "LedgerAccount",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "AccountingPeriod",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "FinanceCounter",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "TaxRule",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "JournalEntry",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "JournalLine",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "FinancialInvoice",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "InvoiceLine",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "FinancePayment",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "PaymentAllocation",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    },
+    {
+      "table": "ReconciliationRecord",
+      "noContextDeny": true,
+      "foreignReadDeny": true,
+      "foreignWriteDeny": true
+    }
+  ],
+  "policies": [
+    {
+      "relname": "FinanceCounter",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "LedgerAccount",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "AccountingPeriod",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "FinancialInvoice",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "InvoiceLine",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "JournalEntry",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "FinancePayment",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "PaymentAllocation",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "JournalLine",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "TaxRule",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    },
+    {
+      "relname": "ReconciliationRecord",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true
+    }
+  ],
+  "disabledTriggers": 0,
+  "concurrentTransactions": 100,
+  "clockReset": true,
+  "runtimeRole": {
+    "rolsuper": false,
+    "rolbypassrls": false
+  },
+  "unbalancedCommitRollback": true,
+  "immutablePrivileges": [
+    {
+      "table": "FinancePayment",
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "PaymentAllocation",
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "JournalLine",
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "TaxRule",
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "ReconciliationRecord",
+      "update": false,
+      "delete": false
+    }
+  ]
+}
