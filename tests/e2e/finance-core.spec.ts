@@ -1,4 +1,5 @@
-import { test,expect,request,type APIRequestContext } from '@playwright/test';
+import { request } from "../company-request";
+import { test,expect,type APIRequestContext } from "@playwright/test";
 import { writeFileSync } from 'node:fs';
 import { randomUUID,randomBytes } from 'node:crypto';
 import { db,withTenant } from '../../src/lib/db';

@@ -22,7 +22,8 @@ export const widgetRegistry:Record<string,WidgetDefinition>=Object.fromEntries([
  definition('team','Ekip ilerlemesi','Projeler ve Görevler','tasks','tasks',4,5),
  definition('projects','Proje portföyü','Projeler ve Görevler','projects','projects',4,5,['limit','status']),
  definition('tasks','Yaklaşan görevler','Projeler ve Görevler','tasks','tasks',4,5,['limit','status']),
- definition('activity','Son aktiviteler','Operasyonlar','audit','audit',12,5,['limit'])
+ definition('activity','Son aktiviteler','Operasyonlar','audit','audit',12,5,['limit']),
+ definition('intelligence','VILA Intelligence','Genel Bakış','sales','sales',8,6,[],'AI Executive Overview')
 ].map(x=>[x.type,x]));
 export const settingsSchema=z.object({limit:z.union([z.literal(3),z.literal(5),z.literal(10)]).default(5),period:z.enum(['all','30d','month']).default('all'),months:z.union([z.literal(6),z.literal(12)]).default(12),sort:z.enum(['amount','date']).default('amount'),status:z.enum(['all','active','done']).default('all')}).strict();
 export const defaultSettings=settingsSchema.parse({});
@@ -39,6 +40,38 @@ export const layoutSchema=z.object({schemaVersion:z.literal(2),widgets:z.array(w
  const visible=rows.filter(p=>v.widgets.find(w=>w.id===p.i)?.visible);for(let i=0;i<visible.length;i++)for(let j=i+1;j<visible.length;j++){const a=visible[i],b=visible[j];if(a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y)ctx.addIssue({code:'custom',message:'Widget çakışması'});}}
 });
 export function pack(widgets:Widget[],bp:Breakpoint,old:Position[]=[]):Position[]{let y=0,x=0,rowHeight=0;return widgets.map(w=>{const d=widgetRegistry[w.type],prior=old.find(p=>p.i===w.id),width=Math.min(columns[bp],prior?.w??d.defaultSize.w),h=prior?.h??d.defaultSize.h;if(x+width>columns[bp]){x=0;y+=rowHeight;rowHeight=0;}const p={i:w.id,x,y,w:width,h};x+=width;rowHeight=Math.max(rowHeight,h);return p;});}
+// Saved documents contain a bounded rectangle for every widget, including hidden ones.
+export function revealWidget(doc: DashboardLayout, id: string): DashboardLayout {
+  const visible = new Set(doc.widgets.filter(widget => widget.visible).map(widget => widget.id));
+  const layout = { ...doc.layout };
+  for (const bp of Object.keys(columns) as Breakpoint[]) {
+    const positions = layout[bp];
+    const saved = positions.find(position => position.i === id);
+    if (!saved) throw new Error('Kayıtlı widget konumu bulunamadı.');
+    const occupied = positions.filter(position => position.i !== id && visible.has(position.i));
+    const fits = (x: number, y: number) => occupied.every(other =>
+      x + saved.w <= other.x || x >= other.x + other.w ||
+      y + saved.h <= other.y || y >= other.y + other.h
+    );
+    if (fits(saved.x, saved.y)) continue;
+
+    // The first free row starts at zero or at the bottom edge of an obstacle.
+    const rows = [...new Set([0, ...occupied.map(other => other.y + other.h)])].sort((a,b) => a-b);
+    let placed = false;
+    for (const y of rows) {
+      if (y > 1000) break;
+      for (let x = 0; x + saved.w <= columns[bp]; x++) {
+        if (!fits(x, y)) continue;
+        layout[bp] = positions.map(position => position.i === id ? { ...saved, x, y } : position);
+        placed = true;
+        break;
+      }
+      if (placed) break;
+    }
+    if (!placed) throw new Error('Widget için yerleşim sınırları içinde boş alan bulunamadı.');
+  }
+  return { ...doc, layout, widgets: doc.widgets.map(widget => widget.id === id ? { ...widget, visible: true } : widget) };
+}
 export function defaults(role:string):DashboardLayout{const types=['income','receivable','completion','cashflow','opportunities','team','financial','projects','stock','activity'];const widgets=types.filter(t=>allowed(role,t)).map(type=>({id:'default-'+type,type,visible:true,settings:{...defaultSettings}}));return {schemaVersion:2,widgets,layout:Object.fromEntries(Object.keys(columns).map(bp=>[bp,pack(widgets,bp as Breakpoint)])) as DashboardLayout['layout']};}
 // Read migration: unknown types are omitted, valid settings retained, invalid coordinates repacked.
 export function upgrade(raw:any,role:string):DashboardLayout{if(raw?.schemaVersion===2){const parsed=layoutSchema.safeParse({schemaVersion:2,widgets:raw.widgets,layout:raw.layout});if(parsed.success)return parsed.data;}

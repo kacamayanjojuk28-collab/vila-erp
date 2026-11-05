@@ -1,4 +1,5 @@
-import {test,expect,request,type APIRequestContext} from '@playwright/test';
+import { request } from "../company-request";
+import {test,expect,type APIRequestContext } from "@playwright/test";
 import {randomUUID} from 'node:crypto';
 import {writeFileSync} from 'node:fs';
 import {db,withTenant} from '../../src/lib/db';
@@ -23,3 +24,112 @@ test('DE09 real task aggregation, source data separation and filters',async()=>{
 test('DE10 fifteen widgets interaction timing, request budget and screenshots',async({browser})=>{const a=await account();const widgets=Object.values(widgetRegistry).slice(0,15).map(d=>({id:'perf-'+d.type,type:d.type,visible:true,settings:{...defaultSettings}}));const layout=Object.fromEntries(Object.keys(columns).map(bp=>[bp,pack(widgets,bp as Breakpoint)]));expect((await save(a.api,{widgets,layout})).status()).toBe(200);const ctx=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000}});try{const page=await ctx.newPage();let requests=0;page.on('request',r=>{if(r.url().includes('/dashboard-engine/widget'))requests++;});const start=Date.now();await page.goto('/');await expect(page.locator('.widget-card')).toHaveCount(15);await expect(page.locator('.skeleton')).toHaveCount(0);const loadMs=Date.now()-start;expect(requests).toBe(15);await page.getByRole('button',{name:"Dashboard'u Özelleştir"}).click();await page.evaluate(()=>{(window as any).frames=[];let last=performance.now();(window as any).measuring=true;function frame(now:number){if(!(window as any).measuring)return;(window as any).frames.push(now-last);last=now;requestAnimationFrame(frame);}requestAnimationFrame(frame);});const before=requests;const h=(await page.locator('.widget-drag-handle').first().boundingBox())!;await page.mouse.move(h.x+10,h.y+10);await page.mouse.down();await page.mouse.move(h.x+250,h.y+180,{steps:30});await page.mouse.up();const frameTimes:number[]=await page.evaluate(()=>{(window as any).measuring=false;return (window as any).frames;});expect(requests).toBe(before);frameTimes.sort((a,b)=>a-b);writeFileSync('docs/verification/dashboard-performance.json',JSON.stringify({widgets:15,initialRequests:requests,requestsDuringDrag:requests-before,loadMs,frameSamples:frameTimes.length,p95FrameMs:frameTimes[Math.ceil(frameTimes.length*.95)-1],maxFrameMs:frameTimes.at(-1),scope:'Local browser, single measured interaction; no universal FPS guarantee'},null,2));await page.getByRole('button',{name:'Vazgeç',exact:true}).click();for(const [width,theme] of [[1440,'dark'],[1440,'light'],[800,'dark'],[390,'dark'],[390,'light']] as const){await page.setViewportSize({width,height:1000});await page.evaluate(t=>document.documentElement.dataset.theme=t,theme);await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:`docs/verification/dashboard-${width}-${theme}.png`,fullPage:true});}}finally{await ctx.close();await a.api.dispose();}});
 test('DE11 company switch in UI remounts personal preferences and role downgrade hides finance',async({browser})=>{const a=await account(),b=await account();try{const docA=await preference(a.api);docA.widgets.find((w:any)=>w.type==='income').visible=false;expect((await save(a.api,docA)).status()).toBe(200);await db.membership.create({data:{orgId:b.me.org.id,userId:a.me.user.id,role:'OWNER'}});await a.api.post('/api/switch',{data:{orgId:b.me.org.id}});const docB=await preference(a.api);docB.widgets.find((w:any)=>w.type==='opportunities').visible=false;expect((await save(a.api,docB)).status()).toBe(200);await a.api.post('/api/switch',{data:{orgId:a.me.org.id}});const ctx=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),reducedMotion:'reduce'});try{const page=await ctx.newPage();await page.goto('/');await expect(page.locator('.widget-card')).toHaveCount(9);await expect(page.locator('[data-widget-type="income"]')).toHaveCount(0);await page.getByRole('button',{name:'Profil',exact:true}).click();await page.getByLabel('Şirket değiştir').selectOption(b.me.org.id);await expect(page.getByLabel('Şirket değiştir')).toHaveValue(b.me.org.id);await page.locator('.tabs').getByRole('button',{name:'Genel bakış',exact:true}).click();await expect(page.locator('[data-widget-type="income"]')).toHaveCount(1);await expect(page.locator('[data-widget-type="opportunities"]')).toHaveCount(0);await db.membership.update({where:{orgId_userId:{orgId:b.me.org.id,userId:a.me.user.id}},data:{role:'MEMBER'}});const requested:string[]=[];page.on('request',r=>{if(r.url().includes('/dashboard-engine/widget?'))requested.push(new URL(r.url()).searchParams.get('type')!);});await page.reload();await expect(page.locator('.widget-card').first()).toBeVisible();await expect(page.locator('.skeleton')).toHaveCount(0);for(const type of ['income','receivable','cashflow','financial','balances','overdue']){await expect(page.locator(`[data-widget-type="${type}"]`)).toHaveCount(0);expect(requested).not.toContain(type);}}finally{await ctx.close();}}finally{await a.api.dispose();await b.api.dispose();}});
 test('DE12 visible cards do not overlap across breakpoints, prototype widget types are rejected',async({browser})=>{const a=await account();const ctx=await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),reducedMotion:'reduce'});try{for(const type of ['constructor','__proto__','toString'])expect((await a.api.get('/api/dashboard-engine/widget',{params:{type}})).status()).toBe(400);const page=await ctx.newPage();await page.goto('/');await expect(page.locator('.skeleton')).toHaveCount(0);for(const width of [1440,1100,800,390]){await page.setViewportSize({width,height:1000});await expect.poll(async()=>page.locator('.widget-card').evaluateAll(cards=>{const r=cards.map(c=>c.getBoundingClientRect());return r.every((a,i)=>r.every((b,j)=>i===j||a.right<=b.left+1||a.left>=b.right-1||a.bottom<=b.top+1||a.top>=b.bottom-1));})).toBe(true);await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}}finally{await ctx.close();await a.api.dispose();}});
+
+for (const collision of [false,true]) {
+ test('Layout persistence: ' + (collision ? 'occupied saved position' : 'custom breakpoint positions'), async ({browser}) => {
+  const a = await account();
+  const context = await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),viewport:{width:1440,height:1000},reducedMotion:'reduce'});
+  try {
+   const original = await preference(a.api);
+   const [first, second] = original.layout.lg;
+   [first.x, second.x] = [second.x, first.x];
+   first.h = 4;
+   // Deliberate gaps and distinct tablet geometry must survive a desktop edit.
+   for (const row of original.layout.lg.slice(3)) row.y += 2;
+   original.layout.md[0].y = 120;
+   expect((await save(a.api,original)).status()).toBe(200);
+   const page = await context.newPage();
+   await page.goto('/');
+   const edit = page.getByRole('button',{name:"Dashboard'u Özelleştir",exact:true});
+   const persist = async () => {
+    await page.getByRole('button',{name:'Kaydet',exact:true}).click();
+    await expect(edit).toBeVisible();
+   };
+   await edit.click();
+   await page.getByRole('button',{name:'Kritik stok takibi gizle',exact:true}).click();
+   await persist();
+   const hidden = await preference(a.api);
+   expect(hidden.layout).toEqual(original.layout);
+   const stockId = 'default-stock';
+   if (collision) {
+    const previous = hidden.layout.lg.find((p:any)=>p.i===stockId);
+    const occupying = hidden.layout.lg.find((p:any)=>p.i==='default-projects');
+    Object.assign(occupying,{x:previous.x,y:previous.y,w:previous.w,h:previous.h});
+    expect((await save(a.api,hidden,hidden.version)).status()).toBe(200);
+    await page.reload();
+   }
+   await edit.click();
+   await page.getByRole('button',{name:'Widget Ekle',exact:true}).click();
+   await page.getByRole('button',{name:'Göster',exact:true}).click();
+   await page.getByRole('button',{name:'Kapat',exact:true}).click();
+   await persist();
+   await page.reload();
+   await expect(page.locator('[data-widget-type="stock"]')).toBeVisible();
+   const restored = await preference(a.api);
+   for (const bp of Object.keys(columns)) {
+    const before = hidden.layout[bp], after = restored.layout[bp];
+    if (!collision || bp !== 'lg') { expect(after).toEqual(before); continue; }
+    expect(after.filter((p:any)=>p.i!==stockId)).toEqual(before.filter((p:any)=>p.i!==stockId));
+    const stock = after.find((p:any)=>p.i===stockId);
+    const prior = before.find((p:any)=>p.i===stockId);
+    expect([stock.w,stock.h]).toEqual([prior.w,prior.h]);
+    expect(after.every((p:any)=>p.i===stockId || stock.x+stock.w<=p.x || p.x+p.w<=stock.x || stock.y+stock.h<=p.y || p.y+p.h<=stock.y)).toBe(true);
+   }
+  } finally { await context.close(); await a.api.dispose(); }
+ });
+}
+
+test('Company context isolates two tabs, concurrent reads, reloads, writes and mismatched responses', async ({browser}) => {
+ const a = await account(), b = await account();
+ const ctx = await browser.newContext({baseURL:origin,storageState:await a.api.storageState(),reducedMotion:'reduce'});
+ const task = (name:string) => ({name,status:'OPEN',data:{projectId:'',assigneeId:'',priority:'MEDIUM',dueDate:'2026-11-10',notes:''}});
+ try {
+  const aId = a.me.org.id, bId = b.me.org.id;
+  expect((await a.api.get('/api/dashboard-engine/widget?type=tasks',{headers:{'X-Vila-Company':bId}})).status()).toBe(403);
+  expect((await a.api.post('/api/tasks',{headers:{'X-Vila-Company':bId},data:task('forbidden')})).status()).toBe(403);
+  expect((await ctx.request.get('/api/dashboard-engine/preferences')).status()).toBe(400);
+  await db.membership.create({data:{orgId:bId,userId:a.me.user.id,role:'OWNER'}});
+  await db.organization.update({where:{id:aId},data:{name:'Context Alpha'}});
+  await db.organization.update({where:{id:bId},data:{name:'Context Beta'}});
+  expect((await a.api.post('/api/tasks',{data:task('Alpha only')})).status()).toBe(200);
+  expect((await b.api.post('/api/tasks',{data:task('Beta only')})).status()).toBe(200);
+  const first = await ctx.newPage(), second = await ctx.newPage();
+  await Promise.all([first.goto('/'),second.goto('/')]);
+  await second.getByRole('button',{name:'Profil',exact:true}).click();
+  await second.getByLabel('Şirket değiştir').selectOption(bId);
+  await expect(second.getByText('Context Beta',{exact:true}).first()).toBeVisible();
+  await second.locator('.tabs').getByRole('button',{name:'Genel bakış',exact:true}).click();
+  for(const page of [second,first]){
+   await page.getByRole('button',{name:"Dashboard'u Özelleştir"}).click();
+   await page.getByRole('button',{name:'Widget Ekle',exact:true}).click();
+   await page.getByRole('button',{name:'Yaklaşan görevler ekle',exact:true}).click();
+   await page.getByRole('button',{name:'Kapat',exact:true}).click();
+   await page.getByRole('button',{name:'Kaydet',exact:true}).click();
+   await expect(page.getByRole('button',{name:"Dashboard'u Özelleştir"})).toBeVisible();
+  }
+  await Promise.all([first.reload(),second.reload()]);
+  for (const [page,label,record] of [[first,'Context Alpha','Alpha only'],[second,'Context Beta','Beta only']] as const) {
+   await expect(page.getByText(label,{exact:true})).toBeVisible();
+   await expect(page.locator('[data-widget-type="tasks"]')).toContainText(record);
+  }
+  await first.goto('/#tasks');
+  await first.getByRole('button',{name:'Yeni kayıt',exact:true}).click();
+  await first.getByLabel('Ad / başlık',{exact:true}).fill('Alpha write');
+  const writing = first.waitForResponse(response => response.request().method()==='POST' && new URL(response.url()).pathname==='/api/tasks');
+  await first.getByRole('button',{name:'Kaydet',exact:true}).click();
+  const written = await writing;
+  expect(written.ok()).toBe(true);
+  expect(written.headers()['x-vila-company']).toBe(aId);
+  await expect(first.getByRole('dialog')).toHaveCount(0);
+  await first.goto('/#overview');
+  const [alpha,beta]=await Promise.all([a.api.get('/api/dashboard-engine/widget?type=tasks'),b.api.get('/api/dashboard-engine/widget?type=tasks')]);
+  expect(await alpha.text()).toContain('Alpha write'); expect(await beta.text()).not.toContain('Alpha write');
+  await first.route('**/api/dashboard-engine/widget?type=tasks*',async route=>{
+   const response=await route.fetch();
+   await route.fulfill({response,headers:{...response.headers(),'x-vila-company':bId},json:{rows:[{name:'WRONG COMPANY'}]}});
+  });
+  await first.reload();
+  await expect(first.locator('[data-widget-type="tasks"]').getByRole('alert')).toContainText('bağlamı doğrulanamadı');
+  await expect(first.getByText('WRONG COMPANY')).toHaveCount(0);
+ } finally {await ctx.close();await a.api.dispose();await b.api.dispose();}
+});

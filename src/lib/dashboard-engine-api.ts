@@ -1,3 +1,4 @@
+import { overview } from "./intelligence";
 import { Prisma } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -28,9 +29,15 @@ export const widgetData:Record<string,(tx:Tx,a:Actor,s:Settings)=>Promise<any>>=
  activity:async(tx,a,s)=>({rows:await tx.audit.findMany({where:{orgId:a.orgId},select:{id:true,action:true,createdAt:true},orderBy:[{createdAt:'desc'},{id:'asc'}],take:s.limit})})
 };
 export async function handleDashboardEngine(req:Request,path:string[],body:unknown,a:Actor,url:URL){
- if(path.length!==1||!['preferences','widget'].includes(path[0]))throw new AppError('Dashboard adresi bulunamadı.',404);
+ if(path.length!==1||!['preferences','widget','intelligence'].includes(path[0]))throw new AppError('Dashboard adresi bulunamadı.',404);
+ if(path[0]==='intelligence'){
+  if(req.method!=='POST')throw new AppError('Yöntem desteklenmiyor.',405);
+  z.object({confirmExternalProcessing:z.literal(true)}).strict().parse(body);
+  return NextResponse.json(await overview(a,true));
+ }
  if(path[0]==='widget'){
   if(req.method!=='GET')throw new AppError('Yöntem desteklenmiyor.',405);const type=url.searchParams.get('type')??'';if(!Object.hasOwn(widgetRegistry,type))throw new AppError('Bilinmeyen widget.');if(!allowed(a.role,type))throw new AppError('Bu widget için yetkiniz yok.',403);
+  if(type==='intelligence')return NextResponse.json(await overview(a));
   let raw;try{raw=JSON.parse(url.searchParams.get('settings')||'{}');}catch{throw new AppError('Geçersiz ayarlar.');}const settings=settingsSchema.parse(raw);
   return NextResponse.json(await db.$transaction(tx=>widgetData[type](tx,a,settings),{isolationLevel:'RepeatableRead',timeout:15000}),{headers:{'Cache-Control':'private, no-store'}});
  }

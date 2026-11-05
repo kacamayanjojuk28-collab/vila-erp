@@ -12,7 +12,8 @@ test('Cashflow expansion stays inside viewport and restores grid size',async({br
  await page.route('**/api/dashboard-engine/widget?type=cashflow*',async route=>{
  const u=new URL(route.request().url());const fixture=fixtures[u.pathname+u.search];
  if(!fixture)throw Error('Missing cashflow visual fixture');
- await route.fulfill(fixture);
+ const headers = route.request().headers();
+ await route.fulfill({...fixture,headers:{...fixture.headers,"X-Vila-Company":headers["x-vila-company"],"X-Vila-User":headers["x-vila-user"]}});
  });
  await page.goto('/');
  await expect(page.locator('.widget-cashflow')).toBeVisible();
@@ -21,6 +22,10 @@ test('Cashflow expansion stays inside viewport and restores grid size',async({br
  await expect(page.locator('.widget-body .skeleton')).toHaveCount(0);
  const card=page.locator('.widget-cashflow');
  await card.scrollIntoViewIfNeeded();
+ // FLIP measures the starting rectangle. Finish the entrance animation first
+ // so this regression isolates expansion and restoration of the settled card.
+ await expect(card).toHaveCSS('transform','none');
+ await expect(card).toHaveCSS('opacity','1');
  const original=await card.boundingBox();
  await page.getByRole('button',{name:'Genişlet Nakit akışı',exact:true}).click();
  await expect(card).toHaveAttribute('role','dialog');

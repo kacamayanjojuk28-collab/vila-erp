@@ -1,4 +1,5 @@
 "use client";
+import { IntelligenceWidget } from "./intelligence-widget";
 import { memo,useId } from 'react';
 import { Activity,Package,TrendingUp,BarChart3 } from 'lucide-react';
 import { Stat,Empty,initials,type Row } from '../ui';
@@ -10,6 +11,7 @@ const TaskRing=({data}:Props)=><><div className="ring"><svg viewBox="0 0 180 180
 const OrderSummary=({data,money}:Props)=><>{data.rows.map((r:Row)=><div className="row" key={r.status}><span className="grow">{label(r.status)} · {r._count._all} belge</span><strong>{money(r._sum.total)}</strong></div>)}</>;
 const Financial=({data,money}:Props)=><>{[['Açık sipariş alacağı',data.receivable],['Açık sipariş borcu',data.payable],['Net nakit',data.net]].map(([t,n])=><div className="row" key={t}><span className="grow">{t}</span><strong>{money(n)}</strong></div>)}<p className="muted">Operasyonel kayıtlar · Resmî mali tablo değildir.</p></>;
 const renderers:Record<string,(p:Props)=>React.ReactNode>={
+ intelligence:({data,go})=><IntelligenceWidget data={data} go={go}/>,
  income:p=><Stat icon={<TrendingUp/>} value={p.money(p.data.value)} caption="Operasyonel tahsilat"/>,
  receivable:p=><Stat icon={<BarChart3/>} value={p.money(p.data.value)} caption="Satış siparişi bakiyesi"/>,
  completion:p=><Stat icon={<Activity/>} value={p.data.rate+'%'} caption={`${p.data.done} / ${p.data.total} görev`}/>,

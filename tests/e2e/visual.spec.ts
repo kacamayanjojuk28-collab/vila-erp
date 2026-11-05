@@ -86,7 +86,8 @@ test("Release visual matrix: six views in desktop/mobile and dark/light", async 
     await page.route("**/api/**", async route => {
       const u=new URL(route.request().url()),fixture=fixtures[u.pathname+u.search];
       if(!fixture) throw Error("Missing deterministic visual fixture: "+u.pathname+u.search);
-      await route.fulfill(fixture);
+      const me = JSON.parse(fixtures["/api/me"].body);
+      await route.fulfill({...fixture,headers:{...fixture.headers,"X-Vila-Company":me.org.id,"X-Vila-User":me.user.id}});
     });
     for(const view of ["overview","settings","customers","finance","projects","calendar"]) {
       await page.goto("/#"+view);

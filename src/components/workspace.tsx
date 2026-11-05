@@ -46,7 +46,8 @@ export default function Workspace() {
   }, []);
   const refresh = useCallback(async () => {
     try {
-      const [m, l] = await Promise.all([api("me"), api("lookup")]);
+      const m = await api("me");
+      const l = await api("lookup");
       setMe(m);
       setLookup(l);
       setGlobalError("");

@@ -1,11 +1,10 @@
 import "dotenv/config";
 import {db} from "../../src/lib/db";
+import { request } from "../company-request";
 import {
   test,
   expect,
-  request,
-  type APIRequestContext,
-} from "@playwright/test";
+  type APIRequestContext } from "@playwright/test";
 import { randomBytes } from "node:crypto";
 test("Access lifecycle: suspension, revoked invitations and session ownership", async () => {
   const origin = (process.env.VILA_TEST_ORIGIN || "http://localhost:3000"),

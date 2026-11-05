@@ -1,5 +1,6 @@
 import { assertIsolated, tenantDb } from "../isolated";
-import { test, expect, request } from "@playwright/test";
+import { request } from "../company-request";
+import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { Prisma } from "@prisma/client";
 

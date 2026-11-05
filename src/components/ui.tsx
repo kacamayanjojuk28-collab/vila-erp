@@ -1,15 +1,18 @@
 "use client";
+import { companyFetch, rememberContext } from "./company-context";
 import { label, type Field } from "@/lib/modules";
 import { gsap } from "gsap";
 import { Package, X } from "lucide-react";
 import { Children, useEffect, useRef } from "react";
 export type Row = Record<string, any>;
 export async function api(path: string, method = "GET", body?: unknown, requestKey?:string) {
+  if (!path.startsWith("auth/")) return companyFetch(path,{method,headers:{...(body?{"Content-Type":"application/json"}:{}),...(requestKey?{"Idempotency-Key":requestKey}:{})},body:body?JSON.stringify(body):undefined});
   let res:Response;
   try {res=await fetch("/api/"+path,{method,headers:{...(body?{"Content-Type":"application/json"}:{}),...(requestKey?{"Idempotency-Key":requestKey}:{})},body:body?JSON.stringify(body):undefined});}
   catch {throw new Error("Sunucuya ulaşılamıyor. Formunuz korunuyor; bağlantı geldiğinde tekrar deneyin.");}
   const data=await res.json().catch(()=>({error:"Sunucudan geçerli yanıt alınamadı."}));
   if(!res.ok)throw Object.assign(new Error(res.status===401?"Oturumunuz sona ermiş. Bilgilerinizi koruyup yeniden giriş yapın.":data.error??"İşlem başarısız"),{status:res.status});
+  rememberContext(null);
   return data;
 }
 export const initials = (s: string) =>

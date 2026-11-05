@@ -1,6 +1,7 @@
 import { tenantDb } from "../isolated";
 import 'dotenv/config';
-import {test,expect,request,type APIRequestContext} from '@playwright/test';import {randomBytes} from 'node:crypto';import {db} from '../../src/lib/db';
+import { request } from "../company-request";
+import {test,expect,type APIRequestContext } from "@playwright/test";import {randomBytes} from 'node:crypto';import {db} from '../../src/lib/db';
 const origin=process.env.VILA_TEST_ORIGIN||'http://localhost:3000';let owner:APIRequestContext,other:APIRequestContext;let product:any,warehouse:any;const stamp=Date.now();
 async function post(path:string,data:any,key?:string){return owner.post('/api/'+path,{data,headers:(key||['finance','stock'].includes(path))?{'Idempotency-Key':key||randomBytes(16).toString('hex')}:undefined})}
 test.beforeAll(async()=>{const password=randomBytes(20).toString('hex');owner=await request.newContext({baseURL:origin,extraHTTPHeaders:{Origin:origin}});other=await request.newContext({baseURL:origin,extraHTTPHeaders:{Origin:origin}});for(const [i,c]of [owner,other].entries()){const r=await c.post('/api/auth/register',{data:{email:`audit${stamp}-${i}@example.test`,password,name:'Audit Owner',company:'Audit isolated'}});expect(r.ok()).toBeTruthy();const me=await(await c.get('/api/me')).json();await db.organization.update({where:{id:me.org.id},data:{demo:true}})}product=await(await post('products',{name:'Audit product',status:'ACTIVE',data:{sku:'AUDIT-'+stamp,category:'Test',unit:'ADET',price:'12.34',minStock:'0'}})).json();warehouse=await(await post('warehouses',{name:'Audit warehouse',status:'ACTIVE',data:{address:''}})).json()});

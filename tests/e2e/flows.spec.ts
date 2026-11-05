@@ -1,11 +1,10 @@
 import { tenantDb } from "../isolated";
 import "dotenv/config";
+import { request } from "../company-request";
 import {
   test,
   expect,
-  request,
-  type APIRequestContext,
-} from "@playwright/test";
+  type APIRequestContext } from "@playwright/test";
 import { randomBytes } from "node:crypto";
 import { db } from "../../src/lib/db";
 const origin = process.env.VILA_TEST_ORIGIN || "http://localhost:3000";

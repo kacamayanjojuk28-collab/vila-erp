@@ -1,4 +1,5 @@
-import { test, expect, request } from '@playwright/test';
+import { request } from "../company-request";
+import { test, expect } from "@playwright/test";
 import { randomBytes, scryptSync } from 'node:crypto';
 import { db } from '../../src/lib/db';
 import { hash } from '../../src/lib/security';

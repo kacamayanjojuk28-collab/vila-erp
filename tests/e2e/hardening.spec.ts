@@ -1,6 +1,7 @@
 import { assertIsolated, tenantDb } from "../isolated";
 import "dotenv/config";
-import { test, expect, request } from "@playwright/test";
+import { request } from "../company-request";
+import { test, expect } from "@playwright/test";
 import { db } from "../../src/lib/db";
 import { randomBytes } from "node:crypto";
 const origin = process.env.VILA_TEST_ORIGIN;

@@ -29,7 +29,7 @@ export async function passwordCheck(value: string, stored: string) {
   const [salt, h] = stored.split(":");
   return timingSafeEqual(await derive(value, salt), Buffer.from(h, "hex"));
 }
-export async function session() {
+export async function session(orgId?: string | null, bootstrap = false, expectedUser?: string | null) {
   const token = (await cookies()).get("vila_session")?.value;
   if (!token) throw new AppError("Oturum açmanız gerekiyor.", 401);
   const s = await db.session.findUnique({
@@ -38,8 +38,11 @@ export async function session() {
   });
   if (!s || s.expiresAt < new Date())
     throw new AppError("Oturum süresi doldu.", 401);
+  if (expectedUser && expectedUser !== s.userId) throw new AppError("Oturum kullanıcısı değişti.", 401);
+  const company = orgId || (bootstrap ? s.orgId : null);
+  if (!company) throw new AppError("Şirket bağlamı gerekli.", 400);
   const membership = await db.membership.findUnique({
-    where: { orgId_userId: { orgId: s.orgId, userId: s.userId } },
+    where: { orgId_userId: { orgId: company, userId: s.userId } },
     include: { org: true },
   });
   if (!membership || !membership.active)
@@ -47,7 +50,7 @@ export async function session() {
   return {
     user: s.user,
     org: membership.org,
-    orgId: s.orgId,
+    orgId: company,
     userId: s.userId,
     role: membership.role,
     sessionId: s.id,

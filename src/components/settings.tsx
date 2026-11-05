@@ -1,4 +1,5 @@
 "use client";
+import { switchCompany } from "./company-context";
 import TeamSettings from "./team-settings";
 import SessionSettings from "./session-settings";
 import { label } from "@/lib/modules";
@@ -134,8 +135,7 @@ export default function SettingsPage({
               value={me.org.id}
               onChange={async (e) => {
                 try {
-                  await api("switch", "POST", { orgId: e.target.value });
-                  changed();
+                  await switchCompany(e.target.value);
                 } catch (err: any) {
                   notify(err.message);
                 }

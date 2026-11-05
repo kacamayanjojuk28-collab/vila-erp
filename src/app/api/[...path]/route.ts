@@ -72,11 +72,9 @@ async function handler(
         throw new AppError("Geçersiz JSON isteği.", 400);
       }
     }
-    if(kind === "dashboard-engine") { const actor=await session(); if(write)await rateLimit("write:"+actor.userId,600); return await withTenant(actor.orgId,()=>handleDashboardEngine(req,path.slice(1),body,actor,url)); }
-    if(kind === "finance-core") { const actor=await session(); if(write)await rateLimit("write:"+actor.userId,600); return await withTenant(actor.orgId,()=>handleFinanceCore(req,path.slice(1),body,actor,url)); }
     if (kind === "auth" && write) {
       if (id === "logout") {
-        const a = await session();
+        const a = await session(null, true);
         await db.session.delete({ where: { id: a.sessionId } });
         (await cookies()).delete("vila_session");
         return NextResponse.json({ ok: true });
@@ -190,8 +188,16 @@ async function handler(
       await db.$queryRaw`SELECT 1`;
       return NextResponse.json({ status: "ok", database: "postgresql" });
     }
-    const a = await session();
-    return await withTenant(a.orgId, async () => {
+    const header = req.headers.get("X-Vila-Company");
+    const query = url.searchParams.get("companyId");
+    if (header && query && header !== query) throw new AppError("Şirket bağlamı uyuşmuyor.", 400);
+    const a = await session(header ?? query, kind === "me" && !write, req.headers.get("X-Vila-User") ?? url.searchParams.get("contextUser"));
+    const response = await withTenant(a.orgId, async () => {
+    if (kind === "dashboard-engine" || kind === "finance-core") {
+      if (write) await rateLimit("write:"+a.userId,600);
+      const route = kind === "dashboard-engine" ? handleDashboardEngine : handleFinanceCore;
+      return route(req,path.slice(1),body,a,url);
+    }
     if (!write && !canRead(a.role, kind)) throw new AppError("Bu işlem için yetkiniz yok.", 403);
     if (write) await rateLimit("write:" + a.userId, 600);
     if (kind === "me" && !write) {
@@ -291,16 +297,7 @@ async function handler(
     }
     if (kind === "switch" && write) {
       const v = z.object({ orgId: z.string() }).parse(body);
-      if (
-        !(await db.membership.findFirst({
-          where: { orgId: v.orgId, userId: a.userId, active: true },
-        }))
-      )
-        throw new AppError("Yetkisiz şirket", 403);
-      await db.session.update({
-        where: { id: a.sessionId },
-        data: { orgId: v.orgId },
-      });
+      if (v.orgId !== a.orgId) throw new AppError("Şirket bağlamı uyuşmuyor.", 403);
       return NextResponse.json({ ok: true });
     }
     if (kind === "invites" && req.method === "DELETE")
@@ -819,6 +816,10 @@ async function handler(
         : await saveRecord(a, kind, body, id),
     );
     });
+    response.headers.set("X-Vila-Company", a.orgId);
+    response.headers.set("X-Vila-User", a.userId);
+    response.headers.set("Cache-Control", "private, no-store");
+    return response;
   } catch (e) {
     if (e instanceof z.ZodError)
       return NextResponse.json(
